@@ -1,3 +1,20 @@
+
+/**
+ * Create a new tree object
+ * @returns {object} - the tree object
+ */
+export const createBaseTree = () => {
+  return {
+    name: '',
+    children: [],
+  }
+}
+
+/**
+ * Parse a string into a tree object
+ * @param {string} s - the string to parse
+ * @returns {object} - the tree object
+ */
 export const parseStringToTree = (s) => {
   const ancestors = []
   let tree = createBaseTree()
@@ -35,11 +52,4 @@ export const parseStringToTree = (s) => {
     }
   }
   return tree
-}
-
-export const createBaseTree = () => {
-  return {
-    name: '',
-    children: [],
-  }
 }
