@@ -16,7 +16,7 @@ export default function Guideline() {
             <Button color="success">six</Button>
             <Button color='error'>error</Button>
           </>
-        </Dashboard> // Added closing tag for Dashboard element
+        </Dashboard>
       </div>
   )
 }
