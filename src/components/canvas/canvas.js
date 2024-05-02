@@ -3,7 +3,11 @@ import React from 'react'
 const Canvas = () => {
   // Your component logic goes here
 
-  return <div>{/* Your component JSX goes here */}</div>
+  return (
+    <div>
+      <div className="flex-grow p-4 overflow-auto"></div>
+    </div>
+  )
 }
 
 export default Canvas
