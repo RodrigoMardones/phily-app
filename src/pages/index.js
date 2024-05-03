@@ -11,7 +11,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className="flex h-screen bg-gray-400">
+        <div className="flex h-screen bg-gray-400" id='app'>
           <Dashboard />
           <Canvas />
         </div>

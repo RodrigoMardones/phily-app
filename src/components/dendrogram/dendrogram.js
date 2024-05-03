@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import * as d3 from 'd3'
 
 const MARGIN = { top: 200, right: 200, bottom: 200, left: 200, margin: 70 }
 const actualDirection = (type, node) => {
@@ -8,10 +9,6 @@ const actualDirection = (type, node) => {
     y: 0,
   }
   switch (type) {
-    case 'vertical':
-      actualpos.x = node.x
-      actualpos.y = node.y
-      return actualpos
     case 'horizontal':
       actualpos.x = node.y
       actualpos.y = node.x
@@ -24,6 +21,7 @@ const actualDirection = (type, node) => {
 }
 
 export default function Dendrogram({ data, width, height, type }) {
+  console.log(data)
   const hierarchy = useMemo(() => {
     return d3.hierarchy(data)
   }, [data])
@@ -61,9 +59,6 @@ export default function Dendrogram({ data, width, height, type }) {
   let direction
   if (type === 'horizontal') {
     direction = d3.linkHorizontal()
-  }
-  if (type === 'vertical') {
-    direction = d3.linkVertical()
   }
   const allEdges = dendrogram.descendants().map((node) => {
     if (!node.parent) {
