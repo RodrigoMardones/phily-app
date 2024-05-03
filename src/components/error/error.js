@@ -1,11 +1,11 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { RESET } from '../store/error/slice'
 
-const Error = ({ message, open, setError }) => {
+const Error = ({ message, open }) => {
+  const dispatch = useDispatch()
   const cleanError = () => {
-    setError({
-      message: '',
-      open: false,
-    })
+    dispatch(RESET());
   }
   return (
     <dialog className="modal" open={open} onClose={cleanError}>

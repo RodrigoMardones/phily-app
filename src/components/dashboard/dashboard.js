@@ -3,7 +3,6 @@ import { Button, Card, FileInput } from 'react-daisyui'
 import Image from 'next/image'
 import { parseStringToTree } from '@/utils/TreeData'
 import Error from '../error/error'
-import { ErrorState, TreeState, fileState } from '@/utils/utils'
 import { set, getTree, RESET as resetTree } from '../store/tree/slice'
 import { setError, getError, RESET as resetError } from '../store/error/slice'
 import { getFile, setFile, RESET as resetFile } from '../store/file/slice'
@@ -58,13 +57,19 @@ function Dashboard() {
           open: true,
         })
       )
-      return
+      return;
     }
-    /**
+      /**
      * 3. File loaded first time
      */
-    const parsedTree = parseStringToTree(file.content)
-    dispatch(set({ tree: parsedTree, name: file.name }))
+    if (file.name !== tree.name) {
+      console.log(file.name)
+      const parsedTree = parseStringToTree(file.content)
+      console.log(file)
+      dispatch(set({ tree: parsedTree, name: file.name }))
+    }
+
+   
   }
   const handleCleanClick = (e) => {
     e.preventDefault()
@@ -77,7 +82,7 @@ function Dashboard() {
   return (
     <>
       <Card className="w-96 bg-primary p-4 rounded-none border-none">
-        <Error message={error.message} open={error.open} setError={setError} />
+        <Error message={error.message} open={error.open}/>
         <div className="grid grid-cols-1">
           <div className="flex flex-row">
             <Image

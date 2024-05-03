@@ -12,11 +12,14 @@ const treeSlice = createSlice({
       name: '',
       tree: createBaseTree(),
     }),
-    set: (state, action) => ({...state, tree: action.payload.tree, name : action.payload.treeName }),
+    set: (state, action) => {
+      state.name = action.payload.name 
+      state.tree = action.payload.tree 
+    }
   },
 })
 
-export const getTree = (state) => state.tree.tree
+export const getTree = (state) => state.tree
 
 export const { set, RESET } = treeSlice.actions
 
