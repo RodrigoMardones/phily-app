@@ -1,73 +1,77 @@
 import React, { useState } from 'react'
 import { Button, Card, FileInput } from 'react-daisyui'
 import Image from 'next/image'
-import { createBaseTree, parseStringToTree } from '@/utils/TreeData'
+import { parseStringToTree } from '@/utils/TreeData'
 import Error from '../error/error'
-import { tree } from 'd3'
+import { ErrorState, TreeState, fileState } from '@/utils/utils'
+import { set, getTree, RESET as resetTree } from '../store/tree/slice'
+import { setError, getError, RESET as resetError } from '../store/error/slice'
+import { getFile, setFile, RESET as resetFile } from '../store/file/slice'
+import { useDispatch, useSelector } from 'react-redux'
 const accepts = ['.nwk']
 
 function Dashboard() {
-  const [fileSelected, setFile] = useState({
-    fileName: '',
-    content: '',
-  })
-  const [treeCreated, setTree] = useState({
-    treeName: '',
-    tree: createBaseTree(),
-  })
-  let fileReader
-  const [error, setError] = useState({
-    message: '',
-    open: false,
-  })
+  let fileReader;
+  const dispatch = useDispatch();
+  const tree = useSelector(getTree);
+  const file = useSelector(getFile);
+  const error = useSelector(getError);
+
   const handleFileRead = () => {
-    setFile({
-      fileName: fileReader.fileName,
+    dispatch(setFile({
+      name: fileReader.name,
       content: fileReader.result,
-    })
+    }))
   }
   const handleFileOnChange = (e) => {
     const files = e.target.files
     console.log(files)
     if (files?.length) {
       fileReader = new FileReader()
-      fileReader.fileName = files[0].name
+      fileReader.name = files[0].name
       fileReader.onloadend = handleFileRead
       fileReader.readAsText(files[0])
     }
   }
-  const handleLoadClick = (e) => {
+  const handleLoadClick = async (e) => {
     /** USECASES */
     /**
      * 1. No file selected
      */
     e.preventDefault()
-    console.log(fileSelected)
-    if (!fileSelected.fileName) {
-      setError({
-        message: 'No se ha seleccionado un archivo',
-        open: true,
-      })
-      return
+    if (!file.name) {
+      dispatch(
+        setError({
+          message: 'No se ha seleccionado un archivo',
+          open: true,
+        })
+      )
+      return;
     }
     /**
      * 2. File loaded twice
      */
-    if (fileSelected.fileName === treeCreated.treeName) {
-      setError({
-        message: 'Se ha cargado el mismo archivo',
-        open: true,
-      })
+    if (file.name === tree.name) {
+      dispatch(
+        setError({
+          message: 'Se ha cargado el mismo archivo',
+          open: true,
+        })
+      )
       return
     }
     /**
      * 3. File loaded first time
      */
-    const tree = parseStringToTree(fileSelected.content)
-    setTree({
-      treeName: fileSelected.fileName,
-      tree: tree,
-    })
+    const parsedTree = parseStringToTree(file.content)
+    dispatch(set({ tree: parsedTree, name: file.name }))
+  }
+  const handleCleanClick = (e) => {
+    e.preventDefault()
+    dispatch(resetFile())
+    dispatch(resetTree())
+    dispatch(resetError())
+    document.getElementById('fileInput').value = ''
   }
 
   return (
@@ -92,20 +96,22 @@ function Dashboard() {
             </Card.Title>
             <form>
               <FileInput
+                id="fileInput"
                 className="file-input file-input-bordered file-input-neutral file-input-sm w-full"
                 placeholder="hola"
                 onChange={handleFileOnChange}
                 accept={accepts.join(',')}
+                name="fileInput"
               />
               <Button
-                className="btn btn-accent mt-2 mr-2"
+                className="btn btn-accent mt-2 mr-2 text-white"
                 onClick={handleLoadClick}
               >
                 cargar
               </Button>
               <Button
-                className="btn btn-secondary mt-2 mr-2"
-                onClick={(e) => e.preventDefault()}
+                className="btn btn-secondary mt-2 mr-2 text-white"
+                onClick={handleCleanClick}
               >
                 limpiar
               </Button>
