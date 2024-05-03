@@ -10,17 +10,19 @@ import { useDispatch, useSelector } from 'react-redux'
 const accepts = ['.nwk']
 
 function Dashboard() {
-  let fileReader;
-  const dispatch = useDispatch();
-  const tree = useSelector(getTree);
-  const file = useSelector(getFile);
-  const error = useSelector(getError);
+  let fileReader
+  const dispatch = useDispatch()
+  const tree = useSelector(getTree)
+  const file = useSelector(getFile)
+  const error = useSelector(getError)
 
   const handleFileRead = () => {
-    dispatch(setFile({
-      name: fileReader.name,
-      content: fileReader.result,
-    }))
+    dispatch(
+      setFile({
+        name: fileReader.name,
+        content: fileReader.result,
+      })
+    )
   }
   const handleFileOnChange = (e) => {
     const files = e.target.files
@@ -45,7 +47,7 @@ function Dashboard() {
           open: true,
         })
       )
-      return;
+      return
     }
     /**
      * 2. File loaded twice
@@ -57,9 +59,9 @@ function Dashboard() {
           open: true,
         })
       )
-      return;
+      return
     }
-      /**
+    /**
      * 3. File loaded first time
      */
     if (file.name !== tree.name) {
@@ -68,8 +70,6 @@ function Dashboard() {
       console.log(file)
       dispatch(set({ tree: parsedTree, name: file.name }))
     }
-
-   
   }
   const handleCleanClick = (e) => {
     e.preventDefault()
@@ -82,7 +82,7 @@ function Dashboard() {
   return (
     <>
       <Card className="w-96 bg-primary p-4 rounded-none border-none">
-        <Error message={error.message} open={error.open}/>
+        <Error message={error.message} open={error.open} />
         <div className="grid grid-cols-1">
           <div className="flex flex-row">
             <Image
