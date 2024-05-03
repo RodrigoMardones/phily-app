@@ -103,7 +103,6 @@ function Dashboard() {
               <FileInput
                 id="fileInput"
                 className="file-input file-input-bordered file-input-neutral file-input-sm w-full"
-                placeholder="hola"
                 onChange={handleFileOnChange}
                 accept={accepts.join(',')}
                 name="fileInput"
@@ -115,7 +114,7 @@ function Dashboard() {
                 cargar
               </Button>
               <Button
-                className="btn btn-secondary mt-2 mr-2 text-white"
+                className="btn btn-error mt-2 mr-2 text-white"
                 onClick={handleCleanClick}
               >
                 limpiar
