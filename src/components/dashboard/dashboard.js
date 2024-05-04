@@ -26,7 +26,6 @@ function Dashboard() {
   }
   const handleFileOnChange = (e) => {
     const files = e.target.files
-    console.log(files)
     if (files?.length) {
       fileReader = new FileReader()
       fileReader.name = files[0].name
@@ -65,9 +64,7 @@ function Dashboard() {
      * 3. File loaded first time
      */
     if (file.name !== tree.name) {
-      console.log(file.name)
       const parsedTree = parseStringToTree(file.content)
-      console.log(file)
       dispatch(set({ tree: parsedTree, name: file.name }))
     }
   }
@@ -96,19 +93,13 @@ function Dashboard() {
             </Card.Title>
           </div>
           <div className="flex flex-col mt-12">
-            <Card.Title className="text-white items-end text-2xl">
+            <Card.Title className="text-white items-end text-xl">
               Subir Arbol
             </Card.Title>
             <form>
               <FileInput
                 id="fileInput"
                 className="file-input file-input-bordered file-input-neutral file-input-sm w-full file-input-rounded file"
-
-                /* className="block w-full text-sm text-white
-                file:mr-4 file:py-2 file:px-4 file:rounded-md
-                file:border-0 file:text-sm file:font-semibold
-                file:bg-neutral file:text-black
-                hover:file:bg-neutral" */
                 onChange={handleFileOnChange}
                 accept={accepts.join(',')}
                 name="fileInput"

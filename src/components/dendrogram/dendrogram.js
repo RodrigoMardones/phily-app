@@ -3,22 +3,6 @@ import { v4 as uuidv4 } from 'uuid'
 import * as d3 from 'd3'
 
 const MARGIN = { top: 200, right: 200, bottom: 200, left: 200, margin: 70 }
-const actualDirection = (type, node) => {
-  let actualpos = {
-    x: 0,
-    y: 0,
-  }
-  switch (type) {
-    case 'horizontal':
-      actualpos.x = node.y
-      actualpos.y = node.x
-      return actualpos
-    default:
-      actualpos.x = node.y
-      actualpos.y = node.x
-      return actualpos
-  }
-}
 
 export default function Dendrogram({ data, width, height, type }) {
   const hierarchy = useMemo(() => {
@@ -31,23 +15,21 @@ export default function Dendrogram({ data, width, height, type }) {
   }, [hierarchy, width, height])
 
   const allNodes = dendrogram.descendants().map((node) => {
-    const actualpos = actualDirection(type, node)
     return (
       <g key={`node-${type}-${uuidv4()}`}>
         <circle
-          cx={actualpos.x}
-          cy={actualpos.y}
+          cx={node.y}
+          cy={node.x}
           r={5}
           stroke="transparent"
           fill={'#69b3a2'}
         />
         <text
-          x={actualpos.x}
-          y={actualpos.y}
+          x={node.y}
+          y={node.x}
           fontSize={24}
           textAnchor={node.children ? 'end' : 'start'}
           alignmentBaseline="central"
-          transform={type === 'vertical' ? 'translate(0,20)' : ''}
         >
           {node.data.name}
         </text>
@@ -55,26 +37,15 @@ export default function Dendrogram({ data, width, height, type }) {
     )
   })
 
-  let direction
-  if (type === 'horizontal') {
-    direction = d3.linkHorizontal()
-  }
+  let direction = d3.linkHorizontal();
+
   const allEdges = dendrogram.descendants().map((node) => {
     if (!node.parent) {
       return null
     }
-    let LinkObject
-    if (type === 'horizontal') {
-      LinkObject = {
+    let LinkObject = {
         source: [node.parent.y, node.parent.x],
         target: [node.y, node.x],
-      }
-    }
-    if (type === 'vertical') {
-      LinkObject = {
-        source: [node.parent.x, node.parent.y],
-        target: [node.x, node.y],
-      }
     }
     return (
       <path
