@@ -4,14 +4,20 @@ import * as d3 from 'd3'
 
 const MARGIN = { top: 200, right: 200, bottom: 200, left: 200, margin: 70 }
 
+// se deja como funcion para poder generar dendrogramas de diferentes tamaños
+const dendrogramGenerator = (width, height) =>
+  d3.tree().nodeSize([width, height])
+
 export default function Dendrogram({ data, width, height, type }) {
   const hierarchy = useMemo(() => {
-    return d3.hierarchy(data)
+    const HierarchyCreated = d3.hierarchy(data)
+    // ascendencia o descendencia puede ser parametrizable
+    HierarchyCreated.sort((a, b) => d3.descending(a.data.name, b.data.name))
+    return HierarchyCreated
   }, [data])
   const dendrogram = useMemo(() => {
-    const dendrogramGenerator = d3.tree().nodeSize([width, height])
-    hierarchy.sort((a, b) => d3.ascending(a.data.name, b.data.name))
-    return dendrogramGenerator(hierarchy)
+    const dendogramCreated = dendrogramGenerator(width, height)
+    return dendogramCreated(hierarchy)
   }, [hierarchy, width, height])
 
   const allNodes = dendrogram.descendants().map((node) => {
@@ -20,14 +26,14 @@ export default function Dendrogram({ data, width, height, type }) {
         <circle
           cx={node.y}
           cy={node.x}
-          r={5}
+          r={20}
           stroke="transparent"
           fill={'#69b3a2'}
         />
         <text
-          x={node.y}
+          x={node.y + 30}
           y={node.x}
-          fontSize={24}
+          fontSize={48}
           textAnchor={node.children ? 'end' : 'start'}
           alignmentBaseline="central"
         >
@@ -37,16 +43,24 @@ export default function Dendrogram({ data, width, height, type }) {
     )
   })
 
-  let direction = d3.linkHorizontal();
+  // forma de hacer una linea con curveStep
+  // existen otras curvas que podrian ayudar a generar formas mas interesantes
+  // revisar documentacion de d3 y ver el tema de la normalizacion de curva
+  let direction = d3
+    .line()
+    .x((p) => p.x)
+    .y((p) => p.y)
+    .curve(d3.curveStep)
 
   const allEdges = dendrogram.descendants().map((node) => {
     if (!node.parent) {
       return null
     }
-    let LinkObject = {
-        source: [node.parent.y, node.parent.x],
-        target: [node.y, node.x],
-    }
+    // tengo que normalizar estos vectores para poder generar un dendrograma del mismo tamaño para todos los casos
+    const step = [
+      { x: node.parent.y, y: node.parent.x },
+      { x: node.y, y: node.x },
+    ]
     return (
       <path
         fill="none"
@@ -54,7 +68,7 @@ export default function Dendrogram({ data, width, height, type }) {
         strokeOpacity={1}
         strokeWidth={2}
         key={`line-${node.id}-${uuidv4()}`}
-        d={direction(LinkObject)} // revisar este campo para indicar formas geometricas
+        d={direction(step)} // revisar este campo para indicar formas geometricas
       />
     )
   })
@@ -63,8 +77,8 @@ export default function Dendrogram({ data, width, height, type }) {
       className="w-full h-full"
       transform={`translate(${[MARGIN.left, MARGIN.top].join(',')})`}
     >
-      {allNodes}
       {allEdges}
+      {allNodes}
     </g>
   )
 }
