@@ -45,7 +45,7 @@ export default function Dendrogram({ data, width, height, type }) {
         <text
           x={actualpos.x}
           y={actualpos.y}
-          fontSize={12}
+          fontSize={24}
           textAnchor={node.children ? 'end' : 'start'}
           alignmentBaseline="central"
           transform={type === 'vertical' ? 'translate(0,20)' : ''}
@@ -81,10 +81,10 @@ export default function Dendrogram({ data, width, height, type }) {
       <path
         fill="none"
         stroke="#555"
-        strokeOpacity={0.4}
-        strokeWidth={1.5}
+        strokeOpacity={1}
+        strokeWidth={2}
         key={`line-${node.id}-${uuidv4()}`}
-        d={direction(LinkObject)}
+        d={direction(LinkObject)} // revisar este campo para indicar formas geometricas
       />
     )
   })

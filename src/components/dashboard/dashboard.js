@@ -91,8 +91,8 @@ function Dashboard() {
               height={82}
               className="bg-white"
             />
-            <Card.Title className="text-white ml-2 items-end text-5xl">
-              Phily-App
+            <Card.Title className="text-white ml-2 items-end text-4xl">
+              PhilyApp
             </Card.Title>
           </div>
           <div className="flex flex-col mt-12">
@@ -102,7 +102,13 @@ function Dashboard() {
             <form>
               <FileInput
                 id="fileInput"
-                className="file-input file-input-bordered file-input-neutral file-input-sm w-full"
+                className="file-input file-input-bordered file-input-neutral file-input-sm w-full file-input-rounded file"
+
+                /* className="block w-full text-sm text-white
+                file:mr-4 file:py-2 file:px-4 file:rounded-md
+                file:border-0 file:text-sm file:font-semibold
+                file:bg-neutral file:text-black
+                hover:file:bg-neutral" */
                 onChange={handleFileOnChange}
                 accept={accepts.join(',')}
                 name="fileInput"
