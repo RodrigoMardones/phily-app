@@ -1,30 +1,136 @@
-import React, { useState } from 'react';
-import { Button, Card } from 'react-daisyui';
+import React, { useState } from 'react'
+import { Button, Card, FileInput } from 'react-daisyui'
+import Image from 'next/image'
+import { parseStringToTree } from '@/utils/TreeData'
+import Error from '../error/error'
+import { set, getTree, RESET as resetTree } from '../store/tree/slice'
+import { setError, getError, RESET as resetError } from '../store/error/slice'
+import { getFile, setFile, RESET as resetFile } from '../store/file/slice'
+import { useDispatch, useSelector } from 'react-redux'
+const accepts = ['.nwk']
 
-function Dashboard({ children }) {
-  const [active, setActive] = useState('home');
+function Dashboard() {
+  let fileReader
+  const dispatch = useDispatch()
+  const tree = useSelector(getTree)
+  const file = useSelector(getFile)
+  const error = useSelector(getError)
+
+  const handleFileRead = () => {
+    dispatch(
+      setFile({
+        name: fileReader.name,
+        content: fileReader.result,
+      })
+    )
+  }
+  const handleFileOnChange = (e) => {
+    const files = e.target.files
+    console.log(files)
+    if (files?.length) {
+      fileReader = new FileReader()
+      fileReader.name = files[0].name
+      fileReader.onloadend = handleFileRead
+      fileReader.readAsText(files[0])
+    }
+  }
+  const handleLoadClick = async (e) => {
+    /** USECASES */
+    /**
+     * 1. No file selected
+     */
+    e.preventDefault()
+    if (!file.name) {
+      dispatch(
+        setError({
+          message: 'No se ha seleccionado un archivo',
+          open: true,
+        })
+      )
+      return
+    }
+    /**
+     * 2. File loaded twice
+     */
+    if (file.name === tree.name) {
+      dispatch(
+        setError({
+          message: 'Se ha cargado el mismo archivo',
+          open: true,
+        })
+      )
+      return
+    }
+    /**
+     * 3. File loaded first time
+     */
+    if (file.name !== tree.name) {
+      console.log(file.name)
+      const parsedTree = parseStringToTree(file.content)
+      console.log(file)
+      dispatch(set({ tree: parsedTree, name: file.name }))
+    }
+  }
+  const handleCleanClick = (e) => {
+    e.preventDefault()
+    dispatch(resetFile())
+    dispatch(resetTree())
+    dispatch(resetError())
+    document.getElementById('fileInput').value = ''
+  }
 
   return (
-    <div className="flex h-screen bg-gray-100">
-      <Card className="w-64 bg-indigo-700 text-white p-4">
-        <Button onClick={() => setActive('home')} color={active === 'home' ? 'indigo' : 'gray'} fullWidth>
-          Home
-        </Button>
-        <Button onClick={() => setActive('settings')} color={active === 'settings' ? 'indigo' : 'gray'} fullWidth>
-          Settings
-        </Button>
-        <Button onClick={() => setActive('profile')} color={active === 'profile' ? 'indigo' : 'gray'} fullWidth>
-          Profile
-        </Button>
+    <>
+      <Card className="w-96 bg-primary p-4 rounded-none border-none">
+        <Error message={error.message} open={error.open} />
+        <div className="grid grid-cols-1">
+          <div className="flex flex-row">
+            <Image
+              src="/tree.svg"
+              width={86}
+              height={82}
+              className="bg-white"
+            />
+            <Card.Title className="text-white ml-2 items-end text-4xl">
+              PhilyApp
+            </Card.Title>
+          </div>
+          <div className="flex flex-col mt-12">
+            <Card.Title className="text-white items-end text-2xl">
+              Subir Arbol
+            </Card.Title>
+            <form>
+              <FileInput
+                id="fileInput"
+                className="file-input file-input-bordered file-input-neutral file-input-sm w-full file-input-rounded file"
+
+                /* className="block w-full text-sm text-white
+                file:mr-4 file:py-2 file:px-4 file:rounded-md
+                file:border-0 file:text-sm file:font-semibold
+                file:bg-neutral file:text-black
+                hover:file:bg-neutral" */
+                onChange={handleFileOnChange}
+                accept={accepts.join(',')}
+                name="fileInput"
+              />
+              <Button
+                className="btn btn-accent mt-2 mr-2 text-white"
+                onClick={handleLoadClick}
+              >
+                cargar
+              </Button>
+              <Button
+                className="btn btn-error mt-2 mr-2 text-white"
+                onClick={handleCleanClick}
+              >
+                limpiar
+              </Button>
+            </form>
+          </div>
+        </div>
       </Card>
-      <div className="flex-grow p-4 overflow-auto">
-        {active === 'home' && <div>Home content</div>}
-        {active === 'settings' && <div>Settings content</div>}
-        {active === 'profile' && <div>Profile content</div>}
-        {children}
-      </div>
-    </div>
-  );
+    </>
+  )
 }
 
-export default Dashboard;
+export default Dashboard
