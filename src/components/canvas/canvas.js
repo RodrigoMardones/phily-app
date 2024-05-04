@@ -6,7 +6,6 @@ import Dendrogram from '../dendrogram/dendrogram'
 import ZoomableSVG from '../zoomable/zoomable'
 
 const Canvas = () => {
-  const dispatch = useDispatch()
   const tree = useSelector(getTree)
   console.log(tree)
   return (

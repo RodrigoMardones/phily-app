@@ -21,7 +21,6 @@ const actualDirection = (type, node) => {
 }
 
 export default function Dendrogram({ data, width, height, type }) {
-  console.log(data)
   const hierarchy = useMemo(() => {
     return d3.hierarchy(data)
   }, [data])
