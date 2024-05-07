@@ -5,6 +5,8 @@ const treeSlice = createSlice({
   name: 'tree',
   initialState: {
     name: '',
+    normalize: false,
+    curveType: 'step',
     tree: createBaseTree(),
   },
   reducers: {

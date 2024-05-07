@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Card, FileInput } from 'react-daisyui'
+import { Button, Card, Checkbox, FileInput, Toggle } from 'react-daisyui'
 import Image from 'next/image'
 import { parseStringToTree } from '@/utils/TreeData'
 import Error from '../error/error'
@@ -65,7 +65,7 @@ function Dashboard() {
      */
     if (file.name !== tree.name) {
       const parsedTree = parseStringToTree(file.content)
-      dispatch(set({ tree: parsedTree, name: file.name }))
+      dispatch(set({ ...tree, tree: parsedTree, name: file.name }))
     }
   }
   const handleCleanClick = (e) => {
@@ -92,6 +92,9 @@ function Dashboard() {
               PhilyApp
             </Card.Title>
           </div>
+          {/**
+           * carga de archivo de arbol
+           */}
           <div className="flex flex-col mt-12">
             <Card.Title className="text-white items-end text-xl">
               Subir Arbol
@@ -116,6 +119,43 @@ function Dashboard() {
               >
                 limpiar
               </Button>
+            </form>
+          </div>
+          <div className="divider"></div>
+          {/**
+           * Visualizacion de arbol
+           */}
+          <div className="flex flex-col mt-12">
+            <Card.Title className="text-white items-end text-xl">
+              Visualización
+            </Card.Title>
+            <form>
+              <Card.Title className="text-white items-end text-lg mt-2">
+                forma
+              </Card.Title>
+              <Button className="btn bg-[#6DA2D4] mt-2 text-white border-none rounded-none rounded-l-md">
+                escalon
+              </Button>
+              <Button className="btn bg-[#6DA2D4] mt-2  text-white border-none  rounded-none">
+                suave
+              </Button>
+              <Button className="btn bg-[#6DA2D4] mt-2  text-white border-none rounded-none">
+                inclinado
+              </Button>
+              <Button className="btn bg-[#6DA2D4] mt-2  text-white border-none rounded-none rounded-r-md">
+                circular
+              </Button>
+              <label className="cursor-pointer label">
+                <span className="label-text text-white text-lg mt-2">Profundidad</span>
+                <input
+                  type="checkbox"
+                  className="toggle toggle-secondary"
+                />
+              </label>
+              <label className="cursor-pointer label">
+                <span className="label-text text-white text-lg mt-2 mr-2">Ángulo</span>
+                <input type="range" min={0} max="360" className="range range-secondary mr-2" />
+              </label>
             </form>
           </div>
         </div>

@@ -7,19 +7,21 @@ import ZoomableSVG from '../zoomable/zoomable'
 
 const Canvas = () => {
   const tree = useSelector(getTree)
+  console.log(tree)
   return (
     <Card className="bg-white m-4 rounded-none border-none w-5/6">
       <div className="flex justify-center items-center h-full">
-        <ZoomableSVG>
-          {tree.name && (
+        {tree.name && (
+          <ZoomableSVG>
             <Dendrogram
               data={tree.tree}
-              width={150}
-              height={150}
-              type={'horizontal'}
+              width={900}
+              height={900}
+              normalize={tree.normalize}
+              curveType={tree.curveType}
             />
-          )}
-        </ZoomableSVG>
+          </ZoomableSVG>
+        )}
       </div>
     </Card>
   )
