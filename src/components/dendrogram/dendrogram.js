@@ -6,14 +6,7 @@ const MARGIN = { top: 200, right: 200, bottom: 200, left: 200, margin: 70 }
 
 // se deja como funcion para poder generar dendrogramas de diferentes tamaños
 const dendrogramGenerator = (width, height, normalize) => {
-  switch (normalize) {
-    case true:
-      return d3.cluster().size([height, width])
-    case false:
-      return d3.tree().size([height, width])
-    default:
-      return d3.tree().size([height, width])
-  }
+  return normalize ? d3.cluster().size([height, width]) :  d3.tree().size([height, width]);
 }
 
 const drawCurve = (curveType) => {
@@ -21,9 +14,9 @@ const drawCurve = (curveType) => {
     case 'step':
       return d3.link(d3.curveStep)
     case 'curve':
-      return d3.link(d3.curveBasis)
+      return d3.link(d3.curveBumpX)
     case 'slanted':
-        return d3.link(d3.curveLinear)
+      return d3.link(d3.curveLinear)
   }
 }
 
@@ -34,18 +27,17 @@ export default function Dendrogram({
   normalize,
   curveType,
 }) {
-  let curve = drawCurve(curveType);
 
   const hierarchy = useMemo(() => {
     const HierarchyCreated = d3.hierarchy(data)
     HierarchyCreated.sort((a, b) => d3.ascending(a.data.name, b.data.name))
     return HierarchyCreated
   }, [data])
-  console.log(hierarchy)
   const dendrogram = useMemo(() => {
     const dendogramCreated = dendrogramGenerator(width, height, normalize)
     return dendogramCreated(hierarchy)
-  }, [hierarchy, width, height])
+  }, [hierarchy, width, height, normalize])
+  let curve = drawCurve(curveType)
 
   const allNodes = dendrogram.descendants().map((node) => {
     return (
@@ -64,12 +56,11 @@ export default function Dendrogram({
           textAnchor={node.children ? 'end' : 'start'}
           alignmentBaseline="central"
         >
-          {node.data.name}          
+          {node.data.name}
         </text>
       </g>
     )
   })
-
 
   const allEdges = dendrogram.descendants().map((node) => {
     if (!node.parent) {

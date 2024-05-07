@@ -75,7 +75,9 @@ function Dashboard() {
     dispatch(resetError())
     document.getElementById('fileInput').value = ''
   }
-
+  const handleCurve = (curveType) => {
+    dispatch(set({ ...tree, curveType }))
+  }
   return (
     <>
       <Card className="w-96 bg-primary p-4 rounded-none border-none">
@@ -129,17 +131,16 @@ function Dashboard() {
             <Card.Title className="text-white items-end text-xl">
               Visualización
             </Card.Title>
-            <form>
               <Card.Title className="text-white items-end text-lg mt-2">
                 forma
               </Card.Title>
-              <Button className="btn bg-[#6DA2D4] mt-2 text-white border-none rounded-none rounded-l-md">
+              <Button className="btn bg-[#6DA2D4] mt-2 text-white border-none rounded-none rounded-l-md" onClick={() => dispatch(set({ ...tree, curveType: 'step' }))}>
                 escalon
               </Button>
-              <Button className="btn bg-[#6DA2D4] mt-2  text-white border-none  rounded-none">
+              <Button className="btn bg-[#6DA2D4] mt-2  text-white border-none  rounded-none" onClick={() => dispatch(set({ ...tree, curveType: 'curve' }))}>
                 suave
               </Button>
-              <Button className="btn bg-[#6DA2D4] mt-2  text-white border-none rounded-none">
+              <Button className="btn bg-[#6DA2D4] mt-2  text-white border-none rounded-none" onClick={() => dispatch(set({ ...tree, curveType: 'slanted' }))}>
                 inclinado
               </Button>
               <Button className="btn bg-[#6DA2D4] mt-2  text-white border-none rounded-none rounded-r-md">
@@ -150,13 +151,14 @@ function Dashboard() {
                 <input
                   type="checkbox"
                   className="toggle toggle-secondary"
+                  value={tree.normalize}
+                  onClick={(e) => dispatch(set({...tree, normalize: e.target.checked}))}
                 />
               </label>
               <label className="cursor-pointer label">
                 <span className="label-text text-white text-lg mt-2 mr-2">Ángulo</span>
                 <input type="range" min={0} max="360" className="range range-secondary mr-2" />
               </label>
-            </form>
           </div>
         </div>
       </Card>

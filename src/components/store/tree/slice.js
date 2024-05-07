@@ -12,10 +12,14 @@ const treeSlice = createSlice({
   reducers: {
     RESET: () => ({
       name: '',
+      normalize: false,
+    curveType: 'step',
       tree: createBaseTree(),
     }),
     set: (state, action) => {
-      state.name = action.payload.name 
+      state.name = action.payload.name
+      state.normalize = action.payload.normalize
+      state.curveType = action.payload.curveType
       state.tree = action.payload.tree 
     }
   },
