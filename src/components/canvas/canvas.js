@@ -4,13 +4,14 @@ import { getTree } from '../store/tree/slice'
 import { Card } from 'react-daisyui'
 import Dendrogram from '../dendrogram/dendrogram'
 import ZoomableSVG from '../zoomable/zoomable'
+import CircularDendrogram from '../dendrogram/circularDendrogram'
 
 const Canvas = () => {
   const { tree, normalize, curveType, name, angle } = useSelector(getTree)
   return (
     <Card className="bg-white m-4 rounded-none border-none w-5/6">
       <div className="flex justify-center items-center h-full">
-        {name && (
+        {name && curveType !== 'circular' && (
           <ZoomableSVG>
             <Dendrogram
               data={tree}
@@ -18,6 +19,16 @@ const Canvas = () => {
               height={900}
               normalize={normalize}
               curveType={curveType}
+            />
+          </ZoomableSVG>
+        )}
+        { curveType === 'circular' && (
+          <ZoomableSVG>
+            <CircularDendrogram
+              data={tree}
+              width={900}
+              height={900}
+              normalize={normalize}
             />
           </ZoomableSVG>
         )}
