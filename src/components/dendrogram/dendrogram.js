@@ -1,30 +1,9 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import * as d3 from 'd3'
-import CircularDendrogram from './circularDendrogram'
+import { dendrogramGenerator, drawCurve, transformSVG, MARGIN } from './utils'
 
-const MARGIN = { top: 200, right: 200, bottom: 200, left: 200, margin: 70 }
-
-const degToRad = (deg) => {
-  return (deg * 2 * Math.PI) / 360
-}
 // se deja como funcion para poder generar dendrogramas de diferentes tamaños
-const dendrogramGenerator = (width, height, normalize, curveType = null) => {
-  return normalize
-    ? d3.cluster().size([height, width])
-    : d3.tree().size([height, width])
-}
-
-const drawCurve = (curveType) => {
-  switch (curveType) {
-    case 'step':
-      return d3.link(d3.curveStep)
-    case 'curve':
-      return d3.link(d3.curveBumpX)
-    case 'slanted':
-      return d3.link(d3.curveLinear)
-  }
-}
 
 export default function Dendrogram({
   data,
@@ -33,66 +12,129 @@ export default function Dendrogram({
   normalize,
   curveType,
 }) {
-  if(curveType ==="circular"){
-    return <CircularDendrogram data={data} width={width} height={height} normalize={normalize} curveType={curveType} />
-  }
   const hierarchy = useMemo(() => {
     const HierarchyCreated = d3.hierarchy(data)
     HierarchyCreated.sort((a, b) => d3.ascending(a.data.name, b.data.name))
     return HierarchyCreated
   }, [data])
+  const radius = useMemo(() => {
+    return Math.min(width, height) / 2 - MARGIN
+  }, [width, height])
+  const[curve, transform] = useMemo(() => {
+    return [drawCurve(curveType), transformSVG(curveType, radius)]
+  }, [curveType, radius])	
   const dendrogram = useMemo(() => {
+    if (curveType === 'circular' || 'circular-step') {
+      const dendogramCreated = dendrogramGenerator(
+        360,
+        radius,
+        normalize
+      )
+      return dendogramCreated(hierarchy)
+    }
     const dendogramCreated = dendrogramGenerator(width, height, normalize)
     return dendogramCreated(hierarchy)
   }, [hierarchy, width, height, normalize, curveType])
-  let curve = drawCurve(curveType)
+  // podria separar esto en otros componentes
+  const renderNode = useCallback(
+    (node) => {
+      if (curveType === 'circular' || curveType === 'circular-step') {
+        const turnLabelUpsideDown = node.x > 180
+        return (
+          <g
+            key={`node-${node.data.value}`}
+            transform={`rotate(${node.x - 90})translate(${node.y})`}
+          >
+            <circle cx={0} cy={0} r={10} stroke="transparent" fill="#69b3a2" />
+            {!node.children && (
+              <text
+                x={turnLabelUpsideDown ? -15 : 15}
+                y={0}
+                fontSize={12}
+                textAnchor={turnLabelUpsideDown ? 'end' : 'start'}
+                transform={turnLabelUpsideDown ? 'rotate(180)' : 'rotate(0)'}
+                alignmentBaseline="middle"
+              >
+                {node.data.name}
+              </text>
+            )}
+          </g>
+        )
+      }
 
-  const allNodes = dendrogram.descendants().map((node) => {
-    return (
-      <g key={`node-${uuidv4()}`}>
-        <circle
-          cx={node.y}
-          cy={node.x}
-          r={20}
-          stroke="transparent"
-          fill={'#69b3a2'}
-        />
-        <text
-          x={node.y + 30}
-          y={node.x}
-          fontSize={48}
-          textAnchor={node.children ? 'end' : 'start'}
-          alignmentBaseline="central"
-        >
-          {node.data.name}
-        </text>
-      </g>
-    )
-  })
+      return (
+        <g key={`node-${uuidv4()}`}>
+          <circle
+            cx={node.y}
+            cy={node.x}
+            r={20}
+            stroke="transparent"
+            fill={'#69b3a2'}
+          />
+          <text
+            x={node.y + 30}
+            y={node.x}
+            fontSize={48}
+            textAnchor={node.children ? 'end' : 'start'}
+            alignmentBaseline="central"
+          >
+            {node.data.name}
+          </text>
+        </g>
+      )
+    },
+    [normalize, curveType]
+  )
 
-  const allEdges = dendrogram.descendants().map((node) => {
-    if (!node.parent) {
-      return null
-    }
-    return (
-      <path
-        fill="none"
-        stroke="#555"
-        strokeOpacity={1}
-        strokeWidth={2}
-        key={`line-${node.id}-${uuidv4()}`}
-        d={curve({
-          source: [node.parent.y, node.parent.x],
-          target: [node.y, node.x],
-        })}
-      />
-    )
-  })
+  const renderEdges = useCallback(
+    (link) => {
+      if (curveType === 'circular' || curveType === 'circular-step') {
+        if (link?.source?.depth === 0) {
+          return (
+            <g
+              key={link.source + '_' + link.target}
+              transform={'rotate(' + (link.target.x - 90) + ')'}
+            >
+              <line x1={0} y1={0} x2={link.target.y} y2={0} stroke="grey" />;
+            </g>
+          )
+        }
+        return (
+          <path
+            key={link.source + '_' + link.target}
+            fill="none"
+            stroke="#555"
+            d={curve(link) || undefined}
+          />
+        )
+      } else {
+        if (!link.source) {
+          return null
+        }
+        return (
+          <path
+            fill="none"
+            stroke="#555"
+            strokeOpacity={1}
+            strokeWidth={2}
+            key={`line-${uuidv4()}`}
+            d={curve({
+              source: [link.source.y, link.source.x],
+              target: [link.target.y, link.target.x],
+            })}
+          />
+        )
+      }
+    },
+    [normalize, curveType]
+  )
+
+  const allNodes = dendrogram.descendants().map(renderNode)
+  const allEdges = dendrogram.links().map(renderEdges)
+
   
   return (
-    <g
-      transform={`translate(${[MARGIN.left, MARGIN.top].join(',')})`}
-    >
+    <g transform={transform}>
       {allEdges}
       {allNodes}
     </g>

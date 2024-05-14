@@ -152,6 +152,14 @@ function Dashboard() {
                 >
                   inclinado
                 </Button>
+                <Button
+                  className="btn bg-[#6DA2D4] mt-2  text-white border-none rounded-none"
+                  onClick={() =>
+                    dispatch(set({ ...tree, curveType: 'circular-step' }))
+                  }
+                >
+                  circular-step
+                </Button>
                 <Button 
                   className="btn bg-[#6DA2D4] mt-2  text-white border-none rounded-none rounded-r-md"
                   onClick={() => dispatch(set({ ...tree, curveType: 'circular' }))}

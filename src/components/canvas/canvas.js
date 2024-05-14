@@ -11,7 +11,7 @@ const Canvas = () => {
   return (
     <Card className="bg-white m-4 rounded-none border-none w-5/6">
       <div className="flex justify-center items-center h-full">
-        {name && curveType !== 'circular' && (
+        {name && (
           <ZoomableSVG>
             <Dendrogram
               data={tree}
@@ -22,16 +22,7 @@ const Canvas = () => {
             />
           </ZoomableSVG>
         )}
-        { curveType === 'circular' && (
-          <ZoomableSVG>
-            <CircularDendrogram
-              data={tree}
-              width={900}
-              height={900}
-              normalize={normalize}
-            />
-          </ZoomableSVG>
-        )}
+        
       </div>
     </Card>
   )
