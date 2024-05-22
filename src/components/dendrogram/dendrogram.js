@@ -29,8 +29,7 @@ export default function Dendrogram({
     const dendogramCreated = dendrogramGenerator(width, height, normalize, curveType, angle)
     return dendogramCreated(hierarchy)
   }, [hierarchy, width, height, normalize, curveType, angle])
-  console.log(dendrogram)
-  console.log("count: " + dendrogram.depth )
+  
   // podria separar esto en otros componentes
   const renderNode = useCallback(
     (node, nodeIndex) => {
