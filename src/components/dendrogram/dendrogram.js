@@ -1,9 +1,7 @@
 import { useCallback, useMemo } from 'react'
-import { v4 as uuidv4 } from 'uuid'
 import * as d3 from 'd3'
 import { dendrogramGenerator, drawCurve, transformSVG, MARGIN } from './utils'
 
-// se deja como funcion para poder generar dendrogramas de diferentes tamaños
 
 export default function Dendrogram({
   data,
@@ -11,30 +9,36 @@ export default function Dendrogram({
   height,
   normalize,
   curveType,
+  angle
 }) {
   const hierarchy = useMemo(() => {
     const HierarchyCreated = d3.hierarchy(data)
     HierarchyCreated.sort((a, b) => d3.ascending(a.data.name, b.data.name))
     return HierarchyCreated
   }, [data])
+
   const radius = useMemo(() => {
     return Math.min(width, height) / 2 - MARGIN
   }, [width, height])
+
   const[curve, transform] = useMemo(() => {
     return [drawCurve(curveType), transformSVG(curveType, radius)]
   }, [curveType, radius])	
+
   const dendrogram = useMemo(() => {
-    const dendogramCreated = dendrogramGenerator(width, height, normalize, curveType)
+    const dendogramCreated = dendrogramGenerator(width, height, normalize, curveType, angle)
     return dendogramCreated(hierarchy)
-  }, [hierarchy, width, height, normalize, curveType])
+  }, [hierarchy, width, height, normalize, curveType, angle])
+  console.log(dendrogram)
+  console.log("count: " + dendrogram.depth )
   // podria separar esto en otros componentes
   const renderNode = useCallback(
-    (node) => {
+    (node, nodeIndex) => {
       if (curveType === 'circular' || curveType === 'circular-step') {
         const turnLabelUpsideDown = node.x > 180
         return (
           <g
-            key={`node-${node.data.value}`}
+            key={`node-${nodeIndex}`}
             transform={`rotate(${node.x - 90})translate(${node.y})`}
           >
             <circle cx={0} cy={0} r={10} stroke="transparent" fill="#69b3a2" />
@@ -55,7 +59,7 @@ export default function Dendrogram({
       }
 
       return (
-        <g key={`node-${uuidv4()}`}>
+        <g key={`node-${nodeIndex}`}>
           <circle
             cx={node.y}
             cy={node.x}
@@ -79,12 +83,12 @@ export default function Dendrogram({
   )
 
   const renderEdges = useCallback(
-    (link) => {
+    (link,indexLink) => {
       if (curveType === 'circular' || curveType === 'circular-step') {
         if (link?.source?.depth === 0) {
           return (
             <g
-              key={link.source + '_' + link.target}
+              key={`link-${indexLink}`}
               transform={'rotate(' + (link.target.x - 90) + ')'}
             >
               <line x1={0} y1={0} x2={link.target.y} y2={0} stroke="grey" />;
@@ -93,7 +97,7 @@ export default function Dendrogram({
         }
         return (
           <path
-            key={link.source + '_' + link.target}
+            key={`link-${indexLink}`}
             fill="none"
             stroke="#555"
             d={curve(link) || undefined}
@@ -109,7 +113,7 @@ export default function Dendrogram({
             stroke="#555"
             strokeOpacity={1}
             strokeWidth={2}
-            key={`line-${uuidv4()}`}
+            key={`link-${indexLink}`}
             d={curve({
               source: [link.source.y, link.source.x],
               target: [link.target.y, link.target.x],

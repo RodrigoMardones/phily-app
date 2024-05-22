@@ -5,6 +5,8 @@ const initialState = {
   normalize: false,
   curveType: 'step',
   angle: 0,
+  width: 600,
+  height: 600,
   tree: createBaseTree(),
 }	
 

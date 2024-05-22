@@ -74,6 +74,7 @@ function Dashboard() {
     dispatch(resetTree());
     dispatch(resetError());
     document.getElementById('fileInput').value = '';
+    document.getElementById('normalize').checked = false;
   };
   return (
     <>
@@ -184,6 +185,7 @@ function Dashboard() {
               <input
                 type="checkbox"
                 className="toggle toggle-secondary"
+                id='normalize'
                 value={tree.normalize}
                 onClick={(e) =>
                   dispatch(set({ ...tree, normalize: e.target.checked }))
@@ -196,10 +198,16 @@ function Dashboard() {
               </span>
               <input
                 type="range"
-                min={0}
+                min={10}
                 max={360}
-                className="range range-secondary mr-2"
+                defaultValue={360}
+                disabled={tree.curveType !== 'circular' && tree.curveType !== 'circular-step'}
+
+                className="range range-secondary mr-2 disabled:opacity-50"
                 onClick={(e) => {
+                  dispatch(set({ ...tree, angle: e.target.value }));
+                }}
+                onChange={(e) => {
                   dispatch(set({ ...tree, angle: e.target.value }));
                 }}
               />
