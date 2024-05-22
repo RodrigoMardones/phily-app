@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { createBaseTree } from '@/utils/TreeData'
-
 const initialState = {
   name: '',
   normalize: false,

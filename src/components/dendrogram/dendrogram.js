@@ -24,15 +24,7 @@ export default function Dendrogram({
     return [drawCurve(curveType), transformSVG(curveType, radius)]
   }, [curveType, radius])	
   const dendrogram = useMemo(() => {
-    if (curveType === 'circular' || 'circular-step') {
-      const dendogramCreated = dendrogramGenerator(
-        360,
-        radius,
-        normalize
-      )
-      return dendogramCreated(hierarchy)
-    }
-    const dendogramCreated = dendrogramGenerator(width, height, normalize)
+    const dendogramCreated = dendrogramGenerator(width, height, normalize, curveType)
     return dendogramCreated(hierarchy)
   }, [hierarchy, width, height, normalize, curveType])
   // podria separar esto en otros componentes

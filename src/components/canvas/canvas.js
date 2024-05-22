@@ -6,13 +6,20 @@ import Dendrogram from '../dendrogram/dendrogram'
 import ZoomableSVG from '../zoomable/zoomable'
 
 const Canvas = () => {
+  const [key, setKey] = React.useState(0)
   const { tree, normalize, curveType, name, angle } = useSelector(getTree)
+  
+  React.useEffect(() => {
+    setKey(key + 1)
+  }, [normalize, curveType, name, angle, angle]);
+
   return (
     <Card className="bg-white m-4 rounded-none border-none w-5/6">
       <div className="flex justify-center items-center h-full">
-        {name && (
+        
           <ZoomableSVG>
             <Dendrogram
+              key={key}
               data={tree}
               // parte de las dimenciones base de dibujo de un arbol
               // calcular el ancho y alto de la imagen en base a la cantidad de nodos
@@ -23,8 +30,6 @@ const Canvas = () => {
               curveType={curveType}
             />
           </ZoomableSVG>
-        )}
-        
       </div>
     </Card>
   )

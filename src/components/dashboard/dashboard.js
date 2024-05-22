@@ -107,13 +107,13 @@ function Dashboard() {
                 name="fileInput"
               />
               <Button
-                className="btn btn-accent mt-2 mr-2 text-white"
+                className="btn h-8 min-h-8 btn-accent mt-2 mr-2 text-white"
                 onClick={handleLoadClick}
               >
                 cargar
               </Button>
               <Button
-                className="btn btn-error mt-2 mr-2 text-white"
+                className="btn h-8 min-h-8 btn-error mt-2 mr-2 text-white"
                 onClick={handleCleanClick}
               >
                 limpiar

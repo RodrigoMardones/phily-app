@@ -39,10 +39,16 @@ const degToRad = (deg) => {
   return (deg * 2 * Math.PI) / 360
 }
 
-const dendrogramGenerator = (width, height, normalize) => {
-  return normalize
-    ? d3.cluster().size([height, width])
-    : d3.tree().size([height, width])
+const dendrogramGenerator = (width, height, normalize, curveType) => {
+  if (curveType === 'circular' || curveType === 'circular-step')  {
+    return normalize
+    ? d3.cluster().size([360, width])
+    : d3.tree().size([360, width])  
+  } else {
+    return normalize
+      ? d3.cluster().size([height, width])
+      : d3.tree().size([height, width])
+  }
 }
 
 const drawCurve = (curveType) => {
