@@ -85,10 +85,10 @@ function Dashboard() {
         <div className="grid grid-cols-1">
           <div className="flex flex-row">
             <Image
-              src="/tree.svg"
+              src="/phyliApp.jpg"
               width={86}
               height={82}
-              className="bg-white"
+              className="bg-white rounded-full"
             />
             <Card.Title className="text-white ml-2 items-end text-4xl">
               PhilyApp
@@ -197,7 +197,7 @@ function Dashboard() {
               </span>
               <input
                 type="checkbox"
-                className="toggle toggle-secondary"
+                className="toggle checked:toggle-secondary bg-error hover:bg-error border-error"
                 id='normalize'
                 value={tree.normalize}
                 onClick={(e) =>
