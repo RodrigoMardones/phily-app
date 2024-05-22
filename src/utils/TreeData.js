@@ -47,7 +47,7 @@ export const parseStringToTree = (s) => {
         if (x === ')' || x === '(' || x === ',') {
           tree.name = token
         } else if (x === ':') {
-          tree.length = parseFloat(token)
+          tree.length = String(token)
         }
     }
   }

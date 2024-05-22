@@ -1,20 +1,20 @@
-import React, { useState } from 'react'
-import { Button, Card, FileInput } from 'react-daisyui'
-import Image from 'next/image'
-import { parseStringToTree } from '@/utils/TreeData'
-import Error from '../error/error'
-import { set, getTree, RESET as resetTree } from '../store/tree/slice'
-import { setError, getError, RESET as resetError } from '../store/error/slice'
-import { getFile, setFile, RESET as resetFile } from '../store/file/slice'
-import { useDispatch, useSelector } from 'react-redux'
-const accepts = ['.nwk']
+import React from 'react';
+import { Button, Card, FileInput } from 'react-daisyui';
+import Image from 'next/image';
+import { parseStringToTree } from '@/utils/TreeData';
+import Error from '../error/error';
+import { set, getTree, RESET as resetTree } from '../store/tree/slice';
+import { setError, getError, RESET as resetError } from '../store/error/slice';
+import { getFile, setFile, RESET as resetFile } from '../store/file/slice';
+import { useDispatch, useSelector } from 'react-redux';
+const accepts = ['.nwk'];
 
 function Dashboard() {
-  let fileReader
-  const dispatch = useDispatch()
-  const tree = useSelector(getTree)
-  const file = useSelector(getFile)
-  const error = useSelector(getError)
+  let fileReader;
+  const dispatch = useDispatch();
+  const tree = useSelector(getTree);
+  const file = useSelector(getFile);
+  const error = useSelector(getError);
 
   const handleFileRead = () => {
     dispatch(
@@ -22,32 +22,31 @@ function Dashboard() {
         name: fileReader.name,
         content: fileReader.result,
       })
-    )
-  }
+    );
+  };
   const handleFileOnChange = (e) => {
-    const files = e.target.files
-    console.log(files)
+    const files = e.target.files;
     if (files?.length) {
-      fileReader = new FileReader()
-      fileReader.name = files[0].name
-      fileReader.onloadend = handleFileRead
-      fileReader.readAsText(files[0])
+      fileReader = new FileReader();
+      fileReader.name = files[0].name;
+      fileReader.onloadend = handleFileRead;
+      fileReader.readAsText(files[0]);
     }
-  }
+  };
   const handleLoadClick = async (e) => {
     /** USECASES */
     /**
      * 1. No file selected
      */
-    e.preventDefault()
+    e.preventDefault();
     if (!file.name) {
       dispatch(
         setError({
           message: 'No se ha seleccionado un archivo',
           open: true,
         })
-      )
-      return
+      );
+      return;
     }
     /**
      * 2. File loaded twice
@@ -58,27 +57,25 @@ function Dashboard() {
           message: 'Se ha cargado el mismo archivo',
           open: true,
         })
-      )
-      return
+      );
+      return;
     }
     /**
      * 3. File loaded first time
      */
     if (file.name !== tree.name) {
-      console.log(file.name)
-      const parsedTree = parseStringToTree(file.content)
-      console.log(file)
-      dispatch(set({ tree: parsedTree, name: file.name }))
+      const parsedTree = parseStringToTree(file.content);
+      dispatch(set({ ...tree, tree: parsedTree, name: file.name }));
     }
-  }
+  };
   const handleCleanClick = (e) => {
-    e.preventDefault()
-    dispatch(resetFile())
-    dispatch(resetTree())
-    dispatch(resetError())
-    document.getElementById('fileInput').value = ''
-  }
-
+    e.preventDefault();
+    dispatch(resetFile());
+    dispatch(resetTree());
+    dispatch(resetError());
+    document.getElementById('fileInput').value = '';
+    document.getElementById('normalize').checked = false;
+  };
   return (
     <>
       <Card className="w-96 bg-primary p-4 rounded-none border-none">
@@ -95,42 +92,131 @@ function Dashboard() {
               PhilyApp
             </Card.Title>
           </div>
-          <div className="flex flex-col mt-12">
-            <Card.Title className="text-white items-end text-2xl">
-              Subir Arbol
+          {/**
+           * carga de archivo de arbol
+           */}
+          <div className="flex flex-col mt-10">
+            <Card.Title className="text-white items-end text-xl">
+              Generar Árbol
             </Card.Title>
             <form>
               <FileInput
                 id="fileInput"
                 className="file-input file-input-bordered file-input-neutral file-input-sm w-full file-input-rounded file"
-
-                /* className="block w-full text-sm text-white
-                file:mr-4 file:py-2 file:px-4 file:rounded-md
-                file:border-0 file:text-sm file:font-semibold
-                file:bg-neutral file:text-black
-                hover:file:bg-neutral" */
                 onChange={handleFileOnChange}
                 accept={accepts.join(',')}
                 name="fileInput"
               />
               <Button
-                className="btn btn-accent mt-2 mr-2 text-white"
+                className="btn h-8 min-h-8 btn-accent mt-2 mr-2 text-white"
                 onClick={handleLoadClick}
               >
                 cargar
               </Button>
               <Button
-                className="btn btn-error mt-2 mr-2 text-white"
+                className="btn h-8 min-h-8 btn-error mt-2 mr-2 text-white"
                 onClick={handleCleanClick}
               >
                 limpiar
               </Button>
             </form>
           </div>
+          <div className="divider"></div>
+          {/**
+           * Visualizacion de arbol
+           */}
+          <div className="flex flex-col">
+            <div id="visualizacion">
+              <Card.Title className="text-white items-end text-xl">
+                Visualización
+              </Card.Title>
+              <Card.Title className="text-white items-end text-lg mt-2">
+                rectangular
+              </Card.Title>
+              <div className="flex justify-evenly md:flex-row sm:flex-col mt-2">
+                <button
+                  className="btn h-8 min-h-8 min-w-24 bg-[#6DA2D4] border-none text-white rounded-md"
+                  onClick={() => dispatch(set({ ...tree, curveType: 'step' }))}
+                >
+                  escalon
+                </button>
+                <button
+                  className="btn h-8 min-h-8 min-w-24 bg-[#6DA2D4] border-none text-white rounded-md"
+                  onClick={() => dispatch(set({ ...tree, curveType: 'curve' }))}
+                >
+                  suave
+                </button>
+                <button
+                  className="btn h-8 min-h-8 min-w-24 bg-[#6DA2D4] border-none text-white rounded-md"
+                  onClick={() =>
+                    dispatch(set({ ...tree, curveType: 'slanted' }))
+                  }
+                >
+                  inclinado
+                </button>
+              </div>
+            </div>
+            <Card.Title className="text-white items-end text-lg mt-2">
+              circular
+            </Card.Title>
+            <div className="flex justify-evenly md:flex-row sm:flex-col mt-2">
+              <button
+                className="btn h-8 min-h-8 min-w-36 bg-[#6DA2D4] border-none text-white rounded-md"
+                onClick={() =>
+                  dispatch(set({ ...tree, curveType: 'circular' }))
+                }
+              >
+                circular
+              </button>
+              <button
+                className="btn h-8 min-h-8 min-w-36 bg-[#6DA2D4] border-none text-white rounded-md"
+                onClick={() =>
+                  dispatch(set({ ...tree, curveType: 'circular-step' }))
+                }
+              >
+                circular-step
+              </button>
+            </div>
+
+            <label className="cursor-pointer label">
+              <span className="label-text text-white text-lg mt-2">
+                Profundidad
+              </span>
+              <input
+                type="checkbox"
+                className="toggle toggle-secondary"
+                id='normalize'
+                value={tree.normalize}
+                onClick={(e) =>
+                  dispatch(set({ ...tree, normalize: e.target.checked }))
+                }
+              />
+            </label>
+            <label className="cursor-pointer label">
+              <span className="label-text text-white text-lg mt-2 mr-2">
+                Ángulo
+              </span>
+              <input
+                type="range"
+                min={10}
+                max={360}
+                defaultValue={360}
+                disabled={tree.curveType !== 'circular' && tree.curveType !== 'circular-step'}
+
+                className="range range-secondary mr-2 disabled:opacity-50"
+                onClick={(e) => {
+                  dispatch(set({ ...tree, angle: e.target.value }));
+                }}
+                onChange={(e) => {
+                  dispatch(set({ ...tree, angle: e.target.value }));
+                }}
+              />
+            </label>
+          </div>
         </div>
       </Card>
     </>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;

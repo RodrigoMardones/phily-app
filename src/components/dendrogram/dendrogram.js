@@ -1,100 +1,138 @@
-import { useMemo } from 'react'
-import { v4 as uuidv4 } from 'uuid'
+import { useCallback, useMemo } from 'react'
 import * as d3 from 'd3'
+import { dendrogramGenerator, drawCurve, transformSVG, MARGIN } from './utils'
 
-const MARGIN = { top: 200, right: 200, bottom: 200, left: 200, margin: 70 }
-const actualDirection = (type, node) => {
-  let actualpos = {
-    x: 0,
-    y: 0,
-  }
-  switch (type) {
-    case 'horizontal':
-      actualpos.x = node.y
-      actualpos.y = node.x
-      return actualpos
-    default:
-      actualpos.x = node.y
-      actualpos.y = node.x
-      return actualpos
-  }
-}
 
-export default function Dendrogram({ data, width, height, type }) {
-  console.log(data)
+export default function Dendrogram({
+  data,
+  width,
+  height,
+  normalize,
+  curveType,
+  angle
+}) {
   const hierarchy = useMemo(() => {
-    return d3.hierarchy(data)
+    const HierarchyCreated = d3.hierarchy(data)
+    HierarchyCreated.sort((a, b) => d3.ascending(a.data.name, b.data.name))
+    return HierarchyCreated
   }, [data])
+
+  const radius = useMemo(() => {
+    return Math.min(width, height) / 2 - MARGIN
+  }, [width, height])
+
+  const[curve, transform] = useMemo(() => {
+    return [drawCurve(curveType), transformSVG(curveType, radius)]
+  }, [curveType, radius])	
+
   const dendrogram = useMemo(() => {
-    const dendrogramGenerator = d3.tree().nodeSize([width, height])
-    hierarchy.sort((a, b) => d3.ascending(a.data.name, b.data.name))
-    return dendrogramGenerator(hierarchy)
-  }, [hierarchy, width, height])
-
-  const allNodes = dendrogram.descendants().map((node) => {
-    const actualpos = actualDirection(type, node)
-    return (
-      <g key={`node-${type}-${uuidv4()}`}>
-        <circle
-          cx={actualpos.x}
-          cy={actualpos.y}
-          r={5}
-          stroke="transparent"
-          fill={'#69b3a2'}
-        />
-        <text
-          x={actualpos.x}
-          y={actualpos.y}
-          fontSize={24}
-          textAnchor={node.children ? 'end' : 'start'}
-          alignmentBaseline="central"
-          transform={type === 'vertical' ? 'translate(0,20)' : ''}
-        >
-          {node.data.name}
-        </text>
-      </g>
-    )
-  })
-
-  let direction
-  if (type === 'horizontal') {
-    direction = d3.linkHorizontal()
-  }
-  const allEdges = dendrogram.descendants().map((node) => {
-    if (!node.parent) {
-      return null
-    }
-    let LinkObject
-    if (type === 'horizontal') {
-      LinkObject = {
-        source: [node.parent.y, node.parent.x],
-        target: [node.y, node.x],
+    const dendogramCreated = dendrogramGenerator(width, height, normalize, curveType, angle)
+    return dendogramCreated(hierarchy)
+  }, [hierarchy, width, height, normalize, curveType, angle])
+  console.log(dendrogram)
+  console.log("count: " + dendrogram.depth )
+  // podria separar esto en otros componentes
+  const renderNode = useCallback(
+    (node, nodeIndex) => {
+      if (curveType === 'circular' || curveType === 'circular-step') {
+        const turnLabelUpsideDown = node.x > 180
+        return (
+          <g
+            key={`node-${nodeIndex}`}
+            transform={`rotate(${node.x - 90})translate(${node.y})`}
+          >
+            <circle cx={0} cy={0} r={10} stroke="transparent" fill="#69b3a2" />
+            {!node.children && (
+              <text
+                x={turnLabelUpsideDown ? -15 : 15}
+                y={0}
+                fontSize={12}
+                textAnchor={turnLabelUpsideDown ? 'end' : 'start'}
+                transform={turnLabelUpsideDown ? 'rotate(180)' : 'rotate(0)'}
+                alignmentBaseline="middle"
+              >
+                {node.data.name}
+              </text>
+            )}
+          </g>
+        )
       }
-    }
-    if (type === 'vertical') {
-      LinkObject = {
-        source: [node.parent.x, node.parent.y],
-        target: [node.x, node.y],
+
+      return (
+        <g key={`node-${nodeIndex}`}>
+          <circle
+            cx={node.y}
+            cy={node.x}
+            r={20}
+            stroke="transparent"
+            fill={'#69b3a2'}
+          />
+          <text
+            x={node.y + 30}
+            y={node.x}
+            fontSize={48}
+            textAnchor={node.children ? 'end' : 'start'}
+            alignmentBaseline="central"
+          >
+            {node.data.name}
+          </text>
+        </g>
+      )
+    },
+    [normalize, curveType]
+  )
+
+  const renderEdges = useCallback(
+    (link,indexLink) => {
+      if (curveType === 'circular' || curveType === 'circular-step') {
+        if (link?.source?.depth === 0) {
+          return (
+            <g
+              key={`link-${indexLink}`}
+              transform={'rotate(' + (link.target.x - 90) + ')'}
+            >
+              <line x1={0} y1={0} x2={link.target.y} y2={0} stroke="grey" />;
+            </g>
+          )
+        }
+        return (
+          <path
+            key={`link-${indexLink}`}
+            fill="none"
+            stroke="#555"
+            d={curve(link) || undefined}
+          />
+        )
+      } else {
+        if (!link.source) {
+          return null
+        }
+        return (
+          <path
+            fill="none"
+            stroke="#555"
+            strokeOpacity={1}
+            strokeWidth={2}
+            key={`link-${indexLink}`}
+            d={curve({
+              source: [link.source.y, link.source.x],
+              target: [link.target.y, link.target.x],
+            })}
+          />
+        )
       }
-    }
-    return (
-      <path
-        fill="none"
-        stroke="#555"
-        strokeOpacity={1}
-        strokeWidth={2}
-        key={`line-${node.id}-${uuidv4()}`}
-        d={direction(LinkObject)} // revisar este campo para indicar formas geometricas
-      />
-    )
-  })
+    },
+    [normalize, curveType]
+  )
+
+  const allNodes = dendrogram.descendants().map(renderNode)
+  const allEdges = dendrogram.links().map(renderEdges)
+
+  
   return (
-    <g
-      className="w-full h-full"
-      transform={`translate(${[MARGIN.left, MARGIN.top].join(',')})`}
-    >
-      {allNodes}
+    <g transform={transform}>
       {allEdges}
+      {allNodes}
     </g>
   )
 }
