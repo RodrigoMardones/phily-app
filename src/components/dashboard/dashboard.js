@@ -92,18 +92,17 @@ function Dashboard() {
           {/**
            * carga de archivo de arbol
            */}
-          <div className="flex flex-col mt-10">
+          <div className="flex flex-col mt-5">
             <Card.Title className="text-white items-end text-md">
               Generar Árbol
             </Card.Title>
             <form>
-              <div className="">
-                <label className="label label-text bg-[#FAEECC] rounded text-[#000000] text-opacity-40 min-w-4 mb-2 mt-2">
+              <div>
+                <label className="label label-text bg-[#FAEECC] rounded text-[#000000] text-opacity-40 min-w-3 mb-2 mt-2 h-8">
                   {file.name ? file.name : 'Adjunta tu archivo'}
                   {!file.name ? (
                     <>
                       <input
-                        className="file-input file-input-bordered file-input-neutral file-input-xs w-full file-input-rounded min-w-8"
                         type="file"
                         name="fileInput"
                         id="fileInput"
@@ -134,7 +133,7 @@ function Dashboard() {
            * Visualizacion de arbol
            */}
           <div className="flex flex-col">
-            <div id="visualizacion">
+            <div id="visualization">
               <Card.Title className="text-white items-end text-md">
                 Visualización
               </Card.Title>
@@ -185,7 +184,6 @@ function Dashboard() {
                 circular escalonado
               </button>
             </div>
-
             <label className="cursor-pointer label">
               <span className="label-text text-white text-lg mt-2">
                 Profundidad
@@ -223,6 +221,24 @@ function Dashboard() {
                 }}
               />
             </label>
+            <div className="divider"></div>
+            <div id="export">
+              <Card.Title className="text-white items-end text-md">
+                Exportar
+              </Card.Title>
+              <div className="flex justify-evenly md:flex-row sm:flex-col mt-2">
+                <select className="select select-bordered select-primary w-48 h-8 min-h-8 rounded-md bg-[#FAEECC]"
+                >
+                  <option>png</option>
+                  <option>svg</option>
+                  <option>pdf</option>
+                </select>
+                <button className="btn btn-secondary text-white min-h-8 h-8 w-40 mx-2">
+                  {' '}
+                  descargar{' '}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </Card>
