@@ -1,12 +1,12 @@
 import React from 'react';
-import { Button, Card, FileInput } from 'react-daisyui';
 import Image from 'next/image';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, Card } from 'react-daisyui';
 import { parseStringToTree } from '@/utils/TreeData';
-import Error from '../error/error';
 import { set, getTree, RESET as resetTree } from '../store/tree/slice';
 import { setError, getError, RESET as resetError } from '../store/error/slice';
 import { getFile, setFile, RESET as resetFile } from '../store/file/slice';
-import { useDispatch, useSelector } from 'react-redux';
+import Error from '../error/error';
 import UploadIcon from '../icons/upload';
 import DeleteIcon from '../icons/delete';
 const accepts = ['.nwk'];
@@ -229,6 +229,7 @@ function Dashboard() {
               <div className="flex justify-evenly md:flex-row sm:flex-col mt-2">
                 <select className="select select-bordered select-primary w-48 h-8 min-h-8 rounded-md bg-[#FAEECC]"
                 >
+                  {/** revisar como ocupar esto para seleccionar la opcion y exportar al formato pedido */}
                   <option>png</option>
                   <option>svg</option>
                   <option>pdf</option>
