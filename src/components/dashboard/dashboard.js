@@ -8,6 +8,7 @@ import { setError, getError, RESET as resetError } from '../store/error/slice';
 import { getFile, setFile, RESET as resetFile } from '../store/file/slice';
 import { useDispatch, useSelector } from 'react-redux';
 import UploadIcon from '../icons/upload';
+import DeleteIcon from '../icons/delete';
 const accepts = ['.nwk'];
 
 function Dashboard() {
@@ -74,7 +75,6 @@ function Dashboard() {
     dispatch(resetFile());
     dispatch(resetTree());
     dispatch(resetError());
-    document.getElementById('fileInput').value = '';
     document.getElementById('normalize').checked = false;
     document.getElementById('angle').value = 360;
   };
@@ -83,14 +83,9 @@ function Dashboard() {
       <Card className="w-96 bg-primary p-4 rounded-none border-none">
         <Error message={error.message} open={error.open} />
         <div className="grid grid-cols-1">
-          <div className="flex flex-row">
-            <Image
-              src="/phyliApp.jpg"
-              width={86}
-              height={82}
-              className="bg-white rounded-full"
-            />
-            <Card.Title className="text-white ml-2 items-end text-4xl">
+          <div className="flex flex-row items-center">
+            <Image src="/tree.svg" width={86} height={82} className="invert" />
+            <Card.Title className="text-white ml-2 items-end text-4xl align-middle">
               PhilyApp
             </Card.Title>
           </div>
@@ -102,35 +97,35 @@ function Dashboard() {
               Generar Árbol
             </Card.Title>
             <form>
-              
-              <div className=''>
-                <label className='label label-text bg-[#FAEECC] rounded text-[#000000] text-opacity-40 min-w-4 mb-2 mt-2'>
+              <div className="">
+                <label className="label label-text bg-[#FAEECC] rounded text-[#000000] text-opacity-40 min-w-4 mb-2 mt-2">
                   {file.name ? file.name : 'Adjunta tu archivo'}
-                  <input
-                    className='file-input file-input-bordered file-input-neutral file-input-xs w-full file-input-rounded min-w-8'
-                    type='file'
-                    name='fileInput'
-                    id='fileInput'
-                    onChange={handleFileOnChange}
-                    accept={accepts.join(',')}
-                    hidden
-                  />
-                  <UploadIcon />
+                  {!file.name ? (
+                    <>
+                      <input
+                        className="file-input file-input-bordered file-input-neutral file-input-xs w-full file-input-rounded min-w-8"
+                        type="file"
+                        name="fileInput"
+                        id="fileInput"
+                        onChange={handleFileOnChange}
+                        accept={accepts.join(',')}
+                        hidden
+                      />
+                      <UploadIcon />
+                    </>
+                  ) : (
+                    <button onClick={handleCleanClick}>
+                      <DeleteIcon />
+                    </button>
+                  )}
                 </label>
               </div>
-              
 
               <Button
                 className="btn h-8 min-h-8 btn-accent mt-2 mr-2 text-white"
                 onClick={handleLoadClick}
               >
                 cargar
-              </Button>
-              <Button
-                className="btn h-8 min-h-8 btn-error mt-2 mr-2 text-white"
-                onClick={handleCleanClick}
-              >
-                limpiar
               </Button>
             </form>
           </div>
@@ -197,8 +192,8 @@ function Dashboard() {
               </span>
               <input
                 type="checkbox"
-                className="toggle checked:toggle-secondary bg-error hover:bg-error border-error"
-                id='normalize'
+                className="toggle checked:toggle-secondary active:toggle-secondary"
+                id="normalize"
                 value={tree.normalize}
                 onClick={(e) =>
                   dispatch(set({ ...tree, normalize: e.target.checked }))
@@ -215,7 +210,10 @@ function Dashboard() {
                 min={10}
                 max={360}
                 defaultValue={360}
-                disabled={tree.curveType !== 'circular' && tree.curveType !== 'circular-step'}
+                disabled={
+                  tree.curveType !== 'circular' &&
+                  tree.curveType !== 'circular-step'
+                }
                 className="range range-secondary mr-2 disabled:opacity-50 disabled:bg-gray-300 disabled:cursor-not-allowed"
                 onClick={(e) => {
                   dispatch(set({ ...tree, angle: e.target.value }));

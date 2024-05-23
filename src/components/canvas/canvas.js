@@ -17,6 +17,7 @@ const Canvas = () => {
     <Card className="bg-white m-4 rounded-none border-none w-5/6">
       <div className="flex justify-center items-center h-full">
           <ZoomableSVG>
+            { name &&
             <Dendrogram
               key={key}
               data={tree}
@@ -28,7 +29,7 @@ const Canvas = () => {
               normalize={normalize}
               curveType={curveType}
               angle={angle}
-            />
+            />}
           </ZoomableSVG>
       </div>
     </Card>
