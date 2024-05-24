@@ -1,4 +1,4 @@
-import React from 'react';
+import { forwardRef } from 'react';
 import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Card } from 'react-daisyui';
@@ -9,15 +9,17 @@ import { getFile, setFile, RESET as resetFile } from '../store/file/slice';
 import Error from '../error/error';
 import UploadIcon from '../icons/upload';
 import DeleteIcon from '../icons/delete';
+import { exportAsDocument } from '../dendrogram/utils';
 const accepts = ['.nwk'];
 
-function Dashboard() {
+
+const Dashboard = (props, ref) => {
   let fileReader;
   const dispatch = useDispatch();
   const tree = useSelector(getTree);
   const file = useSelector(getFile);
   const error = useSelector(getError);
-
+  
   const handleFileRead = () => {
     dispatch(
       setFile({
@@ -234,7 +236,7 @@ function Dashboard() {
                   <option>svg</option>
                   <option>pdf</option>
                 </select>
-                <button className="btn btn-secondary text-white min-h-8 h-8 w-40 mx-2">
+                <button className="btn btn-secondary text-white min-h-8 h-8 w-40 mx-2" onClick={() => {}}>
                   {' '}
                   descargar{' '}
                 </button>
@@ -246,5 +248,5 @@ function Dashboard() {
     </>
   );
 }
-
-export default Dashboard;
+const WrappedDashboard = forwardRef(Dashboard);
+export default WrappedDashboard;

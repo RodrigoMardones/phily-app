@@ -1,16 +1,16 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, forwardRef } from 'react'
 import * as d3 from 'd3'
 import { dendrogramGenerator, drawCurve, transformSVG, MARGIN } from './utils'
 
 
-export default function Dendrogram({
+const Dendrogram = ({
   data,
   width,
   height,
   normalize,
   curveType,
-  angle
-}) {
+  angle,
+}, ref) => {
   const hierarchy = useMemo(() => {
     const HierarchyCreated = d3.hierarchy(data)
     HierarchyCreated.sort((a, b) => d3.ascending(a.data.name, b.data.name))
@@ -29,7 +29,6 @@ export default function Dendrogram({
     const dendogramCreated = dendrogramGenerator(width, height, normalize, curveType, angle)
     return dendogramCreated(hierarchy)
   }, [hierarchy, width, height, normalize, curveType, angle])
-  
   // podria separar esto en otros componentes
   const renderNode = useCallback(
     (node, nodeIndex) => {
@@ -135,3 +134,6 @@ export default function Dendrogram({
     </g>
   )
 }
+
+const wrappedDendrogram = forwardRef(Dendrogram)
+export default wrappedDendrogram;
