@@ -9,7 +9,7 @@ import { getFile, setFile, RESET as resetFile } from '../store/file/slice';
 import Error from '../error/error';
 import UploadIcon from '../icons/upload';
 import DeleteIcon from '../icons/delete';
-const accepts = ['.nwk'];
+const accepts = ['.nwk', ".json"];
 
 const Dashboard = (props, ref) => {
   let fileReader;
@@ -24,10 +24,12 @@ const Dashboard = (props, ref) => {
   };
 
   const handleFileRead = () => {
+    const extension = fileReader.name.split('.').pop();
     dispatch(
       setFile({
         name: fileReader.name,
         content: fileReader.result,
+        extension: extension,
       })
     );
   };
@@ -71,8 +73,14 @@ const Dashboard = (props, ref) => {
      * 3. File loaded first time
      */
     if (file.name !== tree.name) {
-      const parsedTree = parseStringToTree(file.content);
-      dispatch(set({ ...tree, tree: parsedTree, name: file.name }));
+      if(file.extension == 'json'){
+        console.log(file.content);
+        dispatch(set({ ...tree, tree: JSON.parse(file.content), name: file.name }))
+      }
+      if(file.extension == 'nwk'){
+        const parsedTree = parseStringToTree(file.content);
+        dispatch(set({ ...tree, tree: parsedTree, name: file.name }));
+      }
     }
   };
   const handleCleanClick = (e) => {
@@ -101,7 +109,6 @@ const Dashboard = (props, ref) => {
     if (download === 'png') {
       // under construction
     }
-    console.log(download);
   };
   return (
     <>
