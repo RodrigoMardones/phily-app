@@ -9,7 +9,7 @@ import { getFile, setFile, RESET as resetFile } from '../store/file/slice';
 import Error from '../error/error';
 import UploadIcon from '../icons/upload';
 import DeleteIcon from '../icons/delete';
-const accepts = ['.nwk', ".json"];
+const accepts = ['.nwk', '.json'];
 
 const Dashboard = (props, ref) => {
   let fileReader;
@@ -72,12 +72,15 @@ const Dashboard = (props, ref) => {
     /**
      * 3. File loaded first time
      */
+    // validar format antes de cargar completo
     if (file.name !== tree.name) {
-      if(file.extension == 'json'){
+      if (file.extension == 'json') {
         console.log(file.content);
-        dispatch(set({ ...tree, tree: JSON.parse(file.content), name: file.name }))
+        dispatch(
+          set({ ...tree, tree: JSON.parse(file.content), name: file.name })
+        );
       }
-      if(file.extension == 'nwk'){
+      if (file.extension == 'nwk') {
         const parsedTree = parseStringToTree(file.content);
         dispatch(set({ ...tree, tree: parsedTree, name: file.name }));
       }
@@ -108,6 +111,7 @@ const Dashboard = (props, ref) => {
     }
     if (download === 'png') {
       // under construction
+      console.log(download);
     }
   };
   return (
@@ -116,7 +120,13 @@ const Dashboard = (props, ref) => {
         <Error message={error.message} open={error.open} />
         <div className="grid grid-cols-1">
           <div className="flex flex-row items-center">
-            <Image src="/tree.svg" width={86} height={82} className="invert" alt="logo"/>
+            <Image
+              src="/tree.svg"
+              width={86}
+              height={82}
+              className="invert"
+              alt="logo"
+            />
             <Card.Title className="text-white ml-2 items-end text-4xl align-middle">
               PhilyApp
             </Card.Title>

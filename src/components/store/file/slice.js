@@ -18,7 +18,6 @@ const file = createSlice({
             state.content = action.payload.content;
             state.extension = action.payload.extension;
         }
-        
     }
 });
 
