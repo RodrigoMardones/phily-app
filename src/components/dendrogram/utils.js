@@ -89,10 +89,19 @@ const downloadImage = (blob, fileName) => {
   fakeLink.remove();
 };
 
-const exportAsDocument = async (element, filename) => {
-  const canvas = await html2canvas(element);
-  const image = canvas.toDataURL('image/png', 1.0);
-  downloadImage(image, imageFileName);
+const exportAsDocument = async (ref, filename) => {
+  if(!ref.current) return;
+  if (ref.current) {
+    console.log(ref.current)
+    const canvas = await html2canvas(ref.current, {
+      allowTaint: true,
+      foreignObjectRendering: true,
+      imageTimeout: 15000,
+      logging: true,
+    });
+    const imgData = canvas.toDataURL('image/png');
+    downloadImage(imgData, filename);
+  }
 };
 
 export {

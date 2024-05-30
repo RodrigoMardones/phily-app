@@ -21,14 +21,12 @@ const Canvas = (props, ref) => {
             <Dendrogram
               key={key}
               data={tree}
-              // parte de las dimenciones base de dibujo de un arbol
-              // calcular el ancho y alto de la imagen en base a la cantidad de nodos
-              // y la cantidad de niveles
               width={width}
               height={height}
               normalize={normalize}
               curveType={curveType}
               angle={angle}
+              ref={ref}
             />
           )}
         </ZoomableSVG>

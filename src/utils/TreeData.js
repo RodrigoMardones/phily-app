@@ -6,6 +6,20 @@
 export const createBaseTree = () => {
   return {
     name: '',
+    nodeStyle: {
+      radius: 10,
+      stroke: 'transparent',
+      fill: '#69b3a2',
+    },
+    pathStyle : {
+      fill: 'none',
+      stroke: '#555',
+      strokeOpacity: 1,
+      strokeWidth: 2,
+    },
+    textStyle : {
+      fontSize: 48,
+    },
     children: [],
   }
 }

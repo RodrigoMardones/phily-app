@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Card } from 'react-daisyui';
@@ -9,9 +9,7 @@ import { getFile, setFile, RESET as resetFile } from '../store/file/slice';
 import Error from '../error/error';
 import UploadIcon from '../icons/upload';
 import DeleteIcon from '../icons/delete';
-import { exportAsDocument } from '../dendrogram/utils';
 const accepts = ['.nwk'];
-
 
 const Dashboard = (props, ref) => {
   let fileReader;
@@ -19,7 +17,12 @@ const Dashboard = (props, ref) => {
   const tree = useSelector(getTree);
   const file = useSelector(getFile);
   const error = useSelector(getError);
-  
+  const [download, setDownload] = useState('png');
+  const handleChangeSelectDownload = (e) => {
+    e.preventDefault();
+    setDownload(e.target.value);
+  };
+
   const handleFileRead = () => {
     dispatch(
       setFile({
@@ -80,13 +83,33 @@ const Dashboard = (props, ref) => {
     document.getElementById('normalize').checked = false;
     document.getElementById('angle').value = 360;
   };
+  const handleDownload = (e) => {
+    e.preventDefault();
+    if (download === 'json') {
+      const fileName = 'dendrogram';
+      const json = JSON.stringify(tree.tree, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const href = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = href;
+      link.download = fileName + '.json';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(href);
+    }
+    if (download === 'png') {
+      // under construction
+    }
+    console.log(download);
+  };
   return (
     <>
       <Card className="w-96 bg-primary p-4 rounded-none border-none">
         <Error message={error.message} open={error.open} />
         <div className="grid grid-cols-1">
           <div className="flex flex-row items-center">
-            <Image src="/tree.svg" width={86} height={82} className="invert" />
+            <Image src="/tree.svg" width={86} height={82} className="invert" alt="logo"/>
             <Card.Title className="text-white ml-2 items-end text-4xl align-middle">
               PhilyApp
             </Card.Title>
@@ -229,14 +252,18 @@ const Dashboard = (props, ref) => {
                 Exportar
               </Card.Title>
               <div className="flex justify-evenly md:flex-row sm:flex-col mt-2">
-                <select className="select select-bordered select-primary w-48 h-8 min-h-8 rounded-md bg-[#FAEECC]"
+                <select
+                  className="select select-bordered select-primary w-48 h-8 min-h-8 rounded-md bg-[#FAEECC]"
+                  onChange={handleChangeSelectDownload}
                 >
                   {/** revisar como ocupar esto para seleccionar la opcion y exportar al formato pedido */}
                   <option>png</option>
-                  <option>svg</option>
-                  <option>pdf</option>
+                  <option>json</option>
                 </select>
-                <button className="btn btn-secondary text-white min-h-8 h-8 w-40 mx-2" onClick={() => {}}>
+                <button
+                  className="btn btn-secondary text-white min-h-8 h-8 w-40 mx-2"
+                  onClick={handleDownload}
+                >
                   {' '}
                   descargar{' '}
                 </button>
@@ -247,6 +274,6 @@ const Dashboard = (props, ref) => {
       </Card>
     </>
   );
-}
+};
 const WrappedDashboard = forwardRef(Dashboard);
 export default WrappedDashboard;
