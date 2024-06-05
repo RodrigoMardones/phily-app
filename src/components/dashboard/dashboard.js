@@ -76,7 +76,6 @@ const Dashboard = (props, ref) => {
     // validar format antes de cargar completo
     if (file.name !== tree.name) {
       if (file.extension == 'json') {
-        console.log(file.content);
         dispatch(
           set({ ...tree, tree: JSON.parse(file.content), name: file.name })
         );
@@ -110,10 +109,10 @@ const Dashboard = (props, ref) => {
       URL.revokeObjectURL(href);
     }
     if (download === 'png') {
-      // under construction
-      console.log(download);
+      // under construction      
       const treeSvg = document.querySelector('#dendrogram');
-      toPng(treeSvg, { cacheBust: true, }).then((dataUrl) => {
+      console.log(treeSvg);
+      toPng(treeSvg).then((dataUrl) => {
         const link = document.createElement('a')
         link.download = `${fileName}.png`
         link.href = dataUrl
@@ -123,7 +122,8 @@ const Dashboard = (props, ref) => {
     if (download === 'svg') {
       // under construction
       const treeSvg = document.querySelector('#dendrogram');
-      toSvg(treeSvg, { cacheBust: true, }).then((dataUrl) => {
+      console.log(treeSvg);
+      toSvg(treeSvg).then((dataUrl) => {
         const link = document.createElement('a')
         link.download = `${fileName}.svg`
         link.href = dataUrl
