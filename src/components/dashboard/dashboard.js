@@ -66,6 +66,7 @@ const Dashboard = (props, ref) => {
               <Button
                 className="h-8 mt-2 mr-2 text-white btn min-h-8 btn-accent"
                 onClick={handleLoadClick}
+                disabled={!file.name}
               >
                 cargar
               </Button>
