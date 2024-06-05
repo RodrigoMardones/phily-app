@@ -14,8 +14,8 @@ const Canvas = (props, ref) => {
   }, [normalize, curveType, name, angle, angle, width, height]);
 
   return (
-    <Card className="bg-white m-4 rounded-none border-none w-5/6">
-      <div className="flex justify-center items-center h-full">
+    <Card className="w-5/6 m-4 bg-white border-none rounded-none" id='treeSvg'>
+      <div className="flex items-center justify-center h-full">
         <ZoomableSVG>
           {name && (
             <Dendrogram

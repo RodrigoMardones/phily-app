@@ -9,6 +9,7 @@ import { getFile, setFile, RESET as resetFile } from '../store/file/slice';
 import Error from '../error/error';
 import UploadIcon from '../icons/upload';
 import DeleteIcon from '../icons/delete';
+import { toPng } from 'html-to-image';
 const accepts = ['.nwk', '.json'];
 
 const Dashboard = (props, ref) => {
@@ -94,9 +95,9 @@ const Dashboard = (props, ref) => {
     document.getElementById('normalize').checked = false;
     document.getElementById('angle').value = 360;
   };
-  const handleDownload = (e) => {
-    e.preventDefault();
-    if (download === 'json') {
+  const handleDownload = (type) => {
+    
+    if (type === 'json') {
       const fileName = 'dendrogram';
       const json = JSON.stringify(tree.tree, null, 2);
       const blob = new Blob([json], { type: 'application/json' });
@@ -109,14 +110,21 @@ const Dashboard = (props, ref) => {
       document.body.removeChild(link);
       URL.revokeObjectURL(href);
     }
-    if (download === 'png') {
-      // under construction
-      console.log(download);
+    if (type === 'png') {
+      let treeSvg = document.querySelector('#treeSvg')
+
+      toPng(treeSvg)
+        .then((dataUrl) => {
+          let link = document.createElement('a');
+          link.download = 'tree.png';
+          link.href = dataUrl;
+          link.click()
+        })
     }
   };
   return (
     <>
-      <Card className="w-96 bg-primary p-4 rounded-none border-none">
+      <Card className="p-4 border-none rounded-none w-96 bg-primary">
         <Error message={error.message} open={error.open} />
         <div className="grid grid-cols-1">
           <div className="flex flex-row items-center">
@@ -127,7 +135,7 @@ const Dashboard = (props, ref) => {
               className="invert"
               alt="logo"
             />
-            <Card.Title className="text-white ml-2 items-end text-4xl align-middle">
+            <Card.Title className="items-end ml-2 text-4xl text-white align-middle">
               PhilyApp
             </Card.Title>
           </div>
@@ -135,7 +143,7 @@ const Dashboard = (props, ref) => {
            * carga de archivo de arbol
            */}
           <div className="flex flex-col mt-5">
-            <Card.Title className="text-white items-end text-md">
+            <Card.Title className="items-end text-white text-md">
               Generar Árbol
             </Card.Title>
             <form>
@@ -163,7 +171,7 @@ const Dashboard = (props, ref) => {
               </div>
 
               <Button
-                className="btn h-8 min-h-8 btn-accent mt-2 mr-2 text-white"
+                className="h-8 mt-2 mr-2 text-white btn min-h-8 btn-accent"
                 onClick={handleLoadClick}
               >
                 cargar
@@ -176,13 +184,13 @@ const Dashboard = (props, ref) => {
            */}
           <div className="flex flex-col">
             <div id="visualization">
-              <Card.Title className="text-white items-end text-md">
+              <Card.Title className="items-end text-white text-md">
                 Visualización
               </Card.Title>
-              <Card.Title className="text-white items-end text-lg mt-2">
+              <Card.Title className="items-end mt-2 text-lg text-white">
                 Lateral
               </Card.Title>
-              <div className="flex justify-evenly md:flex-row sm:flex-col mt-2">
+              <div className="flex mt-2 justify-evenly md:flex-row sm:flex-col">
                 <button
                   className="btn h-8 min-h-8 min-w-24 bg-[#6DA2D4] border-none text-white rounded-md"
                   onClick={() => dispatch(set({ ...tree, curveType: 'step' }))}
@@ -205,10 +213,10 @@ const Dashboard = (props, ref) => {
                 </button>
               </div>
             </div>
-            <Card.Title className="text-white items-end text-lg mt-2">
+            <Card.Title className="items-end mt-2 text-lg text-white">
               circular
             </Card.Title>
-            <div className="flex justify-evenly md:flex-row sm:flex-col mt-2">
+            <div className="flex mt-2 justify-evenly md:flex-row sm:flex-col">
               <button
                 className="btn h-8 min-h-8 min-w-36 bg-[#6DA2D4] border-none text-white rounded-md"
                 onClick={() =>
@@ -227,7 +235,7 @@ const Dashboard = (props, ref) => {
               </button>
             </div>
             <label className="cursor-pointer label">
-              <span className="label-text text-white text-lg mt-2">
+              <span className="mt-2 text-lg text-white label-text">
                 Profundidad
               </span>
               <input
@@ -241,7 +249,7 @@ const Dashboard = (props, ref) => {
               />
             </label>
             <label className="cursor-pointer label">
-              <span className="label-text text-white text-lg mt-2 mr-2">
+              <span className="mt-2 mr-2 text-lg text-white label-text">
                 Ángulo
               </span>
               <input
@@ -254,7 +262,7 @@ const Dashboard = (props, ref) => {
                   tree.curveType !== 'circular' &&
                   tree.curveType !== 'circular-step'
                 }
-                className="range range-secondary mr-2 disabled:opacity-50 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                className="mr-2 range range-secondary disabled:opacity-50 disabled:bg-gray-300 disabled:cursor-not-allowed"
                 onClick={(e) => {
                   dispatch(set({ ...tree, angle: e.target.value }));
                 }}
@@ -265,10 +273,10 @@ const Dashboard = (props, ref) => {
             </label>
             <div className="divider"></div>
             <div id="export">
-              <Card.Title className="text-white items-end text-md">
+              <Card.Title className="items-end text-white text-md">
                 Exportar
               </Card.Title>
-              <div className="flex justify-evenly md:flex-row sm:flex-col mt-2">
+              <div className="flex mt-2 justify-evenly md:flex-row sm:flex-col">
                 <select
                   className="select select-bordered select-primary w-48 h-8 min-h-8 rounded-md bg-[#FAEECC]"
                   onChange={handleChangeSelectDownload}
@@ -278,8 +286,8 @@ const Dashboard = (props, ref) => {
                   <option>json</option>
                 </select>
                 <button
-                  className="btn btn-secondary text-white min-h-8 h-8 w-40 mx-2"
-                  onClick={handleDownload}
+                  className="w-40 h-8 mx-2 text-white btn btn-secondary min-h-8"
+                  onClick={() => handleDownload('png')}
                 >
                   {' '}
                   descargar{' '}
