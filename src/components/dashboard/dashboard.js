@@ -5,10 +5,11 @@ import { set, getTree, RESET as resetTree } from '../store/tree/slice';
 import { getError, RESET as resetError } from '../store/error/slice';
 import { getFile, RESET as resetFile } from '../store/file/slice';
 import useDownload from './hooks/useDownload';
+import useUpload from './hooks/useUpload';
 import Error from '../error/error';
 import UploadIcon from '../icons/upload';
 import DeleteIcon from '../icons/delete';
-import useUpload from './hooks/useUpload';
+import DownloadIcon from '../icons/download';
 const accepts = ['.nwk', '.json'];
 
 const Dashboard = () => {
@@ -189,6 +190,8 @@ const Dashboard = () => {
                   className="select select-bordered select-primary w-48 h-8 min-h-8 rounded-md bg-[#FAEECC]"
                   defaultValue={download}
                   onChange={handleChangeSelectDownload}
+                  disabled={!file.name}
+
                 >
                   {/** revisar como ocupar esto para seleccionar la opcion y exportar al formato pedido */}
                   <option>png</option>
@@ -203,6 +206,7 @@ const Dashboard = () => {
                 >
                   {' '}
                   descargar{' '}
+                  <DownloadIcon className={"invert"}/>
                 </button>
               </div>
             </div>

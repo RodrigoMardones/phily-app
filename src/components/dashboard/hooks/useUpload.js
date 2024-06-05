@@ -3,11 +3,11 @@ import { useDispatch } from 'react-redux';
 import { setError } from '../../store/error/slice';
 import { getFile, setFile } from '../../store/file/slice';
 import { set, getTree } from '../../store/tree/slice';
-import { parseStringToTree } from '@/utils/TreeData';
+import { parseStringToTree, getDepth } from '@/utils/TreeData';
 
 const useUpload = () => {
   let fileReader;
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const file = useSelector(getFile);
   const tree = useSelector(getTree);
 
@@ -63,13 +63,39 @@ const useUpload = () => {
     // validar format antes de cargar completo
     if (file.name !== tree.name) {
       if (file.extension == 'json') {
+        const jsonFile = JSON.parse(file.content);
+        console.log(jsonFile)
+        const depth = getDepth();
+        const width = 100 * depth;
+        const height = 100 * depth;
+        console.log(width, height)
         dispatch(
-          set({ ...tree, tree: JSON.parse(file.content), name: file.name })
+          set({
+            ...tree,
+            tree: JSON.parse(file.content),
+            name: file.name,
+            width,
+            height,
+          })
         );
       }
       if (file.extension == 'nwk') {
         const parsedTree = parseStringToTree(file.content);
-        dispatch(set({ ...tree, tree: parsedTree, name: file.name }));
+        console.log(parsedTree)
+        const depth = getDepth(parsedTree);
+        console.log(depth)
+        const width = 100 * depth;
+        const height = 100 * depth;
+        console.log(width, height)
+        dispatch(
+          set({
+            ...tree,
+            tree: parsedTree,
+            name: file.name,
+            width: width,
+            height: height,
+          })
+        );
       }
     }
   };

@@ -10,7 +10,11 @@ const useDownload = () => {
     e.preventDefault();
     setDownload(e.target.value);
   };
-
+  const customConfig = {
+    width: 1000,
+    heigth: 1000,
+    quality: 1,
+  }
   const handleDownload = () => {
     const fileName = 'my-dendrogram';
     if (download === 'json') {
@@ -45,7 +49,7 @@ const useDownload = () => {
     }
     if (download === 'jpeg') {
       let treeSvg = document.querySelector('#dendrogram');
-      toSvg(treeSvg).then((dataUrl) => {
+      toSvg(treeSvg, customConfig).then((dataUrl) => {
         let link = document.createElement('a');
         link.download = `${fileName}.svg`;
         link.href = dataUrl;
