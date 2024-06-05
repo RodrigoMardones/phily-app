@@ -21,6 +21,8 @@ const treeSlice = createSlice({
       state.curveType = action.payload.curveType
       state.tree = action.payload.tree 
       state.angle = action.payload.angle
+      state.width = action.payload.width
+      state.height = action.payload.height
     }
   },
 })

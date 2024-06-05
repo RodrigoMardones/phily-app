@@ -1,20 +1,35 @@
-import { forwardRef } from 'react';
 import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Card } from 'react-daisyui';
-
+import { set, getTree, RESET as resetTree } from '../store/tree/slice';
+import { getError, RESET as resetError } from '../store/error/slice';
+import { getFile, RESET as resetFile } from '../store/file/slice';
+import useDownload from './hooks/useDownload';
+import useUpload from './hooks/useUpload';
 import Error from '../error/error';
 import UploadIcon from '../icons/upload';
 import DeleteIcon from '../icons/delete';
-import useDownload from './hooks/useDownload';
-import useUploadFile from './hooks/useUploadFile';
+import DownloadIcon from '../icons/download';
 const accepts = ['.nwk', '.json'];
 
-const Dashboard = (props, ref) => {
+const Dashboard = () => {
+  const dispatch = useDispatch();
+  const tree = useSelector(getTree);
+  const file = useSelector(getFile);
+  const error = useSelector(getError);
+  const { download, handleChangeSelectDownload, handleDownload } = useDownload();
+  const { handleFileOnChange, handleLoadClick } = useUpload();
 
-  const { handleDownload, handleChangeSelectDownload } = useDownload()
-  const { tree, error, file, handleCleanClick, handleFileOnChange, handleLoadClick } = useUploadFile()
-
+  
+  const handleCleanClick = (e) => {
+    e.preventDefault();
+    dispatch(resetFile());
+    dispatch(resetTree());
+    dispatch(resetError());
+    document.getElementById('normalize').checked = false;
+    document.getElementById('angle').value = 360;
+  };
+  
   return (
     <>
       <Card className="p-4 border-none rounded-none w-96 bg-primary">
@@ -173,18 +188,25 @@ const Dashboard = (props, ref) => {
               <div className="flex mt-2 justify-evenly md:flex-row sm:flex-col">
                 <select
                   className="select select-bordered select-primary w-48 h-8 min-h-8 rounded-md bg-[#FAEECC]"
+                  defaultValue={download}
                   onChange={handleChangeSelectDownload}
+                  disabled={!file.name}
+
                 >
                   {/** revisar como ocupar esto para seleccionar la opcion y exportar al formato pedido */}
                   <option>png</option>
+                  <option>svg</option>
+                  <option>jpeg</option>
                   <option>json</option>
                 </select>
                 <button
                   className="w-40 h-8 mx-2 text-white btn btn-secondary min-h-8"
                   onClick={handleDownload}
+                  disabled={!file.name}
                 >
                   {' '}
                   descargar{' '}
+                  <DownloadIcon className={"invert"}/>
                 </button>
               </div>
             </div>
@@ -194,5 +216,5 @@ const Dashboard = (props, ref) => {
     </>
   );
 };
-const WrappedDashboard = forwardRef(Dashboard);
-export default WrappedDashboard;
+
+export default Dashboard;

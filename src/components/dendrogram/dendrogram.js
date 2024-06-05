@@ -2,7 +2,7 @@ import { useCallback, useMemo, forwardRef } from 'react';
 import * as d3 from 'd3';
 import { dendrogramGenerator, drawCurve, transformSVG, MARGIN } from './utils';
 
-const Dendrogram = ({ data, width, height, normalize, curveType, angle }, ref) => {
+const Dendrogram = ({ data, width, height, normalize, curveType, angle }) => {
   const hierarchy = useMemo(() => {
     const HierarchyCreated = d3.hierarchy(data);
     HierarchyCreated.sort((a, b) => d3.ascending(a.data.name, b.data.name));
@@ -143,11 +143,10 @@ const Dendrogram = ({ data, width, height, normalize, curveType, angle }, ref) =
 
   return (
     
-      <g transform={transform} ref={ref}>
+      <g transform={transform}>
         {allEdges}
         {allNodes}
       </g>
   );
 };
-const forwardDendrogram = forwardRef(Dendrogram);
-export default forwardDendrogram;
+export default Dendrogram;
