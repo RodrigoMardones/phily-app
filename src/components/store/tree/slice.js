@@ -4,7 +4,7 @@ const initialState = {
   name: '',
   normalize: false,
   curveType: 'step',
-  angle: 0,
+  angle: 360,
   width: 600,
   height: 600,
   tree: createBaseTree(),
@@ -21,6 +21,8 @@ const treeSlice = createSlice({
       state.curveType = action.payload.curveType
       state.tree = action.payload.tree 
       state.angle = action.payload.angle
+      state.width = action.payload.width
+      state.height = action.payload.height
     }
   },
 })

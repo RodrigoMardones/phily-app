@@ -4,18 +4,20 @@ const file = createSlice({
     name: 'file',
     initialState: {
         name: '',
-        content: ''
+        content: '',
+        extension: ''
     },
     reducers : {
         RESET: () => ({
             name: '',
-            content: ''
+            content: '',
+            extension: ''
         }),
         setFile: (state, action) => {
             state.name = action.payload.name;
             state.content = action.payload.content;
+            state.extension = action.payload.extension;
         }
-        
     }
 });
 

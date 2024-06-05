@@ -6,6 +6,20 @@
 export const createBaseTree = () => {
   return {
     name: '',
+    nodeStyle: {
+      radius: 10,
+      stroke: 'transparent',
+      fill: '#69b3a2',
+    },
+    pathStyle : {
+      fill: 'none',
+      stroke: '#555',
+      strokeOpacity: 1,
+      strokeWidth: 2,
+    },
+    textStyle : {
+      fontSize: 48,
+    },
     children: [],
   }
 }
@@ -52,4 +66,17 @@ export const parseStringToTree = (s) => {
     }
   }
   return tree
+}
+
+export const getDepth = function (obj) {
+  var depth = 0;
+  if (obj.children) {
+      obj.children.forEach(function (d) {
+          var tmpDepth = getDepth(d)
+          if (tmpDepth > depth) {
+              depth = tmpDepth
+          }
+      })
+  }
+  return 1 + depth
 }
