@@ -1,4 +1,4 @@
-import { forwardRef, useState } from 'react';
+import { forwardRef } from 'react';
 import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Card } from 'react-daisyui';
@@ -9,20 +9,18 @@ import { getFile, setFile, RESET as resetFile } from '../store/file/slice';
 import Error from '../error/error';
 import UploadIcon from '../icons/upload';
 import DeleteIcon from '../icons/delete';
-import { toPng } from 'html-to-image';
+import useDownload from './hooks/useDownload';
 const accepts = ['.nwk', '.json'];
 
 const Dashboard = (props, ref) => {
+
+  const { handleDownload, handleChangeSelectDownload } = useDownload()
+
   let fileReader;
   const dispatch = useDispatch();
   const tree = useSelector(getTree);
   const file = useSelector(getFile);
   const error = useSelector(getError);
-  const [download, setDownload] = useState('png');
-  const handleChangeSelectDownload = (e) => {
-    e.preventDefault();
-    setDownload(e.target.value);
-  };
 
   const handleFileRead = () => {
     const extension = fileReader.name.split('.').pop();
@@ -95,33 +93,7 @@ const Dashboard = (props, ref) => {
     document.getElementById('normalize').checked = false;
     document.getElementById('angle').value = 360;
   };
-  const handleDownload = (type) => {
-    
-    if (type === 'json') {
-      const fileName = 'dendrogram';
-      const json = JSON.stringify(tree.tree, null, 2);
-      const blob = new Blob([json], { type: 'application/json' });
-      const href = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = href;
-      link.download = fileName + '.json';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(href);
-    }
-    if (type === 'png') {
-      let treeSvg = document.querySelector('#treeSvg')
 
-      toPng(treeSvg)
-        .then((dataUrl) => {
-          let link = document.createElement('a');
-          link.download = 'tree.png';
-          link.href = dataUrl;
-          link.click()
-        })
-    }
-  };
   return (
     <>
       <Card className="p-4 border-none rounded-none w-96 bg-primary">
@@ -287,7 +259,7 @@ const Dashboard = (props, ref) => {
                 </select>
                 <button
                   className="w-40 h-8 mx-2 text-white btn btn-secondary min-h-8"
-                  onClick={() => handleDownload('png')}
+                  onClick={handleDownload}
                 >
                   {' '}
                   descargar{' '}
