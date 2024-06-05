@@ -5,7 +5,7 @@ import Dendrogram from '../dendrogram/dendrogram';
 import ZoomableSVG from '../zoomable/zoomable';
 import { useState, useEffect, forwardRef } from 'react';
 
-const Canvas = (props, ref) => {
+const Canvas = (ref) => {
   const [key, setKey] = useState(0);
   const { tree, normalize, curveType, name, angle, width, height } =
     useSelector(getTree);
@@ -14,7 +14,7 @@ const Canvas = (props, ref) => {
   }, [normalize, curveType, name, angle, angle, width, height]);
 
   return (
-    <Card className="bg-white m-4 rounded-none border-none w-5/6">
+    <Card className="bg-white m-4 rounded-none border-none w-5/6" id='dendrogram'>
       <div className="flex justify-center items-center h-full">
         <ZoomableSVG>
           {name && (
@@ -26,7 +26,6 @@ const Canvas = (props, ref) => {
               normalize={normalize}
               curveType={curveType}
               angle={angle}
-              ref={ref}
             />
           )}
         </ZoomableSVG>
@@ -34,5 +33,5 @@ const Canvas = (props, ref) => {
     </Card>
   );
 };
-const wrappedCanvas = forwardRef(Canvas);
-export default wrappedCanvas;
+
+export default Canvas;

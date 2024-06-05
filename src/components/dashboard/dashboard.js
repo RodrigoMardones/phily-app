@@ -1,91 +1,25 @@
-import { forwardRef, useCallback, useState } from 'react';
 import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Card } from 'react-daisyui';
-import { parseStringToTree } from '@/utils/TreeData';
 import { set, getTree, RESET as resetTree } from '../store/tree/slice';
-import { setError, getError, RESET as resetError } from '../store/error/slice';
-import { getFile, setFile, RESET as resetFile } from '../store/file/slice';
+import { getError, RESET as resetError } from '../store/error/slice';
+import { getFile, RESET as resetFile } from '../store/file/slice';
+import useDownload from './hooks/useDownload';
 import Error from '../error/error';
 import UploadIcon from '../icons/upload';
 import DeleteIcon from '../icons/delete';
-import { toPng, toSvg } from 'html-to-image';
+import useUpload from './hooks/useUpload';
 const accepts = ['.nwk', '.json'];
 
-const Dashboard = (props, ref) => {
-  let fileReader;
+const Dashboard = () => {
   const dispatch = useDispatch();
   const tree = useSelector(getTree);
   const file = useSelector(getFile);
   const error = useSelector(getError);
-  const [download, setDownload] = useState('png');
-  const handleChangeSelectDownload = (e) => {
-    e.preventDefault();
-    setDownload(e.target.value);
-  };
+  const { download, handleChangeSelectDownload, handleDownload } = useDownload();
+  const { handleFileOnChange, handleLoadClick } = useUpload();
 
-  const handleFileRead = () => {
-    const extension = fileReader.name.split('.').pop();
-    dispatch(
-      setFile({
-        name: fileReader.name,
-        content: fileReader.result,
-        extension: extension,
-      })
-    );
-  };
-  const handleFileOnChange = (e) => {
-    const files = e.target.files;
-    if (files?.length) {
-      fileReader = new FileReader();
-      fileReader.name = files[0].name;
-      fileReader.onloadend = handleFileRead;
-      fileReader.readAsText(files[0]);
-    }
-  };
-  const handleLoadClick = async (e) => {
-    /** USECASES */
-    /**
-     * 1. No file selected
-     */
-    e.preventDefault();
-    if (!file.name) {
-      dispatch(
-        setError({
-          message: 'No se ha seleccionado un archivo',
-          open: true,
-        })
-      );
-      return;
-    }
-    /**
-     * 2. File loaded twice
-     */
-    if (file.name === tree.name) {
-      dispatch(
-        setError({
-          message: 'Se ha cargado el mismo archivo',
-          open: true,
-        })
-      );
-      return;
-    }
-    /**
-     * 3. File loaded first time
-     */
-    // validar format antes de cargar completo
-    if (file.name !== tree.name) {
-      if (file.extension == 'json') {
-        dispatch(
-          set({ ...tree, tree: JSON.parse(file.content), name: file.name })
-        );
-      }
-      if (file.extension == 'nwk') {
-        const parsedTree = parseStringToTree(file.content);
-        dispatch(set({ ...tree, tree: parsedTree, name: file.name }));
-      }
-    }
-  };
+  
   const handleCleanClick = (e) => {
     e.preventDefault();
     dispatch(resetFile());
@@ -94,43 +28,7 @@ const Dashboard = (props, ref) => {
     document.getElementById('normalize').checked = false;
     document.getElementById('angle').value = 360;
   };
-  const handleDownload = useCallback(() => {
-    const fileName = 'dendrogram';
-    if (download === 'json') {
-      const json = JSON.stringify(tree.tree, null, 2);
-      const blob = new Blob([json], { type: 'application/json' });
-      const href = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = href;
-      link.download = `${fileName}.json`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(href);
-    }
-    if (download === 'png') {
-      // under construction      
-      const treeSvg = document.querySelector('#dendrogram');
-      console.log(treeSvg);
-      toPng(treeSvg).then((dataUrl) => {
-        const link = document.createElement('a')
-        link.download = `${fileName}.png`
-        link.href = dataUrl
-        link.click();
-      })
-    }
-    if (download === 'svg') {
-      // under construction
-      const treeSvg = document.querySelector('#dendrogram');
-      console.log(treeSvg);
-      toSvg(treeSvg).then((dataUrl) => {
-        const link = document.createElement('a')
-        link.download = `${fileName}.svg`
-        link.href = dataUrl
-        link.click();
-      })
-    }
-  }, [download, ref]);
+  
   return (
     <>
       <Card className="w-96 bg-primary p-4 rounded-none border-none">
@@ -182,6 +80,7 @@ const Dashboard = (props, ref) => {
               <Button
                 className="btn h-8 min-h-8 btn-accent mt-2 mr-2 text-white"
                 onClick={handleLoadClick}
+                disabled={!file.name}
               >
                 cargar
               </Button>
@@ -288,16 +187,19 @@ const Dashboard = (props, ref) => {
               <div className="flex justify-evenly md:flex-row sm:flex-col mt-2">
                 <select
                   className="select select-bordered select-primary w-48 h-8 min-h-8 rounded-md bg-[#FAEECC]"
+                  defaultValue={download}
                   onChange={handleChangeSelectDownload}
                 >
                   {/** revisar como ocupar esto para seleccionar la opcion y exportar al formato pedido */}
                   <option>png</option>
                   <option>svg</option>
+                  <option>jpeg</option>
                   <option>json</option>
                 </select>
                 <button
                   className="btn btn-secondary text-white min-h-8 h-8 w-40 mx-2"
                   onClick={handleDownload}
+                  disabled={!file.name}
                 >
                   {' '}
                   descargar{' '}
@@ -310,5 +212,5 @@ const Dashboard = (props, ref) => {
     </>
   );
 };
-const WrappedDashboard = forwardRef(Dashboard);
-export default WrappedDashboard;
+
+export default Dashboard;

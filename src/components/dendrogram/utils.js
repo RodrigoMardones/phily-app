@@ -1,5 +1,4 @@
 import * as d3 from 'd3';
-import html2canvas from 'html2canvas';
 const MARGIN = 70;
 
 function linkStep(startAngle, startRadius, endAngle, endRadius) {
@@ -89,20 +88,6 @@ const downloadImage = (blob, fileName) => {
   fakeLink.remove();
 };
 
-const exportAsDocument = async (ref, filename) => {
-  if(!ref.current) return;
-  if (ref.current) {
-    console.log(ref.current)
-    const canvas = await html2canvas(ref.current, {
-      allowTaint: true,
-      foreignObjectRendering: true,
-      imageTimeout: 15000,
-      logging: true,
-    });
-    const imgData = canvas.toDataURL('image/png');
-    downloadImage(imgData, filename);
-  }
-};
 
 export {
   linkConstant,
@@ -111,5 +96,4 @@ export {
   drawCurve,
   transformSVG,
   MARGIN,
-  exportAsDocument,
 };
