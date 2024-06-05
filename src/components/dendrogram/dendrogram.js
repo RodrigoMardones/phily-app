@@ -143,7 +143,7 @@ const Dendrogram = ({ data, width, height, normalize, curveType, angle }, ref) =
 
   return (
     
-      <g transform={transform} ref={ref}>
+      <g transform={transform} ref={ref} id='dendrogram'>
         {allEdges}
         {allNodes}
       </g>

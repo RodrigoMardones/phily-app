@@ -1,4 +1,4 @@
-import { forwardRef, useState } from 'react';
+import { forwardRef, useCallback, useState } from 'react';
 import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Card } from 'react-daisyui';
@@ -9,6 +9,7 @@ import { getFile, setFile, RESET as resetFile } from '../store/file/slice';
 import Error from '../error/error';
 import UploadIcon from '../icons/upload';
 import DeleteIcon from '../icons/delete';
+import { toPng, toSvg } from 'html-to-image';
 const accepts = ['.nwk', '.json'];
 
 const Dashboard = (props, ref) => {
@@ -94,16 +95,15 @@ const Dashboard = (props, ref) => {
     document.getElementById('normalize').checked = false;
     document.getElementById('angle').value = 360;
   };
-  const handleDownload = (e) => {
-    e.preventDefault();
+  const handleDownload = useCallback(() => {
+    const fileName = 'dendrogram';
     if (download === 'json') {
-      const fileName = 'dendrogram';
       const json = JSON.stringify(tree.tree, null, 2);
       const blob = new Blob([json], { type: 'application/json' });
       const href = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = href;
-      link.download = fileName + '.json';
+      link.download = `${fileName}.json`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -112,8 +112,25 @@ const Dashboard = (props, ref) => {
     if (download === 'png') {
       // under construction
       console.log(download);
+      const treeSvg = document.querySelector('#dendrogram');
+      toPng(treeSvg, { cacheBust: true, }).then((dataUrl) => {
+        const link = document.createElement('a')
+        link.download = `${fileName}.png`
+        link.href = dataUrl
+        link.click();
+      })
     }
-  };
+    if (download === 'svg') {
+      // under construction
+      const treeSvg = document.querySelector('#dendrogram');
+      toSvg(treeSvg, { cacheBust: true, }).then((dataUrl) => {
+        const link = document.createElement('a')
+        link.download = `${fileName}.svg`
+        link.href = dataUrl
+        link.click();
+      })
+    }
+  }, [download, ref]);
   return (
     <>
       <Card className="w-96 bg-primary p-4 rounded-none border-none">
@@ -275,6 +292,7 @@ const Dashboard = (props, ref) => {
                 >
                   {/** revisar como ocupar esto para seleccionar la opcion y exportar al formato pedido */}
                   <option>png</option>
+                  <option>svg</option>
                   <option>json</option>
                 </select>
                 <button
