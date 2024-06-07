@@ -70,6 +70,9 @@ export const parseStringToTree = (s) => {
 
 export const getDepth = function (obj) {
   var depth = 0;
+  if(!obj?.children) {
+      return 1
+  }
   if (obj.children) {
       obj.children.forEach(function (d) {
           var tmpDepth = getDepth(d)

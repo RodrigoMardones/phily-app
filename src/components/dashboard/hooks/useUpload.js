@@ -63,19 +63,13 @@ const useUpload = () => {
     // validar format antes de cargar completo
     if (file.name !== tree.name) {
       if (file.extension == 'json') {
-        const jsonFile = JSON.parse(file.content);
-        console.log(jsonFile)
-        const depth = getDepth();
-        const width = 100 * depth;
-        const height = 100 * depth;
-        console.log(width, height)
         dispatch(
           set({
             ...tree,
             tree: JSON.parse(file.content),
             name: file.name,
-            width,
-            height,
+            width: 600,
+            height: 600,
           })
         );
       }

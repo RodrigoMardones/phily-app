@@ -47,7 +47,7 @@ const useDownload = () => {
         link.click();
       });
     }
-    if (download === 'jpeg') {
+    if (download === 'svg') {
       let treeSvg = document.querySelector('#dendrogram');
       toSvg(treeSvg, customConfig).then((dataUrl) => {
         let link = document.createElement('a');
