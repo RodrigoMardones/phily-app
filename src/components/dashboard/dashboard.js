@@ -17,6 +17,7 @@ const Dashboard = () => {
   const tree = useSelector(getTree);
   const file = useSelector(getFile);
   const error = useSelector(getError);
+  const { curveType, angle } = tree;
   const { download, handleChangeSelectDownload, handleDownload } =
     useDownload();
   const { handleFileOnChange, handleLoadClick } = useUpload();
@@ -127,7 +128,7 @@ const Dashboard = () => {
             </Card.Title>
             <div className="flex justify-evenly md:flex-row sm:flex-col mt-2">
               <button
-                className="btn h-8 min-h-8 min-w-36 bg-[#6DA2D4] border-none text-white rounded-md"
+                className={`btn h-8 min-h-8 min-w-36 border-none text-white rounded-md ${curveType === 'circular' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
                 onClick={() =>
                   dispatch(set({ ...tree, curveType: 'circular' }))
                 }
@@ -166,8 +167,7 @@ const Dashboard = () => {
                 max={360}
                 defaultValue={360}
                 disabled={
-                  tree.curveType !== 'circular' &&
-                  tree.curveType !== 'circular-step'
+                  curveType !== 'circular' && curveType !== 'circular-step'
                 }
                 className="range range-secondary disabled:opacity-50 disabled:bg-gray-300 disabled:cursor-not-allowed"
                 onClick={(e) => {
