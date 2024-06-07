@@ -17,10 +17,10 @@ const Dashboard = () => {
   const tree = useSelector(getTree);
   const file = useSelector(getFile);
   const error = useSelector(getError);
-  const { download, handleChangeSelectDownload, handleDownload } = useDownload();
+  const { download, handleChangeSelectDownload, handleDownload } =
+    useDownload();
   const { handleFileOnChange, handleLoadClick } = useUpload();
 
-  
   const handleCleanClick = (e) => {
     e.preventDefault();
     dispatch(resetFile());
@@ -29,7 +29,7 @@ const Dashboard = () => {
     document.getElementById('normalize').checked = false;
     document.getElementById('angle').value = 360;
   };
-  
+
   return (
     <>
       <Card className="w-96 bg-primary p-4 rounded-none border-none">
@@ -101,19 +101,19 @@ const Dashboard = () => {
               </Card.Title>
               <div className="flex justify-evenly md:flex-row sm:flex-col mt-2">
                 <button
-                  className="btn h-8 min-h-8 min-w-24 bg-[#6DA2D4] border-none text-white rounded-md"
+                  className={`btn h-8 min-h-8 min-w-24 border-none text-white rounded-md ${curveType === 'step' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
                   onClick={() => dispatch(set({ ...tree, curveType: 'step' }))}
                 >
                   escalon
                 </button>
                 <button
-                  className="btn h-8 min-h-8 min-w-24 bg-[#6DA2D4] border-none text-white rounded-md"
+                  className={`btn h-8 min-h-8 min-w-24 border-none text-white rounded-md ${curveType === 'curve' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
                   onClick={() => dispatch(set({ ...tree, curveType: 'curve' }))}
                 >
                   suave
                 </button>
                 <button
-                  className="btn h-8 min-h-8 min-w-24 bg-[#6DA2D4] border-none text-white rounded-md"
+                  className={`btn h-8 min-h-8 min-w-24 border-none text-white rounded-md ${curveType === 'slanted' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
                   onClick={() =>
                     dispatch(set({ ...tree, curveType: 'slanted' }))
                   }
@@ -135,7 +135,7 @@ const Dashboard = () => {
                 circular
               </button>
               <button
-                className="btn h-8 min-h-8 min-w-36 bg-[#6DA2D4] border-none text-white rounded-md"
+                className={`btn h-8 min-h-8 min-w-36 border-none text-white rounded-md ${curveType === 'circular-step' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
                 onClick={() =>
                   dispatch(set({ ...tree, curveType: 'circular-step' }))
                 }
@@ -157,10 +157,8 @@ const Dashboard = () => {
                 }
               />
             </label>
-            <label className="cursor-pointer label">
-              <span className="label-text text-white text-lg mt-2 mr-2">
-                Ángulo
-              </span>
+            <label className="flex gap-2 cursor-pointer label">
+              <span className="text-white text-md label-text">Ángulo</span>
               <input
                 type="range"
                 id="angle"
@@ -171,7 +169,7 @@ const Dashboard = () => {
                   tree.curveType !== 'circular' &&
                   tree.curveType !== 'circular-step'
                 }
-                className="range range-secondary mr-2 disabled:opacity-50 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                className="range range-secondary disabled:opacity-50 disabled:bg-gray-300 disabled:cursor-not-allowed"
                 onClick={(e) => {
                   dispatch(set({ ...tree, angle: e.target.value }));
                 }}
@@ -179,6 +177,7 @@ const Dashboard = () => {
                   dispatch(set({ ...tree, angle: e.target.value }));
                 }}
               />
+              <span className="text-white text-md label-text">{angle}°</span>
             </label>
             <div className="divider"></div>
             <div id="export">
@@ -191,7 +190,6 @@ const Dashboard = () => {
                   defaultValue={download}
                   onChange={handleChangeSelectDownload}
                   disabled={!file.name}
-
                 >
                   {/** revisar como ocupar esto para seleccionar la opcion y exportar al formato pedido */}
                   <option>png</option>
@@ -205,8 +203,7 @@ const Dashboard = () => {
                   disabled={!file.name}
                 >
                   {' '}
-                  descargar{' '}
-                  <DownloadIcon className={"invert"}/>
+                  descargar <DownloadIcon className={'invert'} />
                 </button>
               </div>
             </div>
