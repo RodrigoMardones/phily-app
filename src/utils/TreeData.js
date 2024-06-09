@@ -1,3 +1,53 @@
+// TDA for tree data
+
+
+/**
+ * Create a new node style object
+ * @param {object} options - the options object
+ * @param {number} options.radius - the radius of the node
+ * @param {string} options.stroke - the stroke color of the node
+ * @param {string} options.fill - the fill color of the node
+ * @returns {object} - the node style object
+ */
+export const createBaseNodeStyle = ({radius = 10, stroke = 'transparent', fill = '#69b3a2'}) => {
+  return {
+    radius: radius,
+    stroke: stroke,
+    fill: fill,
+  }
+}
+
+/**
+ * Create a new path style object
+ * @param {object} options - the options object
+ * @param {string} options.fill - the fill color of the path
+ * @param {string} options.stroke - the stroke color of the path
+ * @param {number} options.strokeOpacity - the stroke opacity of the path
+ * @param {number} options.strokeWidth - the stroke width of the path
+ * @returns {object} - the path style object
+ */
+export const createBasePathStyle = ({fill = 'none', stroke = '#555', strokeOpacity = 1, strokeWidth = 2}) => {
+  return {
+    fill: fill,
+    stroke: stroke,
+    strokeOpacity: strokeOpacity,
+    strokeWidth: strokeWidth,
+  }
+}
+
+/**
+ * Create a new label style object
+ * @param {object} options - the options object
+ * @param {boolean} options.hidden - whether the label is hidden
+ * @param {number} options.fontSize - the font size of the label
+ * @returns {object} - the label style object
+ */
+export const createBaseLabelStyle = ({hidden = false, fontSize = 48}) => {
+  return {
+    hidden: hidden,
+    fontSize: fontSize,
+  }
+}
 
 /**
  * Create a new tree object
@@ -7,20 +57,9 @@ export const createBaseTree = () => {
   return {
     name: '',
     length: '',
-    nodeStyle: {
-      radius: 10,
-      stroke: 'transparent',
-      fill: '#69b3a2',
-    },
-    pathStyle : {
-      fill: 'none',
-      stroke: '#555',
-      strokeOpacity: 1,
-      strokeWidth: 2,
-    },
-    textStyle : {
-      fontSize: 48,
-    },
+    nodeStyle: createBaseNodeStyle(),
+    pathStyle : createBasePathStyle(),
+    labelStyle : createBaseLabelStyle(),
     children: [],
   }
 }
@@ -83,4 +122,102 @@ export const getDepth = function (obj) {
       })
   }
   return 1 + depth
+}
+
+/**
+ * Modify the node style of a tree object
+ * @param {object} obj - the tree object
+ * @param {object} nodeStyle - the node style object
+ * @returns {undefined}
+ */
+export const modifyNodeStyle = function (obj, nodeStyle) {
+  obj.nodeStyle = nodeStyle
+  if (obj.children) {
+    obj.children.forEach(function (d) {
+      modifyNodeStyle(d, nodeStyle)
+    })
+  }
+}
+
+/**
+ * Modify the path style of a tree object
+ * @param {object} obj - the tree object
+ * @param {object} pathStyle - the path style object
+ * @returns {undefined}
+ */
+export const modifyPathStyle = function (obj, pathStyle) {
+  obj.pathStyle = pathStyle
+  if (obj.children) {
+    obj.children.forEach(function (d) {
+      modifyPathStyle(d, pathStyle)
+    })
+  }
+}
+
+/**
+ * Modify the label style of a tree object
+ * @param {object} obj - the tree object
+ * @param {object} labelStyle - the label style object
+ * @returns {undefined}
+ */
+export const modifyLabelStyle = function (obj, labelStyle) {
+  obj.labelStyle = labelStyle
+  if (obj.children) {
+    obj.children.forEach(function (d) {
+      modifyLabelStyle(d, labelStyle)
+    })
+  }
+}
+
+/**
+ * Modify the node style of a specific node in a tree object
+ * @param {object} obj - the tree object
+ * @param {object} nodeStyle - the node style object
+ * @param {string} node - the name of the node
+ */
+export const modifyEspecificNodeStyle = function (obj, nodeStyle, node) {
+  if (obj.name === node) {
+    obj.nodeStyle = nodeStyle
+  }
+  if (obj.children) {
+    obj.children.forEach(function (d) {
+      modifyEspecificNodeStyle(d, nodeStyle, node)
+    })
+  }
+}
+
+/**
+ * Modify the path style of a specific node in a tree object
+ * @param {object} obj - the tree object
+ * @param {object} pathStyle - the path style object
+ * @param {string} node - the name of the node
+ * @returns {undefined}
+ */
+export const modifyEspecificPathStyle = function (obj, pathStyle, node) {
+  if (obj.name === node) {
+    obj.pathStyle = pathStyle
+  }
+  if (obj.children) {
+    obj.children.forEach(function (d) {
+      modifyEspecificPathStyle(d, pathStyle, node)
+    })
+  }
+}
+
+/**
+ * Modify the label style of a specific node in a tree object
+ * @param {object} obj - the tree object
+ * @param {object} labelStyle - the label style object
+ * @param {string} node - the name of the node
+ * @returns {undefined}
+ */
+export const modifyEspecificLabelStyle = function (obj, labelStyle, node) {
+  if (obj.name === node) {
+    obj.labelStyle = labelStyle
+  }
+  if (obj.children) {
+    obj.children.forEach(function (d) {
+      modifyEspecificLabelStyle(d, labelStyle, node)
+    })
+  }
 }
