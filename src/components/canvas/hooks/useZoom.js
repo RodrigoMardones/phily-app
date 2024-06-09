@@ -4,12 +4,12 @@ import {useDispatch} from 'react-redux';
 const useZoom = () => {
     const dispatch = useDispatch();
     const tree = useSelector(getTree);
-    const { width, heigth } = tree
+    const { width, height } = tree
     const handleAddZoomClick = () => {
-        dispatch(set({...tree, width: width * 2, heigth: heigth * 2}))
+        dispatch(set({...tree, width: (width * 2), height: (height * 2)}))
     }
     const handleSubstractZoomClick = () => {
-        dispatch(set({...tree, width: width / 2, heigth: heigth / 2}))
+        dispatch(set({...tree, width: (width / 2), height: (height / 2)}))
     }
     return {
         handleAddZoomClick,

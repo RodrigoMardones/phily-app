@@ -6,6 +6,7 @@
 export const createBaseTree = () => {
   return {
     name: '',
+    length: '',
     nodeStyle: {
       radius: 10,
       stroke: 'transparent',
