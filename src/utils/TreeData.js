@@ -26,7 +26,7 @@ export const createBaseNodeStyle = ({radius = 10, stroke = 'transparent', fill =
  * @param {number} options.strokeWidth - the stroke width of the path
  * @returns {object} - the path style object
  */
-export const createBasePathStyle = ({fill = 'none', stroke = '#555', strokeOpacity = 1, strokeWidth = 2}) => {
+export const createBasePathStyle = ({fill = 'none', stroke = '#000000', strokeOpacity = 1, strokeWidth = 2}) => {
   return {
     fill: fill,
     stroke: stroke,
@@ -42,7 +42,7 @@ export const createBasePathStyle = ({fill = 'none', stroke = '#555', strokeOpaci
  * @param {number} options.fontSize - the font size of the label
  * @returns {object} - the label style object
  */
-export const createBaseLabelStyle = ({hidden = false, fontSize = 48, fill ='#000' }) => {
+export const createBaseLabelStyle = ({hidden = false, fontSize = 48, fill ='#000000' }) => {
   return {
     hidden: hidden,
     fontSize: fontSize,
