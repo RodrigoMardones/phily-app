@@ -4,7 +4,8 @@ import { setError } from '../../store/error/slice';
 import { getFile, setFile } from '../../store/file/slice';
 import { set, getTree } from '../../store/tree/slice';
 import { parseStringToTree, getDepth } from '@/utils/TreeData';
-
+import { createBaseGlobalStyles } from '@/utils/TreeData';
+import {childrenSchema, schema} from '../validators/dendrogramToJson';
 const useUpload = () => {
   let fileReader;
   const dispatch = useDispatch();
@@ -63,31 +64,47 @@ const useUpload = () => {
     // validar format antes de cargar completo
     if (file.name !== tree.name) {
       if (file.extension == 'json') {
+        // validar schema
+        try {
+          childrenSchema.parse(JSON.parse(file.content));
+        } catch (error) {
+          dispatch(
+            setError({
+              message: 'El archivo no tiene el formato correcto',
+              open: true,
+            })
+          );
+          return;
+        }
+
         dispatch(
           set({
             ...tree,
-            tree: JSON.parse(file.content),
             name: file.name,
-            width: 600,
-            height: 600,
+            globalStyles : createBaseGlobalStyles({}),
+            tree: JSON.parse(file.content),
           })
         );
       }
       if (file.extension == 'nwk') {
-        const parsedTree = parseStringToTree(file.content);
-        console.log(parsedTree)
-        const depth = getDepth(parsedTree);
-        console.log(depth)
-        const width = 100 * depth;
-        const height = 100 * depth;
-        console.log(width, height)
+        let parsedTree;
+        try {
+          parsedTree = parseStringToTree(file.content);
+        } catch (error) {
+          dispatch(
+            setError({
+              message: 'El archivo no tiene el formato correcto',
+              open: true,
+            })
+          );
+          return;
+        }
         dispatch(
           set({
             ...tree,
             tree: parsedTree,
             name: file.name,
-            width: width,
-            height: height,
+            globalStyles : createBaseGlobalStyles({}),
           })
         );
       }

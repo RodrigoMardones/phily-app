@@ -10,13 +10,12 @@ import ZoomSubsIcon from '../icons/zoomSubs';
 
 const Canvas = () => {
   const [key, setKey] = useState(0);
-  const { tree, normalize, curveType, name, angle, width, height } =
+  const { tree, normalize, curveType, name, angle, width, height, globalStyles } =
     useSelector(getTree);
   const { handleAddZoomClick, handleSubstractZoomClick } = useZoom();
   useEffect(() => {
     setKey(key + 1);
   }, [normalize, curveType, name, angle, angle, width, height]);
-
   return (
     <Card className="bg-white m-4 rounded-none border-none w-5/6">
       <div className="flex justify-center h-full">
@@ -31,6 +30,7 @@ const Canvas = () => {
                 normalize={normalize}
                 curveType={curveType}
                 angle={angle}
+                globalStyles={globalStyles}
               />
             )}
           </ZoomableSVG>
