@@ -2,7 +2,15 @@ import { useCallback, useMemo } from 'react';
 import { dendrogramGenerator, drawCurve, transformSVG, MARGIN } from './utils';
 import * as d3 from 'd3';
 
-const Dendrogram = ({ data, width, height, normalize, curveType, angle, globalStyles }) => {
+const Dendrogram = ({
+  data,
+  width,
+  height,
+  normalize,
+  curveType,
+  angle,
+  globalStyles,
+}) => {
   const hierarchy = useMemo(() => {
     const HierarchyCreated = d3.hierarchy(data);
     HierarchyCreated.sort((a, b) => d3.ascending(a.data.name, b.data.name));
@@ -38,15 +46,26 @@ const Dendrogram = ({ data, width, height, normalize, curveType, angle, globalSt
             key={`node-${nodeIndex}`}
             transform={`rotate(${node.x - 90})translate(${node.y})`}
           >
-            <circle cx={0} cy={0} r={globalStyles.nodeStyle.radius} stroke={globalStyles.nodeStyle.stroke} fill={globalStyles.nodeStyle.fill} />
+            <circle
+              cx={0}
+              cy={0}
+              r={globalStyles.nodeStyle.radius}
+              stroke={globalStyles.nodeStyle.stroke}
+              fill={globalStyles.nodeStyle.fill}
+              className="label hover:cursor-pointer"
+            />
             {!node.children && (
               <text
                 x={turnLabelUpsideDown ? -15 : 15}
                 y={0}
+                className="label hover:cursor-pointer"
                 fontSize={globalStyles.labelStyle.fontSize}
-                fill={globalStyles.labelStyle.fill}	
+                fill={globalStyles.labelStyle.fill}
                 textAnchor={turnLabelUpsideDown ? 'end' : 'start'}
                 transform={turnLabelUpsideDown ? 'rotate(180)' : 'rotate(0)'}
+                onClick={(e) => {
+                  //console.log(node.data.name);
+                }}
                 alignmentBaseline="middle"
               >
                 {node.data.name}
@@ -55,8 +74,6 @@ const Dendrogram = ({ data, width, height, normalize, curveType, angle, globalSt
           </g>
         );
       }
-      // const nodeStyle = node.data.nodeStyle;
-      // const labelStyle = node.data.labelStyle;
       return (
         <g key={`node-${nodeIndex}`}>
           <circle
@@ -85,28 +102,26 @@ const Dendrogram = ({ data, width, height, normalize, curveType, angle, globalSt
   const renderEdges = useCallback(
     (link, indexLink) => {
       if (curveType === 'circular' || curveType === 'circular-step') {
-        
         if (link?.source?.depth === 0) {
-          // const targetStyle = link.target.data.pathStyle;
           return (
             <g
               key={`link-${indexLink}`}
               transform={'rotate(' + (link.target.x - 90) + ')'}
             >
-              <line 
-              x1={0} 
-              y1={0} 
-              x2={link.target.y} 
-              y2={0}
-              stroke={globalStyles.pathStyle.stroke}
-              fill={globalStyles.pathStyle.fill}
-              strokeWidth={globalStyles.pathStyle.strokeWidth}
-              strokeOpacity={globalStyles.pathStyle.strokeOpacity}
-              />;
+              <line
+                x1={0}
+                y1={0}
+                x2={link.target.y}
+                y2={0}
+                stroke={globalStyles.pathStyle.stroke}
+                fill={globalStyles.pathStyle.fill}
+                strokeWidth={globalStyles.pathStyle.strokeWidth}
+                strokeOpacity={globalStyles.pathStyle.strokeOpacity}
+              />
+              ;
             </g>
           );
         }
-        // const sourceStyle = link.source.data.pathStyle;
         return (
           <path
             key={`link-${indexLink}`}
@@ -121,7 +136,6 @@ const Dendrogram = ({ data, width, height, normalize, curveType, angle, globalSt
         if (!link.source) {
           return null;
         }
-        // const sourceStyle = link.source.data.pathStyle;
         return (
           <path
             key={`link-${indexLink}`}
@@ -144,11 +158,10 @@ const Dendrogram = ({ data, width, height, normalize, curveType, angle, globalSt
   const allEdges = dendrogram.links().map(renderEdges);
 
   return (
-    
-      <g transform={transform}>
-        {allEdges}
-        {allNodes}
-      </g>
+    <g transform={transform}>
+      {allEdges}
+      {allNodes}
+    </g>
   );
 };
 export default Dendrogram;

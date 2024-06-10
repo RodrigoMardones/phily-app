@@ -1,20 +1,23 @@
 import Image from 'next/image';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Button, Card } from 'react-daisyui';
-import { set, getTree, RESET as resetTree } from '../store/tree/slice';
-import { getError, RESET as resetError } from '../store/error/slice';
-import { getFile, RESET as resetFile } from '../store/file/slice';
-import useDownload from './hooks/useDownload';
-import useUpload from './hooks/useUpload';
 import Error from '../error/error';
 import UploadIcon from '../icons/upload';
 import DeleteIcon from '../icons/delete';
 import DownloadIcon from '../icons/download';
-import useStyle from './hooks/useStyle';
+import { getTree } from '../store/tree/slice';
+import { getFile } from '../store/file/slice';
+import { getError } from '../store/error/slice';
+import {
+  useUpload,
+  useDownload,
+  useStyle,
+  useCleanDashboard,
+  useDendrogramForm,
+} from './hooks';
 const accepts = ['.nwk', '.json'];
 
 const Dashboard = () => {
-  const dispatch = useDispatch();
   const tree = useSelector(getTree);
   const file = useSelector(getFile);
   const error = useSelector(getError);
@@ -35,15 +38,9 @@ const Dashboard = () => {
     nodeRadius,
     labelSize,
     labelColor,
-  } = useStyle()
-  const handleCleanClick = (e) => {
-    e.preventDefault();
-    dispatch(resetFile());
-    dispatch(resetTree());
-    dispatch(resetError());
-    document.getElementById('normalize').checked = false;
-    document.getElementById('angle').value = 360;
-  };
+  } = useStyle();
+  const { handleCleanClick } = useCleanDashboard();
+  const { handleCurveChange, handleNormalizationChange,handleAngleChange } = useDendrogramForm();
 
   return (
     <>
@@ -117,21 +114,19 @@ const Dashboard = () => {
               <div className="flex justify-evenly md:flex-row sm:flex-col mt-2">
                 <button
                   className={`btn h-8 min-h-8 min-w-24 border-none text-white rounded-md ${curveType === 'step' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
-                  onClick={() => dispatch(set({ ...tree, curveType: 'step' }))}
+                  onClick={() => handleCurveChange('step')}
                 >
                   escalon
                 </button>
                 <button
                   className={`btn h-8 min-h-8 min-w-24 border-none text-white rounded-md ${curveType === 'curve' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
-                  onClick={() => dispatch(set({ ...tree, curveType: 'curve' }))}
+                  onClick={() => handleCurveChange('curve')}
                 >
                   suave
                 </button>
                 <button
                   className={`btn h-8 min-h-8 min-w-24 border-none text-white rounded-md ${curveType === 'slanted' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
-                  onClick={() =>
-                    dispatch(set({ ...tree, curveType: 'slanted' }))
-                  }
+                  onClick={() => handleCurveChange('slanted')}
                 >
                   inclinado
                 </button>
@@ -143,17 +138,13 @@ const Dashboard = () => {
             <div className="flex justify-evenly md:flex-row sm:flex-col mt-2">
               <button
                 className={`btn h-8 min-h-8 min-w-36 border-none text-white rounded-md ${curveType === 'circular' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
-                onClick={() =>
-                  dispatch(set({ ...tree, curveType: 'circular' }))
-                }
+                onClick={() => handleCurveChange('circular')}
               >
                 circular
               </button>
               <button
                 className={`btn h-8 min-h-8 min-w-36 border-none text-white rounded-md ${curveType === 'circular-step' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
-                onClick={() =>
-                  dispatch(set({ ...tree, curveType: 'circular-step' }))
-                }
+                onClick={() => handleCurveChange('circular-step')}
               >
                 circular escalonado
               </button>
@@ -167,9 +158,7 @@ const Dashboard = () => {
                 className="toggle checked:toggle-secondary active:toggle-secondary"
                 id="normalize"
                 value={tree.normalize}
-                onClick={(e) =>
-                  dispatch(set({ ...tree, normalize: e.target.checked }))
-                }
+                onClick={handleNormalizationChange}
               />
             </label>
             <label className="flex gap-2 cursor-pointer label">
@@ -184,12 +173,8 @@ const Dashboard = () => {
                   curveType !== 'circular' && curveType !== 'circular-step'
                 }
                 className="range range-secondary disabled:opacity-50 disabled:bg-gray-300 disabled:cursor-not-allowed"
-                onClick={(e) => {
-                  dispatch(set({ ...tree, angle: e.target.value }));
-                }}
-                onChange={(e) => {
-                  dispatch(set({ ...tree, angle: e.target.value }));
-                }}
+                onClick={handleAngleChange}
+                onChange={handleAngleChange}
               />
               <span className="text-white text-md label-text">{angle}°</span>
             </label>
@@ -201,74 +186,74 @@ const Dashboard = () => {
               <Card.Title className="text-white items-end text-sm mt-2">
                 Ramas
               </Card.Title>
-              <div className='flex justify-evenly md:flex-row sm:flex-col '>
-                <div className='md:flex-row sm:flex-col'>
-                  <label className='label text-white text-sm'>ancho</label>
-                  <input 
-                  type='number' 
-                  className='input w-40 h-6 min-h-6 rounded-md mr-2 bg-[#FAEECC]' 
-                  placeholder='48px'
-                  value={pathWidth}
-                  onChange={pathWidthChange}
+              <div className="flex justify-evenly md:flex-row sm:flex-col ">
+                <div className="md:flex-row sm:flex-col">
+                  <label className="label text-white text-sm">ancho</label>
+                  <input
+                    type="number"
+                    className="input w-40 h-6 min-h-6 rounded-md mr-2 bg-[#FAEECC]"
+                    placeholder="48px"
+                    value={pathWidth}
+                    onChange={pathWidthChange}
                   />
                 </div>
-                <div className='md:flex-row sm:flex-col'>
-                  <label className='label text-white text-sm'>color</label>
-                  <input 
-                  type='color' 
-                  className='input  w-40 h-6 min-h-6 rounded-md'
-                  value={pathColor}
-                  onChange={pathColorChange}
+                <div className="md:flex-row sm:flex-col">
+                  <label className="label text-white text-sm">color</label>
+                  <input
+                    type="color"
+                    className="input  w-40 h-6 min-h-6 rounded-md"
+                    value={pathColor}
+                    onChange={pathColorChange}
                   />
                 </div>
               </div>
               <Card.Title className="text-white items-end text-sm mt-2">
                 Nodos
               </Card.Title>
-              <div className='flex justify-evenly md:flex-row sm:flex-col '>
-                <div className='md:flex-row sm:flex-col'>
-                  <label className='label text-white text-sm'>radio</label>
-                  <input 
-                  type='number' 
-                  className='input w-40 h-6 min-h-6 rounded-md mr-2 bg-[#FAEECC]' 
-                  placeholder='10px'
-                  min={0}
-                  value={nodeRadius}
-                  onChange={nodeRadiusChange}
+              <div className="flex justify-evenly md:flex-row sm:flex-col ">
+                <div className="md:flex-row sm:flex-col">
+                  <label className="label text-white text-sm">radio</label>
+                  <input
+                    type="number"
+                    className="input w-40 h-6 min-h-6 rounded-md mr-2 bg-[#FAEECC]"
+                    placeholder="10px"
+                    min={0}
+                    value={nodeRadius}
+                    onChange={nodeRadiusChange}
                   />
                 </div>
-                <div className='md:flex-row sm:flex-col'>
-                  <label className='label text-white text-sm'>color</label>
-                  <input 
-                  type='color' 
-                  className='input  w-40 h-6 min-h-6 rounded-md'
-                  value={nodeColor}
-                  onChange={nodeColorChange}
+                <div className="md:flex-row sm:flex-col">
+                  <label className="label text-white text-sm">color</label>
+                  <input
+                    type="color"
+                    className="input  w-40 h-6 min-h-6 rounded-md"
+                    value={nodeColor}
+                    onChange={nodeColorChange}
                   />
                 </div>
               </div>
               <Card.Title className="text-white items-end text-sm mt-2">
                 Etiquetas
               </Card.Title>
-              <div className='flex justify-evenly md:flex-row sm:flex-col '>
-                <div className='md:flex-row sm:flex-col'>
-                  <label className='label text-white text-sm'>tamaño</label>
-                  <input 
-                  type='number' 
-                  className='input w-40 h-6 min-h-6 rounded-md mr-2 bg-[#FAEECC]' 
-                  placeholder='48px'
-                  min={0}
-                  value={labelSize}
-                  onChange={labelSizeChange}
+              <div className="flex justify-evenly md:flex-row sm:flex-col ">
+                <div className="md:flex-row sm:flex-col">
+                  <label className="label text-white text-sm">tamaño</label>
+                  <input
+                    type="number"
+                    className="input w-40 h-6 min-h-6 rounded-md mr-2 bg-[#FAEECC]"
+                    placeholder="48px"
+                    min={0}
+                    value={labelSize}
+                    onChange={labelSizeChange}
                   />
                 </div>
-                <div className='md:flex-row sm:flex-col'>
-                  <label className='label text-white text-sm'>color</label>
-                  <input 
-                  type='color' 
-                  className='input  w-40 h-6 min-h-6 rounded-md'
-                  value={labelColor}
-                  onChange={labelColorChange}
+                <div className="md:flex-row sm:flex-col">
+                  <label className="label text-white text-sm">color</label>
+                  <input
+                    type="color"
+                    className="input  w-40 h-6 min-h-6 rounded-md"
+                    value={labelColor}
+                    onChange={labelColorChange}
                   />
                 </div>
               </div>

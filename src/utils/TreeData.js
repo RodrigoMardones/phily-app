@@ -73,6 +73,7 @@ export const createBaseTree = () => {
   return {
     name: '',
     length: '',
+    hasOwnStyle: false,
     nodeStyle: createBaseNodeStyle({}),
     pathStyle : createBasePathStyle({}),
     labelStyle : createBaseLabelStyle({}),
