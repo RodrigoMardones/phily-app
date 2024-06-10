@@ -4,7 +4,7 @@ import { setError } from '../../store/error/slice';
 import { getFile, setFile } from '../../store/file/slice';
 import { set, getTree } from '../../store/tree/slice';
 import { parseStringToTree, getDepth } from '@/utils/TreeData';
-
+import { createBaseGlobalStyles } from '@/utils/TreeData';
 const useUpload = () => {
   let fileReader;
   const dispatch = useDispatch();
@@ -70,17 +70,15 @@ const useUpload = () => {
             name: file.name,
             width: 600,
             height: 600,
+            globalStyles : createBaseGlobalStyles({}),
           })
         );
       }
       if (file.extension == 'nwk') {
         const parsedTree = parseStringToTree(file.content);
-        console.log(parsedTree)
         const depth = getDepth(parsedTree);
-        console.log(depth)
         const width = 100 * depth;
         const height = 100 * depth;
-        console.log(width, height)
         dispatch(
           set({
             ...tree,
@@ -88,6 +86,7 @@ const useUpload = () => {
             name: file.name,
             width: width,
             height: height,
+            globalStyles : createBaseGlobalStyles({}),
           })
         );
       }

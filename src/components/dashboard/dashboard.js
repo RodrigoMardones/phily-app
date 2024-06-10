@@ -10,6 +10,7 @@ import Error from '../error/error';
 import UploadIcon from '../icons/upload';
 import DeleteIcon from '../icons/delete';
 import DownloadIcon from '../icons/download';
+import useStyle from './hooks/useStyle';
 const accepts = ['.nwk', '.json'];
 
 const Dashboard = () => {
@@ -21,7 +22,20 @@ const Dashboard = () => {
   const { download, handleChangeSelectDownload, handleDownload } =
     useDownload();
   const { handleFileOnChange, handleLoadClick } = useUpload();
-
+  const {
+    pathColorChange,
+    pathWidthChange,
+    labelSizeChange,
+    nodeColorChange,
+    nodeRadiusChange,
+    labelColorChange,
+    pathColor,
+    pathWidth,
+    nodeColor,
+    nodeRadius,
+    labelSize,
+    labelColor,
+  } = useStyle()
   const handleCleanClick = (e) => {
     e.preventDefault();
     dispatch(resetFile());
@@ -33,7 +47,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <Card className="w-96 bg-primary p-4 rounded-none border-none">
+      <Card className="bg-primary w-auto p-4 rounded-none border-none overflow-y-auto">
         <Error message={error.message} open={error.open} />
         <div className="grid grid-cols-1">
           <div className="flex flex-row items-center">
@@ -88,7 +102,7 @@ const Dashboard = () => {
               </Button>
             </form>
           </div>
-          <div className="divider"></div>
+          <div className="divider mt-2 mb-2"></div>
           {/**
            * Visualizacion de arbol
            */}
@@ -179,7 +193,87 @@ const Dashboard = () => {
               />
               <span className="text-white text-md label-text">{angle}°</span>
             </label>
-            <div className="divider"></div>
+            <div className="divider mt-2 mb-2"></div>
+            <div id="design">
+              <Card.Title className="text-white items-end text-md">
+                Diseño general
+              </Card.Title>
+              <Card.Title className="text-white items-end text-sm mt-2">
+                Ramas
+              </Card.Title>
+              <div className='flex justify-evenly md:flex-row sm:flex-col '>
+                <div className='md:flex-row sm:flex-col'>
+                  <label className='label text-white text-sm'>ancho</label>
+                  <input 
+                  type='number' 
+                  className='input w-40 h-6 min-h-6 rounded-md mr-2 bg-[#FAEECC]' 
+                  placeholder='48px'
+                  value={pathWidth}
+                  onChange={pathWidthChange}
+                  />
+                </div>
+                <div className='md:flex-row sm:flex-col'>
+                  <label className='label text-white text-sm'>color</label>
+                  <input 
+                  type='color' 
+                  className='input  w-40 h-6 min-h-6 rounded-md'
+                  value={pathColor}
+                  onChange={pathColorChange}
+                  />
+                </div>
+              </div>
+              <Card.Title className="text-white items-end text-sm mt-2">
+                Nodos
+              </Card.Title>
+              <div className='flex justify-evenly md:flex-row sm:flex-col '>
+                <div className='md:flex-row sm:flex-col'>
+                  <label className='label text-white text-sm'>radio</label>
+                  <input 
+                  type='number' 
+                  className='input w-40 h-6 min-h-6 rounded-md mr-2 bg-[#FAEECC]' 
+                  placeholder='10px'
+                  min={0}
+                  value={nodeRadius}
+                  onChange={nodeRadiusChange}
+                  />
+                </div>
+                <div className='md:flex-row sm:flex-col'>
+                  <label className='label text-white text-sm'>color</label>
+                  <input 
+                  type='color' 
+                  className='input  w-40 h-6 min-h-6 rounded-md'
+                  value={nodeColor}
+                  onChange={nodeColorChange}
+                  />
+                </div>
+              </div>
+              <Card.Title className="text-white items-end text-sm mt-2">
+                Etiquetas
+              </Card.Title>
+              <div className='flex justify-evenly md:flex-row sm:flex-col '>
+                <div className='md:flex-row sm:flex-col'>
+                  <label className='label text-white text-sm'>tamaño</label>
+                  <input 
+                  type='number' 
+                  className='input w-40 h-6 min-h-6 rounded-md mr-2 bg-[#FAEECC]' 
+                  placeholder='48px'
+                  min={0}
+                  value={labelSize}
+                  onChange={labelSizeChange}
+                  />
+                </div>
+                <div className='md:flex-row sm:flex-col'>
+                  <label className='label text-white text-sm'>color</label>
+                  <input 
+                  type='color' 
+                  className='input  w-40 h-6 min-h-6 rounded-md'
+                  value={labelColor}
+                  onChange={labelColorChange}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="divider mt-2 mb-2"></div>
             <div id="export">
               <Card.Title className="text-white items-end text-md">
                 Exportar

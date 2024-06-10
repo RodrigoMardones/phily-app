@@ -42,13 +42,29 @@ export const createBasePathStyle = ({fill = 'none', stroke = '#555', strokeOpaci
  * @param {number} options.fontSize - the font size of the label
  * @returns {object} - the label style object
  */
-export const createBaseLabelStyle = ({hidden = false, fontSize = 48}) => {
+export const createBaseLabelStyle = ({hidden = false, fontSize = 48, fill ='#000' }) => {
   return {
     hidden: hidden,
     fontSize: fontSize,
+    fill: fill,
   }
 }
 
+/**
+ * Create a new global styles object
+ * @param {object} options - the options object
+ * @param {object} options.labelStyle - the label style object
+ * @param {object} options.nodeStyle - the node style object
+ * @param {object} options.pathStyle - the path style object
+ * @returns {object} - the global styles object
+ */
+export const createBaseGlobalStyles = ({labelStyle = createBaseLabelStyle({}), nodeStyle = createBaseNodeStyle({}), pathStyle = createBasePathStyle({})}) => {
+  return {
+    labelStyle: labelStyle,
+    nodeStyle: nodeStyle,
+    pathStyle: pathStyle,
+  }
+}
 /**
  * Create a new tree object
  * @returns {object} - the tree object
@@ -57,9 +73,9 @@ export const createBaseTree = () => {
   return {
     name: '',
     length: '',
-    nodeStyle: createBaseNodeStyle(),
-    pathStyle : createBasePathStyle(),
-    labelStyle : createBaseLabelStyle(),
+    nodeStyle: createBaseNodeStyle({}),
+    pathStyle : createBasePathStyle({}),
+    labelStyle : createBaseLabelStyle({}),
     children: [],
   }
 }

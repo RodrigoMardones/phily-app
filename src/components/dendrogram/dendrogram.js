@@ -1,8 +1,8 @@
-import { useCallback, useMemo, forwardRef } from 'react';
-import * as d3 from 'd3';
+import { useCallback, useMemo } from 'react';
 import { dendrogramGenerator, drawCurve, transformSVG, MARGIN } from './utils';
+import * as d3 from 'd3';
 
-const Dendrogram = ({ data, width, height, normalize, curveType, angle }) => {
+const Dendrogram = ({ data, width, height, normalize, curveType, angle, globalStyles }) => {
   const hierarchy = useMemo(() => {
     const HierarchyCreated = d3.hierarchy(data);
     HierarchyCreated.sort((a, b) => d3.ascending(a.data.name, b.data.name));
@@ -32,18 +32,19 @@ const Dendrogram = ({ data, width, height, normalize, curveType, angle }) => {
     (node, nodeIndex) => {
       if (curveType === 'circular' || curveType === 'circular-step') {
         const turnLabelUpsideDown = node.x > 180;
-        const nodeStyle = node.data.nodeStyle;
+        // const nodeStyle = node.data.nodeStyle;
         return (
           <g
             key={`node-${nodeIndex}`}
             transform={`rotate(${node.x - 90})translate(${node.y})`}
           >
-            <circle cx={0} cy={0} r={nodeStyle.radius} stroke={nodeStyle.stroke} fill={nodeStyle.fill} />
+            <circle cx={0} cy={0} r={globalStyles.nodeStyle.radius} stroke={globalStyles.nodeStyle.stroke} fill={globalStyles.nodeStyle.fill} />
             {!node.children && (
               <text
                 x={turnLabelUpsideDown ? -15 : 15}
                 y={0}
-                fontSize={12}
+                fontSize={globalStyles.labelStyle.fontSize}
+                fill={globalStyles.labelStyle.fill}	
                 textAnchor={turnLabelUpsideDown ? 'end' : 'start'}
                 transform={turnLabelUpsideDown ? 'rotate(180)' : 'rotate(0)'}
                 alignmentBaseline="middle"
@@ -54,21 +55,22 @@ const Dendrogram = ({ data, width, height, normalize, curveType, angle }) => {
           </g>
         );
       }
-      const nodeStyle = node.data.nodeStyle;
-      const textStyle = node.data.textStyle;
+      // const nodeStyle = node.data.nodeStyle;
+      // const labelStyle = node.data.labelStyle;
       return (
         <g key={`node-${nodeIndex}`}>
           <circle
             cx={node.y}
             cy={node.x}
-            r={nodeStyle.radius}
-            stroke={nodeStyle.stroke}
-            fill={nodeStyle.fill}
+            r={globalStyles.nodeStyle.radius}
+            stroke={globalStyles.nodeStyle.stroke}
+            fill={globalStyles.nodeStyle.fill}
           />
           <text
             x={node.y + 30}
             y={node.x}
-            fontSize={textStyle.fontSize}
+            fontSize={globalStyles.labelStyle.fontSize}
+            font
             textAnchor={node.children ? 'end' : 'start'}
             alignmentBaseline="central"
           >
@@ -77,7 +79,7 @@ const Dendrogram = ({ data, width, height, normalize, curveType, angle }) => {
         </g>
       );
     },
-    [normalize, curveType]
+    [normalize, curveType, globalStyles]
   );
 
   const renderEdges = useCallback(
@@ -85,7 +87,7 @@ const Dendrogram = ({ data, width, height, normalize, curveType, angle }) => {
       if (curveType === 'circular' || curveType === 'circular-step') {
         
         if (link?.source?.depth === 0) {
-          const targetStyle = link.target.data.pathStyle;
+          // const targetStyle = link.target.data.pathStyle;
           return (
             <g
               key={`link-${indexLink}`}
@@ -96,22 +98,22 @@ const Dendrogram = ({ data, width, height, normalize, curveType, angle }) => {
               y1={0} 
               x2={link.target.y} 
               y2={0}
-              stroke={targetStyle.stroke}
-              fill={targetStyle.fill}
-              strokeWidth={targetStyle.strokeWidth}
-              strokeOpacity={targetStyle.strokeOpacity}
+              stroke={globalStyles.pathStyle.stroke}
+              fill={globalStyles.pathStyle.fill}
+              strokeWidth={globalStyles.pathStyle.strokeWidth}
+              strokeOpacity={globalStyles.pathStyle.strokeOpacity}
               />;
             </g>
           );
         }
-        const sourceStyle = link.source.data.pathStyle;
+        // const sourceStyle = link.source.data.pathStyle;
         return (
           <path
             key={`link-${indexLink}`}
-            fill={sourceStyle.fill}
-            stroke={sourceStyle.stroke}
-            strokeOpacity={sourceStyle.strokeOpacity}
-            strokeWidth={sourceStyle.strokeWidth}
+            fill={globalStyles.pathStyle.fill}
+            stroke={globalStyles.pathStyle.stroke}
+            strokeOpacity={globalStyles.pathStyle.strokeOpacity}
+            strokeWidth={globalStyles.pathStyle.strokeWidth}
             d={curve(link) || undefined}
           />
         );
@@ -119,14 +121,14 @@ const Dendrogram = ({ data, width, height, normalize, curveType, angle }) => {
         if (!link.source) {
           return null;
         }
-        const sourceStyle = link.source.data.pathStyle;
+        // const sourceStyle = link.source.data.pathStyle;
         return (
           <path
             key={`link-${indexLink}`}
-            fill={sourceStyle.fill}
-            stroke={sourceStyle.stroke}
-            strokeOpacity={sourceStyle.strokeOpacity}
-            strokeWidth={sourceStyle.strokeWidth}
+            fill={globalStyles.pathStyle.fill}
+            stroke={globalStyles.pathStyle.stroke}
+            strokeOpacity={globalStyles.pathStyle.strokeOpacity}
+            strokeWidth={globalStyles.pathStyle.strokeWidth}
             d={curve({
               source: [link.source.y, link.source.x],
               target: [link.target.y, link.target.x],
@@ -135,7 +137,7 @@ const Dendrogram = ({ data, width, height, normalize, curveType, angle }) => {
         );
       }
     },
-    [normalize, curveType]
+    [normalize, curveType, globalStyles]
   );
 
   const allNodes = dendrogram.descendants().map(renderNode);
