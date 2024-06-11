@@ -37,14 +37,14 @@ const Canvas = () => {
         </div>
         <div className="items-end z-10 mt-2 mb-2">
           <button
-            className=" bg-transparent"
+            className=" bg-transparent display block"
             onClick={handleAddZoomClick}
             disabled={!name}
           >
             <ZoomAddIcon />
           </button>
           <button
-            className=" bg-transparent"
+            className=" bg-transparent  display block"
             onClick={handleSubstractZoomClick}
             disabled={!name}
           >

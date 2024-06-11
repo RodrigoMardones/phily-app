@@ -5,14 +5,15 @@ import { getTree } from '../../store/tree/slice';
 
 const useDownload = () => {
   const tree = useSelector(getTree);
+  const {width, height} = tree;
   const [download, setDownload] = useState('png');
   const handleChangeSelectDownload = (e) => {
     e.preventDefault();
     setDownload(e.target.value);
   };
   const customConfig = {
-    width: 1000,
-    heigth: 1000,
+    width: width,
+    heigth: height,
     quality: 1,
   }
   const handleDownload = () => {
