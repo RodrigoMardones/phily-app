@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   createBaseGlobalStyles,
   createBaseTree,
-} from '@/utils/TreeData';
+} from '@/lib/TreeData';
 
 const initialState = {
   name: '',
