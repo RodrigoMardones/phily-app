@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import { setError } from '../../store/error/slice';
 import { getFile, setFile } from '../../store/file/slice';
 import { set, getTree } from '../../store/tree/slice';
-import { parseStringToTree, getDepth } from '@/utils/TreeData';
-import { createBaseGlobalStyles } from '@/utils/TreeData';
+import { parseStringToTree, getDepth } from '@/lib/TreeData';
+import { createBaseGlobalStyles } from '@/lib/TreeData';
 import {childrenSchema, schema} from '../validators/dendrogramToJson';
 const useUpload = () => {
   let fileReader;
