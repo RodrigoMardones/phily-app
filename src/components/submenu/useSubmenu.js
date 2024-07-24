@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTree, set as setTree } from '../store/tree/slice';
-import { modifyEspecificNodeStyle } from '@/utils/TreeData';
+import { modifyEspecificNodeStyle } from '@/lib/TreeData';
 
 const useSubMenu = () => {
     const tree = useSelector(getTree);

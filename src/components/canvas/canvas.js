@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { getTree } from '../store/tree/slice';
 import { Card } from 'react-daisyui';
 import Dendrogram from '../dendrogram/dendrogram';
-import ZoomableSVG from '../zoomable/zoomable';
+import ZoomableSVG from './hooks/zoomable';
 import { useState, useEffect } from 'react';
 import useZoom from './hooks/useZoom';
 import ZoomAddIcon from '../icons/zoomAdd';
