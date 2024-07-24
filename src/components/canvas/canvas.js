@@ -44,7 +44,7 @@ const Canvas = () => {
             <ZoomAddIcon />
           </button>
           <button
-            className=" bg-transparent  display block"
+            className=" bg-transparent display block"
             onClick={handleSubstractZoomClick}
             disabled={!name}
           >
