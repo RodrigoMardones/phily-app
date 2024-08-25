@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useDeferredValue } from 'react';
 import { dendrogramGenerator, drawCurve, transformSVG, MARGIN } from './utils';
 import * as d3 from 'd3';
 
@@ -11,30 +11,38 @@ const Dendrogram = ({
   angle,
   globalStyles,
 }) => {
+  const deferrededAngle = useDeferredValue(angle, { timeoutMs: 1000 });
+  const deferrededCurveType = useDeferredValue(curveType, { timeoutMs: 1000 });
+  const deferredGlobalStyles = useDeferredValue(globalStyles, { timeoutMs: 1000 });
+  const deferredData = useDeferredValue(data, { timeoutMs: 1000 });
+  const deferredNormalize = useDeferredValue(normalize, { timeoutMs: 1000 });
+  const deferredWidth = useDeferredValue(width, { timeoutMs: 1000 });
+  const deferredHeight = useDeferredValue(height, { timeoutMs: 1000 });
+
   const hierarchy = useMemo(() => {
-    const HierarchyCreated = d3.hierarchy(data);
+    const HierarchyCreated = d3.hierarchy(deferredData);
     HierarchyCreated.sort((a, b) => d3.ascending(a.data.name, b.data.name));
     return HierarchyCreated;
-  }, [data]);
+  }, [deferredData]);
 
   const radius = useMemo(() => {
     return Math.min(width, height) / 2 - MARGIN;
-  }, [width, height]);
+  }, [deferredWidth, deferredHeight]);
 
   const [curve, transform] = useMemo(() => {
     return [drawCurve(curveType), transformSVG(curveType, radius)];
-  }, [curveType, radius]);
+  }, [deferrededCurveType, radius]);
 
   const dendrogram = useMemo(() => {
     const dendogramCreated = dendrogramGenerator(
-      width,
-      height,
-      normalize,
-      curveType,
+      deferredWidth,
+      deferredHeight,
+      deferredNormalize,
+      deferrededCurveType,
       angle
     );
     return dendogramCreated(hierarchy);
-  }, [hierarchy, width, height, normalize, curveType, angle]);
+  }, [hierarchy, deferredWidth, deferredHeight, deferredNormalize, deferrededCurveType, angle]);
   // podria separar esto en otros componentes
   const renderNode = useCallback(
     (node, nodeIndex) => {
