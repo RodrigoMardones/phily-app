@@ -1,3 +1,4 @@
+import { useDeferredValue } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTree, setStyle } from '../../store/tree/slice';
 
@@ -9,6 +10,14 @@ const useStyle = () => {
   const { stroke : pathColor, strokeWidth : pathWidth  } = pathStyle;
   const { fill : nodeColor, radius : nodeRadius  } = nodeStyle;
   const { fontSize : labelSize, fill: labelColor } = labelStyle;
+  const deferredPathColor = useDeferredValue(pathColor, { timeoutMs: 2000 });
+  const deferredPathWidth = useDeferredValue(pathWidth, { timeoutMs: 2000 });
+  const deferredLabelSize = useDeferredValue(labelSize, { timeoutMs: 2000 });
+  const deferredNodeColor = useDeferredValue(nodeColor, { timeoutMs: 2000 });
+  const deferredNodeRadius = useDeferredValue(nodeRadius, { timeoutMs: 2000 });
+  const deferredLabelColor = useDeferredValue(labelColor, { timeoutMs: 2000 });
+  const deferredGlobalStyle = useDeferredValue(globalStyles, { timeoutMs: 2000 });
+  
   const pathColorChange = (e) => {
     e.preventDefault();
     dispatch(
@@ -105,7 +114,14 @@ const useStyle = () => {
     labelSize,
     nodeColor,
     nodeRadius,
-    labelColor
+    labelColor,
+    deferredPathColor,
+    deferredPathWidth,
+    deferredLabelSize,
+    deferredNodeColor,
+    deferredNodeRadius,
+    deferredLabelColor,
+    deferredGlobalStyle
   };
 };
 export default useStyle;

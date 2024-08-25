@@ -40,7 +40,7 @@ const Dashboard = () => {
     labelColor,
   } = useStyle();
   const { handleCleanClick } = useCleanDashboard();
-  const { handleCurveChange, handleNormalizationChange,handleAngleChange } = useDendrogramForm();
+  const { handleCurveChange, handleNormalizationChange,handleAngleChange, deferredAngle, deferredCurveType, deferredNormalize } = useDendrogramForm();
 
   return (
     <>
@@ -113,19 +113,19 @@ const Dashboard = () => {
               </Card.Title>
               <div className="flex justify-evenly md:flex-row sm:flex-col mt-2">
                 <button
-                  className={`btn h-8 min-h-8 min-w-24 border-none text-white rounded-md ${curveType === 'step' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
+                  className={`btn h-8 min-h-8 min-w-24 border-none text-white rounded-md ${deferredCurveType === 'step' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
                   onClick={() => handleCurveChange('step')}
                 >
                   escalon
                 </button>
                 <button
-                  className={`btn h-8 min-h-8 min-w-24 border-none text-white rounded-md ${curveType === 'curve' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
+                  className={`btn h-8 min-h-8 min-w-24 border-none text-white rounded-md ${deferredCurveType === 'curve' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
                   onClick={() => handleCurveChange('curve')}
                 >
                   suave
                 </button>
                 <button
-                  className={`btn h-8 min-h-8 min-w-24 border-none text-white rounded-md ${curveType === 'slanted' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
+                  className={`btn h-8 min-h-8 min-w-24 border-none text-white rounded-md ${deferredCurveType === 'slanted' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
                   onClick={() => handleCurveChange('slanted')}
                 >
                   inclinado
@@ -137,7 +137,7 @@ const Dashboard = () => {
             </Card.Title>
             <div className="flex justify-evenly md:flex-row sm:flex-col mt-2">
               <button
-                className={`btn h-8 min-h-8 min-w-36 border-none text-white rounded-md ${curveType === 'circular' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
+                className={`btn h-8 min-h-8 min-w-36 border-none text-white rounded-md ${deferredCurveType === 'circular' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
                 onClick={() => handleCurveChange('circular')}
               >
                 circular
@@ -170,7 +170,7 @@ const Dashboard = () => {
                 max={360}
                 defaultValue={360}
                 disabled={
-                  curveType !== 'circular' && curveType !== 'circular-step'
+                  deferredCurveType !== 'circular' && deferredCurveType !== 'circular-step'
                 }
                 className="range range-secondary disabled:opacity-50 disabled:bg-gray-300 disabled:cursor-not-allowed"
                 onClick={handleAngleChange}
