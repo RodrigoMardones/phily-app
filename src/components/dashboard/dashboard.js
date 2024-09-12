@@ -48,6 +48,7 @@ const Dashboard = () => {
   } = useDendrogramForm();
   const handleStepChange = useCallback(
     (e) => {
+      e.preventDefault();
       handleCurveChange(e.target.value);
     },
     [handleCurveChange]

@@ -1,4 +1,4 @@
-import { useDeferredValue } from 'react';
+import { useCallback, useDeferredValue } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTree, setStyle } from '../../store/tree/slice';
 
@@ -18,7 +18,7 @@ const useStyle = () => {
   const deferredLabelColor = useDeferredValue(labelColor, { timeoutMs: 2000 });
   const deferredGlobalStyle = useDeferredValue(globalStyles, { timeoutMs: 2000 });
   
-  const pathColorChange = (e) => {
+  const pathColorChange = useCallback((e) => {
     e.preventDefault();
     dispatch(
       setStyle({
@@ -31,8 +31,8 @@ const useStyle = () => {
         },
       })
     );
-  };
-  const pathWidthChange = (e) => {
+  }, [globalStyles, pathStyle, dispatch]);
+  const pathWidthChange = useCallback((e) => {
     e.preventDefault();
     dispatch(
       setStyle({
@@ -45,8 +45,8 @@ const useStyle = () => {
         },
       })
     );
-  };
-  const labelColorChange = (e) => {
+  }, [globalStyles, pathStyle, dispatch]);
+  const labelColorChange = useCallback((e) => {
     e.preventDefault();
     dispatch(
       setStyle({
@@ -59,8 +59,8 @@ const useStyle = () => {
         },
       })
     );
-  };
-  const labelSizeChange = (e) => {
+  }, [globalStyles, labelStyle, dispatch]);
+  const labelSizeChange = useCallback((e) => {
     e.preventDefault();
     dispatch(
       setStyle({
@@ -73,8 +73,8 @@ const useStyle = () => {
         },
       })
     );
-  };
-  const nodeColorChange = (e) => {
+  }, [globalStyles, labelStyle, dispatch]);
+  const nodeColorChange = useCallback((e) => {
     e.preventDefault();
     dispatch(
       setStyle({
@@ -87,8 +87,8 @@ const useStyle = () => {
         },
       })
     );
-  };
-  const nodeRadiusChange = (e) => {
+  }, [globalStyles, nodeStyle, dispatch]);
+  const nodeRadiusChange = useCallback((e) => {
     e.preventDefault();
     dispatch(
       setStyle({
@@ -101,7 +101,7 @@ const useStyle = () => {
         },
       })
     );
-  };
+  }, [globalStyles, nodeStyle, dispatch]);
   return {
     pathColorChange,
     pathWidthChange,

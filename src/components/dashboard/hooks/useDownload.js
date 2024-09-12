@@ -1,10 +1,10 @@
 import { toJpeg, toPng, toSvg } from 'html-to-image';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getTree } from '../../store/tree/slice';
 
 const useDownload = () => {
-  const tree = useSelector(getTree);
+  const {tree} = useSelector(getTree);
   const [download, setDownload] = useState('png');
   const handleChangeSelectDownload = (e) => {
     e.preventDefault();
@@ -15,10 +15,10 @@ const useDownload = () => {
     heigth: 1000,
     quality: 1,
   }
-  const handleDownload = () => {
+  const handleDownload = useCallback(() => {
     const fileName = 'my-dendrogram';
     if (download === 'json') {
-      const json = JSON.stringify(tree.tree, null, 2);
+      const json = JSON.stringify(tree, null, 2);
       const blob = new Blob([json], { type: 'application/json' });
       const href = URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -56,7 +56,7 @@ const useDownload = () => {
         link.click();
       });
     }
-  };
+  }, [download, tree]);
 
   return {
     download,

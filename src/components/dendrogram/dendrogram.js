@@ -37,7 +37,7 @@ const Dendrogram = ({
   }, [hierarchy, width, height, normalize, curveType, angle]);
   const {
     nodeStyle: { radius: globalRadius, stroke, fill },
-    labelStyle: { fontSize, fill: labelFill },
+    labelStyle: { fontSize, fill: labelFill, color },
     pathStyle: { stroke: pathStroke, fill: pathFill, strokeWidth, strokeOpacity },
   } = globalStyles;
   // podria separar esto en otros componentes
@@ -99,7 +99,7 @@ const Dendrogram = ({
             x={y + 30}
             y={x}
             fontSize={fontSize}
-            font
+            fill={labelFill}
             textAnchor={children.length ? 'end' : 'start'}
             alignmentBaseline="central"
           >
