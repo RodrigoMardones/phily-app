@@ -15,13 +15,13 @@ import {
   useCleanDashboard,
   useDendrogramForm,
 } from './hooks';
+import { useCallback } from 'react';
 const accepts = ['.nwk', '.json'];
 
 const Dashboard = () => {
-  const tree = useSelector(getTree);
-  const file = useSelector(getFile);
-  const error = useSelector(getError);
-  const { curveType, angle } = tree;
+  const { curveType, angle, normalize } = useSelector(getTree);
+  const { name: fileName } = useSelector(getFile);
+  const { message, open } = useSelector(getError);
   const { download, handleChangeSelectDownload, handleDownload } =
     useDownload();
   const { handleFileOnChange, handleLoadClick } = useUpload();
@@ -40,12 +40,22 @@ const Dashboard = () => {
     labelColor,
   } = useStyle();
   const { handleCleanClick } = useCleanDashboard();
-  const { handleCurveChange, handleNormalizationChange,handleAngleChange, deferredAngle, deferredCurveType, deferredNormalize } = useDendrogramForm();
-
+  const {
+    handleCurveChange,
+    handleNormalizationChange,
+    handleAngleChange,
+    deferredCurveType,
+  } = useDendrogramForm();
+  const handleStepChange = useCallback(
+    (e) => {
+      handleCurveChange(e.target.value);
+    },
+    [handleCurveChange]
+  );
   return (
     <>
       <Card className="bg-primary w-auto p-4 rounded-none border-none overflow-y-auto">
-        <Error message={error.message} open={error.open} />
+        <Error message={message} open={open} />
         <div className="grid grid-cols-1">
           <div className="flex flex-row items-center">
             <Image
@@ -69,8 +79,8 @@ const Dashboard = () => {
             <form>
               <div>
                 <label className="label label-text bg-[#FAEECC] rounded text-[#000000] text-opacity-40 min-w-3 mb-2 mt-2 h-8">
-                  {file.name ? file.name : 'Adjunta tu archivo'}
-                  {!file.name ? (
+                  {fileName ? fileName : 'Adjunta tu archivo'}
+                  {!fileName ? (
                     <>
                       <input
                         type="file"
@@ -93,7 +103,7 @@ const Dashboard = () => {
               <Button
                 className="btn h-8 min-h-8 btn-accent mt-2 mr-2 text-white"
                 onClick={handleLoadClick}
-                disabled={!file.name}
+                disabled={!fileName}
               >
                 cargar
               </Button>
@@ -114,19 +124,22 @@ const Dashboard = () => {
               <div className="flex justify-evenly md:flex-row sm:flex-col mt-2">
                 <button
                   className={`btn h-8 min-h-8 min-w-24 border-none text-white rounded-md ${deferredCurveType === 'step' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
-                  onClick={() => handleCurveChange('step')}
+                  value={'step'}
+                  onClick={handleStepChange}
                 >
                   escalon
                 </button>
                 <button
                   className={`btn h-8 min-h-8 min-w-24 border-none text-white rounded-md ${deferredCurveType === 'curve' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
-                  onClick={() => handleCurveChange('curve')}
+                  value={'curve'}
+                  onClick={handleStepChange}
                 >
                   suave
                 </button>
                 <button
                   className={`btn h-8 min-h-8 min-w-24 border-none text-white rounded-md ${deferredCurveType === 'slanted' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
-                  onClick={() => handleCurveChange('slanted')}
+                  value={'slanted'}
+                  onClick={handleStepChange}
                 >
                   inclinado
                 </button>
@@ -138,13 +151,15 @@ const Dashboard = () => {
             <div className="flex justify-evenly md:flex-row sm:flex-col mt-2">
               <button
                 className={`btn h-8 min-h-8 min-w-36 border-none text-white rounded-md ${deferredCurveType === 'circular' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
-                onClick={() => handleCurveChange('circular')}
+                value={'circular'}
+                onClick={handleStepChange}
               >
                 circular
               </button>
               <button
                 className={`btn h-8 min-h-8 min-w-36 border-none text-white rounded-md ${curveType === 'circular-step' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
-                onClick={() => handleCurveChange('circular-step')}
+                value={'circular-step'}
+                onClick={handleStepChange}
               >
                 circular escalonado
               </button>
@@ -157,7 +172,7 @@ const Dashboard = () => {
                 type="checkbox"
                 className="toggle checked:toggle-secondary active:toggle-secondary"
                 id="normalize"
-                value={tree.normalize}
+                value={normalize}
                 onClick={handleNormalizationChange}
               />
             </label>
@@ -170,7 +185,8 @@ const Dashboard = () => {
                 max={360}
                 defaultValue={360}
                 disabled={
-                  deferredCurveType !== 'circular' && deferredCurveType !== 'circular-step'
+                  deferredCurveType !== 'circular' &&
+                  deferredCurveType !== 'circular-step'
                 }
                 className="range range-secondary disabled:opacity-50 disabled:bg-gray-300 disabled:cursor-not-allowed"
                 onClick={handleAngleChange}
@@ -268,7 +284,7 @@ const Dashboard = () => {
                   className="select select-bordered select-primary w-48 h-8 min-h-8 rounded-md bg-[#FAEECC]"
                   defaultValue={download}
                   onChange={handleChangeSelectDownload}
-                  disabled={!file.name}
+                  disabled={!fileName}
                 >
                   {/** revisar como ocupar esto para seleccionar la opcion y exportar al formato pedido */}
                   <option>png</option>
@@ -279,7 +295,7 @@ const Dashboard = () => {
                 <button
                   className="btn btn-secondary text-white min-h-8 h-8 w-40 mx-2"
                   onClick={handleDownload}
-                  disabled={!file.name}
+                  disabled={!fileName}
                 >
                   {' '}
                   descargar <DownloadIcon className={'invert'} />
