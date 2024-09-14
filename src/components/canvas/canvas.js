@@ -17,7 +17,7 @@ const Canvas = () => {
   const { tree, name, width, height } = useSelector(getTree);
   const { handleAddZoomClick, handleSubstractZoomClick } = useZoom();
   useEffect(() => {
-    setKey(key + 1);
+    setKey((key) => key + 1);
   }, [
     deferredNormalize,
     deferredCurveType,

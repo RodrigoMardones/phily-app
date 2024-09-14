@@ -13,12 +13,10 @@ export default function useDendrogramForm() {
   const handleCurveChange = useCallback((name) => {
     dispatch(setTree({ ...tree, curveType: name }));
   }, [tree, dispatch]);
-  const handleNormalizationChange = useCallback((e) => {    
-    e.preventDefault();
+  const handleNormalizationChange = useCallback((e) => {
     dispatch(setTree({ ...tree, normalize: e.target.checked }));
   }, [tree, dispatch]);
   const handleAngleChange = useCallback((e) => {
-    e.preventDefault();
     dispatch(setTree({ ...tree, angle: e.target.value }));
   }, [tree, dispatch]);
   return {

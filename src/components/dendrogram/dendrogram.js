@@ -108,7 +108,7 @@ const Dendrogram = ({
         </g>
       );
     },
-    [normalize, curveType, globalStyles]
+    [normalize, curveType, globalStyles, globalRadius, stroke, fill, fontSize, labelFill]
   );
 
   const renderEdges = useCallback(
@@ -164,7 +164,7 @@ const Dendrogram = ({
         );
       }
     },
-    [normalize, curveType, globalStyles]
+    [normalize, curveType, globalStyles, pathStroke, pathFill, strokeWidth, strokeOpacity]
   );
 
   const allNodes = useCallback(
