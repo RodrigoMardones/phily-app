@@ -3,9 +3,9 @@ import { useDispatch } from 'react-redux';
 import { setError } from '../../store/error/slice';
 import { getFile, setFile } from '../../store/file/slice';
 import { set, getTree } from '../../store/tree/slice';
-import { parseStringToTree, getDepth } from '@/lib/TreeData';
+import { parseStringToTree } from '@/lib/TreeData';
 import { createBaseGlobalStyles } from '@/lib/TreeData';
-import {childrenSchema, schema} from '../validators/dendrogramToJson';
+import { childrenSchema } from '../validators/dendrogramToJson';
 const useUpload = () => {
   let fileReader;
   const dispatch = useDispatch();
@@ -66,7 +66,6 @@ const useUpload = () => {
       if (file.extension == 'json') {
         // validar schema
         try {
-          childrenSchema.parse(JSON.parse(file.content));
         } catch (error) {
           dispatch(
             setError({
@@ -76,13 +75,19 @@ const useUpload = () => {
           );
           return;
         }
-
+        const { content } = file;
+        const { name, globalStyles, normalize, curveType, angle, width, height, tree: treeDoc } = JSON.parse(content);
         dispatch(
           set({
             ...tree,
-            name: file.name,
-            globalStyles : createBaseGlobalStyles({}),
-            tree: JSON.parse(file.content),
+            name: name,
+            globalStyles: globalStyles,
+            normalize : normalize,
+            curveType : curveType,
+            angle : angle,
+            width : width,
+            height : height,
+            tree: treeDoc,
           })
         );
       }
@@ -90,6 +95,7 @@ const useUpload = () => {
         let parsedTree;
         try {
           parsedTree = parseStringToTree(file.content);
+          console.log(parsedTree);
         } catch (error) {
           dispatch(
             setError({
@@ -104,7 +110,7 @@ const useUpload = () => {
             ...tree,
             tree: parsedTree,
             name: file.name,
-            globalStyles : createBaseGlobalStyles({}),
+            globalStyles: createBaseGlobalStyles({}),
           })
         );
       }

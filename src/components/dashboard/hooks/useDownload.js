@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { getTree } from '../../store/tree/slice';
 
 const useDownload = () => {
-  const {tree} = useSelector(getTree);
+  const tree = useSelector(getTree);
   const [download, setDownload] = useState('png');
   const handleChangeSelectDownload = (e) => {
     e.preventDefault();
@@ -18,7 +18,7 @@ const useDownload = () => {
   const handleDownload = useCallback(() => {
     const fileName = 'my-dendrogram';
     if (download === 'json') {
-      const json = JSON.stringify(tree, null, 2);
+      const json = JSON.stringify({ ...tree }, null, 2);
       const blob = new Blob([json], { type: 'application/json' });
       const href = URL.createObjectURL(blob);
       const link = document.createElement('a');
