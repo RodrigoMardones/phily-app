@@ -71,10 +71,10 @@ const drawCurve = (curveType) => {
 const transformSVG = (curveType, radius) => {
   if (curveType === 'circular' || curveType === 'circular-step') {
     return (
-      'translate(' + (radius + MARGIN / 2) + ',' + (radius + MARGIN / 2) + ')'
+      'translate(' + (radius / 2) + ',' + (radius / 2) + ')'
     );
   }
-  return `translate(${[MARGIN, MARGIN].join(',')})`;
+  return `translate(${[0, 0].join(',')})`;
 };
 
 export {

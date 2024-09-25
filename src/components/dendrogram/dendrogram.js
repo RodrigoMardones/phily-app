@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import { dendrogramGenerator, drawCurve, transformSVG, MARGIN } from './utils';
+import { dendrogramGenerator, drawCurve, transformSVG } from './utils';
 import * as d3 from 'd3';
 
 const Dendrogram = ({
@@ -11,14 +11,16 @@ const Dendrogram = ({
   angle,
   globalStyles,
 }) => {
-  const hierarchy = useMemo(() => {
+
+  const margin = { marginWidth : 70 , marginHeight : 70 };
+  const hierarchy = useMemo(() => { 
     const HierarchyCreated = d3.hierarchy(data);
     HierarchyCreated.sort((a, b) => d3.ascending(a.data.name, b.data.name));
     return HierarchyCreated;
   }, [data]);
 
   const radius = useMemo(() => {
-    return Math.min(width, height) / 2 - MARGIN;
+    return Math.min(width, height) / 2 - margin.marginWidth ;
   }, [width, height]);
 
   const [curve, transform] = useMemo(() => {
@@ -177,7 +179,7 @@ const Dendrogram = ({
   );
 
   return (
-    <g transform={transform}>
+    <g transform={transform} id='dendrogram-svg'>
       {allEdges()}
       {allNodes()}
     </g>

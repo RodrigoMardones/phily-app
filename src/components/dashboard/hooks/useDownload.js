@@ -3,6 +3,9 @@ import { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getTree } from '../../store/tree/slice';
 
+
+
+
 const useDownload = () => {
   const tree = useSelector(getTree);
   const [download, setDownload] = useState('png');
@@ -10,11 +13,7 @@ const useDownload = () => {
     e.preventDefault();
     setDownload(e.target.value);
   };
-  const customConfig = {
-    width: 1000,
-    heigth: 1000,
-    quality: 1,
-  }
+  const basicConfig = { width: 1000, height: 1000, quality: 1 };
   const handleDownload = useCallback(() => {
     const fileName = 'my-dendrogram';
     if (download === 'json') {
@@ -31,7 +30,9 @@ const useDownload = () => {
     }
     if (download === 'png') {
       let treeSvg = document.querySelector('#dendrogram');
-      toPng(treeSvg).then((dataUrl) => {
+      const size = treeSvg.getBoundingClientRect();
+      console.log("size inside download", size);
+      toPng(treeSvg, {...basicConfig, width: size.width, height: size.height}).then((dataUrl) => {
         let link = document.createElement('a');
         link.download = `${fileName}.png`;
         link.href = dataUrl;
@@ -40,7 +41,9 @@ const useDownload = () => {
     }
     if (download === 'jpeg') {
       let treeSvg = document.querySelector('#dendrogram');
-      toJpeg(treeSvg).then((dataUrl) => {
+      const size = treeSvg.getBoundingClientRect();
+      console.log("size inside download", size);
+      toJpeg(treeSvg, {...basicConfig, width: size.width, height: size.height}).then((dataUrl) => {
         let link = document.createElement('a');
         link.download = `${fileName}.jpeg`;
         link.href = dataUrl;
@@ -49,7 +52,9 @@ const useDownload = () => {
     }
     if (download === 'svg') {
       let treeSvg = document.querySelector('#dendrogram');
-      toSvg(treeSvg, customConfig).then((dataUrl) => {
+      const size = treeSvg.getBoundingClientRect();
+      console.log("size inside download", size);
+      toSvg(treeSvg, {...basicConfig, width: size.width, height: size.height}).then((dataUrl) => {
         let link = document.createElement('a');
         link.download = `${fileName}.svg`;
         link.href = dataUrl;

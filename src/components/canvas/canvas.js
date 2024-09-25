@@ -3,19 +3,25 @@ import { getTree } from '../store/tree/slice';
 import { Card } from 'react-daisyui';
 import Dendrogram from '../dendrogram/dendrogram';
 import ZoomableSVG from './hooks/zoomable';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import useZoom from './hooks/useZoom';
 import ZoomAddIcon from '../icons/zoomAdd';
 import ZoomSubsIcon from '../icons/zoomSubs';
 import useDendrogramForm from '../dashboard/hooks/useDendrogramForm';
 import useStyle from '../dashboard/hooks/useStyle';
+import useDownload from '../dashboard/hooks/useDownload';
+
+
+
 const Canvas = () => {
+  const ref = useRef(null);
   const [key, setKey] = useState(0);
   const { deferredAngle, deferredCurveType, deferredNormalize } =
     useDendrogramForm();
   const { deferredGlobalStyle } = useStyle();
   const { tree, name, width, height } = useSelector(getTree);
   const { handleAddZoomClick, handleSubstractZoomClick } = useZoom();
+
   useEffect(() => {
     setKey((key) => key + 1);
   }, [
@@ -27,6 +33,7 @@ const Canvas = () => {
     height,
     deferredGlobalStyle,
   ]);
+
   return (
     <Card className="bg-white m-4 rounded-none border-none w-5/6">
       <div className="flex justify-center h-full relative">
@@ -44,7 +51,7 @@ const Canvas = () => {
         >
           <ZoomSubsIcon />
         </button>
-        <div className="item h-full w-full" id="dendrogram">
+        <div className="item h-full w-full" ref={ref} id='dendrogram' >
           <ZoomableSVG width={width} height={height}>
             {name && (
               <Dendrogram
