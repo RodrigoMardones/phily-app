@@ -5,6 +5,7 @@ import { getTree } from '../../store/tree/slice';
 
 const useDownload = () => {
   const tree = useSelector(getTree);
+  const {width, height} = tree;
   const [download, setDownload] = useState('png');
   const handleChangeSelectDownload = (e) => {
     e.preventDefault();
