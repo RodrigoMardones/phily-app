@@ -8,6 +8,10 @@ const store = configureStore({
     tree: TreeReducer,
     file: FileReducer,
     error: ErrorReducer
-  }
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    immutableCheck: false,
+    serializableCheck: false,
+  })
 });
 export default store;

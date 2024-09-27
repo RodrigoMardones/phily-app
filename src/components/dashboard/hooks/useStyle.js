@@ -1,3 +1,4 @@
+import { useCallback, useDeferredValue } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTree, setStyle } from '../../store/tree/slice';
 
@@ -9,7 +10,15 @@ const useStyle = () => {
   const { stroke : pathColor, strokeWidth : pathWidth  } = pathStyle;
   const { fill : nodeColor, radius : nodeRadius  } = nodeStyle;
   const { fontSize : labelSize, fill: labelColor } = labelStyle;
-  const pathColorChange = (e) => {
+  const deferredPathColor = useDeferredValue(pathColor, { timeoutMs: 2000 });
+  const deferredPathWidth = useDeferredValue(pathWidth, { timeoutMs: 2000 });
+  const deferredLabelSize = useDeferredValue(labelSize, { timeoutMs: 2000 });
+  const deferredNodeColor = useDeferredValue(nodeColor, { timeoutMs: 2000 });
+  const deferredNodeRadius = useDeferredValue(nodeRadius, { timeoutMs: 2000 });
+  const deferredLabelColor = useDeferredValue(labelColor, { timeoutMs: 2000 });
+  const deferredGlobalStyle = useDeferredValue(globalStyles, { timeoutMs: 2000 });
+  
+  const pathColorChange = useCallback((e) => {
     e.preventDefault();
     dispatch(
       setStyle({
@@ -22,8 +31,8 @@ const useStyle = () => {
         },
       })
     );
-  };
-  const pathWidthChange = (e) => {
+  }, [globalStyles, pathStyle, dispatch]);
+  const pathWidthChange = useCallback((e) => {
     e.preventDefault();
     dispatch(
       setStyle({
@@ -36,8 +45,8 @@ const useStyle = () => {
         },
       })
     );
-  };
-  const labelColorChange = (e) => {
+  }, [globalStyles, pathStyle, dispatch]);
+  const labelColorChange = useCallback((e) => {
     e.preventDefault();
     dispatch(
       setStyle({
@@ -50,8 +59,8 @@ const useStyle = () => {
         },
       })
     );
-  };
-  const labelSizeChange = (e) => {
+  }, [globalStyles, labelStyle, dispatch]);
+  const labelSizeChange = useCallback((e) => {
     e.preventDefault();
     dispatch(
       setStyle({
@@ -64,8 +73,8 @@ const useStyle = () => {
         },
       })
     );
-  };
-  const nodeColorChange = (e) => {
+  }, [globalStyles, labelStyle, dispatch]);
+  const nodeColorChange = useCallback((e) => {
     e.preventDefault();
     dispatch(
       setStyle({
@@ -78,8 +87,8 @@ const useStyle = () => {
         },
       })
     );
-  };
-  const nodeRadiusChange = (e) => {
+  }, [globalStyles, nodeStyle, dispatch]);
+  const nodeRadiusChange = useCallback((e) => {
     e.preventDefault();
     dispatch(
       setStyle({
@@ -92,7 +101,7 @@ const useStyle = () => {
         },
       })
     );
-  };
+  }, [globalStyles, nodeStyle, dispatch]);
   return {
     pathColorChange,
     pathWidthChange,
@@ -105,7 +114,14 @@ const useStyle = () => {
     labelSize,
     nodeColor,
     nodeRadius,
-    labelColor
+    labelColor,
+    deferredPathColor,
+    deferredPathWidth,
+    deferredLabelSize,
+    deferredNodeColor,
+    deferredNodeRadius,
+    deferredLabelColor,
+    deferredGlobalStyle
   };
 };
 export default useStyle;
