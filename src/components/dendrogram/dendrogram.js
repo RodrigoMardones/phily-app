@@ -179,7 +179,7 @@ const Dendrogram = ({
   );
 
   return (
-    <g transform={transform} id='dendrogram-svg'>
+    <g transform={transform} id="dendrogram-g" >
       {allEdges()}
       {allNodes()}
     </g>

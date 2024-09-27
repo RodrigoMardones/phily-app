@@ -28,7 +28,7 @@ export default function ZoomableSVG({ children, width, height}) {
     d3.select(svgRef.current).call(zoom);
   }, []);
   return (
-    <svg ref={svgRef} width={'100%'} height={'100%'}>
+    <svg ref={svgRef} width={'100%'} height={'100%'} id='dendrogram-svg'>
       <g 
         transform={`translate(${x},${y})scale(${k})`}
         >{children}</g>

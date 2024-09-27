@@ -3,9 +3,6 @@ import { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getTree } from '../../store/tree/slice';
 
-
-
-
 const useDownload = () => {
   const tree = useSelector(getTree);
   const [download, setDownload] = useState('png');
@@ -29,10 +26,19 @@ const useDownload = () => {
       URL.revokeObjectURL(href);
     }
     if (download === 'png') {
-      let treeSvg = document.querySelector('#dendrogram');
-      const size = treeSvg.getBoundingClientRect();
-      console.log("size inside download", size);
-      toPng(treeSvg, {...basicConfig, width: size.width, height: size.height}).then((dataUrl) => {
+      const newTree = document.querySelector('#dendrogram-svg');
+      const size = newTree.getBoundingClientRect();
+      const gTree = newTree.querySelector('#dendrogram-g');
+      const gSize = gTree.getBoundingClientRect();
+  
+
+      // si gSize.top es negativo se sale de los limites
+      // si gSize.left es 
+      const config = {
+        width: size.width + gSize.width,
+        height: size.height + gSize.height
+      }
+      toPng(newTree,config).then((dataUrl) => {
         let link = document.createElement('a');
         link.download = `${fileName}.png`;
         link.href = dataUrl;
@@ -40,10 +46,19 @@ const useDownload = () => {
       });
     }
     if (download === 'jpeg') {
-      let treeSvg = document.querySelector('#dendrogram');
-      const size = treeSvg.getBoundingClientRect();
-      console.log("size inside download", size);
-      toJpeg(treeSvg, {...basicConfig, width: size.width, height: size.height}).then((dataUrl) => {
+      const newTree = document.querySelector('#dendrogram-svg');
+      const size = newTree.getBoundingClientRect();
+      const gTree = newTree.querySelector('#dendrogram-g');
+      const gSize = gTree.getBoundingClientRect();
+  
+
+      // si gSize.top es negativo se sale de los limites
+      // si gSize.left es 
+      const config = {
+        width: size.width + gSize.width,
+        height: size.height + gSize.height
+      }
+      toJpeg(newTree, config).then((dataUrl) => {
         let link = document.createElement('a');
         link.download = `${fileName}.jpeg`;
         link.href = dataUrl;
@@ -51,10 +66,23 @@ const useDownload = () => {
       });
     }
     if (download === 'svg') {
-      let treeSvg = document.querySelector('#dendrogram');
-      const size = treeSvg.getBoundingClientRect();
-      console.log("size inside download", size);
-      toSvg(treeSvg, {...basicConfig, width: size.width, height: size.height}).then((dataUrl) => {
+      const newTree = document.querySelector('#dendrogram-svg');
+      const size = newTree.getBoundingClientRect();
+      const gTree = newTree.querySelector('#dendrogram-g');
+      const gSize = gTree.getBoundingClientRect();
+  
+
+      // si gSize.top es negativo se sale de los limites
+      // si gSize.left es 
+      const config = {
+        width: size.width + gSize.width,
+        height: size.height + gSize.height
+      }
+
+      toSvg(newTree, {
+        ...basicConfig,
+        ...config
+      }).then((dataUrl) => {
         let link = document.createElement('a');
         link.download = `${fileName}.svg`;
         link.href = dataUrl;
