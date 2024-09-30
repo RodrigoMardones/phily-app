@@ -76,7 +76,6 @@ const Dendrogram = ({
                 textAnchor={turnLabelUpsideDown ? 'end' : 'start'}
                 transform={turnLabelUpsideDown ? 'rotate(180)' : 'rotate(0)'}
                 onClick={(e) => {
-                  //console.log(node.data.name);
                 }}
                 alignmentBaseline="middle"
               >

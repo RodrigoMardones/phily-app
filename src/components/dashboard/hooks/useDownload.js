@@ -1,4 +1,3 @@
-import { toJpeg, toPng, toSvg } from 'html-to-image';
 import { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getTree } from '../../store/tree/slice';
@@ -143,7 +142,6 @@ const useDownload = () => {
       const clonedG = gTree.cloneNode(true);
       newSvg.appendChild(clonedG);
       clonedG.setAttribute('transform', `scale(${1})`);
-      console.log(newSvg)
       // Convertir el nuevo SVG a una URL de datos
       const serializer = new XMLSerializer();
       const svgString = serializer.serializeToString(newSvg);
