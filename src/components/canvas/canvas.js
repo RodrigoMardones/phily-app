@@ -51,7 +51,7 @@ const Canvas = () => {
         >
           <ZoomSubsIcon />
         </button>
-        <div className="item h-full w-full" ref={ref} id='dendrogram' >
+        <div className="item h-full w-full" ref={ref}>
           <ZoomableSVG width={width} height={height}>
             {name && (
               <Dendrogram

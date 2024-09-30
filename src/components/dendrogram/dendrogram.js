@@ -12,7 +12,6 @@ const Dendrogram = ({
   globalStyles,
 }) => {
 
-  const margin = { marginWidth : 70 , marginHeight : 70 };
   const hierarchy = useMemo(() => { 
     const HierarchyCreated = d3.hierarchy(data);
     HierarchyCreated.sort((a, b) => d3.ascending(a.data.name, b.data.name));
@@ -20,7 +19,7 @@ const Dendrogram = ({
   }, [data]);
 
   const radius = useMemo(() => {
-    return Math.min(width, height) / 2 - margin.marginWidth ;
+    return Math.min(width, height) / 2 ;
   }, [width, height]);
 
   const [curve, transform] = useMemo(() => {
