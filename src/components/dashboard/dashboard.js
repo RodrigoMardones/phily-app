@@ -174,6 +174,7 @@ const Dashboard = () => {
                 className="toggle checked:toggle-secondary active:toggle-secondary"
                 id="normalize"
                 value={normalize}
+                defaultChecked={normalize}
                 onClick={handleNormalizationChange}
               />
             </label>
