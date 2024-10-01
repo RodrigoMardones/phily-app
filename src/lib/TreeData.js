@@ -149,7 +149,6 @@ export const parseStringToTree = (inputString) => {
   if (ancestors.length !== 0) {
     throw new Error('Invalid input string: unmatched opening parenthesis');
   }
-  console.log(currentTree);
   return currentTree;
 };
 
