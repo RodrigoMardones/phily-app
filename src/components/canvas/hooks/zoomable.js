@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
 import { useRef } from 'react';
 import { useState, useEffect } from 'react';
+import SubMenu from '../../submenu/submenu';
 
 export default function ZoomableSVG({ children, width, height}) {
   const svgRef = useRef();

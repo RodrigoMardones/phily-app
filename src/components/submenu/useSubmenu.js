@@ -2,24 +2,58 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTree, set as setTree } from '../store/tree/slice';
 import { modifyEspecificNodeStyle } from '@/lib/TreeData';
+import {
+  set as setContextMenu,
+  getContextMenu,
+  RESET as resetSubMenu,
+} from '../store/submenu/slice';
 
 const useSubMenu = () => {
   const tree = useSelector(getTree);
+  const contextMenu = useSelector(getContextMenu);
   const dispatch = useDispatch();
   const { tree: treeData } = tree;
-  const [contextMenu, setContextMenu] = useState(null);
-  const handleContextMenu = (event, component) => {
+
+  const handleContextMenu = (event, component, nodeIndex) => {
     event.preventDefault();
-    setContextMenu({
-      mouseX: event.screenX,
-      mouseY: event.screenY,
-      component,
-    });
     console.log(event)
-    console.log(component)
+    const element = document.getElementById(`node-${nodeIndex}`);
+    const contextMenu = document.getElementById('contextMenuObject');
+    const canvas = document.getElementById('canvas');
+    const sizeCanvas = canvas.getBoundingClientRect();
+    const elementSize = element.getBoundingClientRect();
+    const contextMenuSize = contextMenu.getBoundingClientRect();
+    // posiciones a guardar para el menu de contexto
+    let newPositionX;
+    let newPositionY;
+    // se deja un offsetRelativo al tamaño creado
+    const offsetX = contextMenuSize.width ? contextMenuSize.width - 5 : 145;
+    const offsetY = contextMenuSize.height ? contextMenuSize.height - 5: 100;
+    const isRight = (elementSize.left - sizeCanvas.x) > sizeCanvas.width / 2;
+    const isBottom = (elementSize.y + sizeCanvas.y) > sizeCanvas.height /2;
+    console.log(isRight)
+    console.log(isBottom)
+    if(isRight) {
+      newPositionX = (elementSize.left - sizeCanvas.x) - offsetX
+    } else {
+      newPositionX = elementSize.left - sizeCanvas.x
+    }
+    if(isBottom) {
+      newPositionY = (elementSize.y + sizeCanvas.y) - offsetY
+    } else {
+      newPositionY =  elementSize.y + sizeCanvas.y
+    }
+    dispatch(
+      setContextMenu({
+        pointerX:  newPositionX ,
+        pointerY:  newPositionY,
+        component: component,
+        toggled: false,
+      })
+    );
   };
   const handleClose = () => {
-    setContextMenu(null);
+    dispatch(resetSubMenu());
   };
   const modifyColorPath = (name, color) => {
     const newStyle = createBasePathStyle({ fill: color });

@@ -71,7 +71,8 @@ const Dendrogram = ({
               stroke={stroke}
               fill={fill}
               className="label hover:cursor-pointer"
-              onContextMenu={(e) => handleContextMenu(e, node)}
+              id={`node-${nodeIndex}`}
+              onContextMenu={(e) => handleContextMenu(e, node, nodeIndex)}
             />
             {!children.length && (
               <text
@@ -83,7 +84,7 @@ const Dendrogram = ({
                 textAnchor={turnLabelUpsideDown ? 'end' : 'start'}
                 transform={turnLabelUpsideDown ? 'rotate(180)' : 'rotate(0)'}
                 alignmentBaseline="middle"
-                onContextMenu={(e) => handleContextMenu(e, node)}
+                id={`node-text-${nodeIndex}`}
               >
                 {name}
               </text>
@@ -93,14 +94,15 @@ const Dendrogram = ({
       }
 
       return (
-        <g key={`node-${nodeIndex}`}>
+        <g key={`node-${nodeIndex}`} >
           <circle
             cx={y}
             cy={x}
             r={globalRadius}
             stroke={stroke}
             fill={fill}
-            onContextMenu={(e) => handleContextMenu(e, node)}
+            id={`node-${nodeIndex}`}
+            onContextMenu={(e) => handleContextMenu(e, node, nodeIndex)}
           />
           <text
             x={y + 30}
@@ -109,7 +111,7 @@ const Dendrogram = ({
             fill={labelFill}
             textAnchor={children.length ? 'end' : 'start'}
             alignmentBaseline="central"
-            onContextMenu={(e) => handleContextMenu(e, node)}
+            id={`node-text-${nodeIndex}`}
           >
             {name}
           </text>
@@ -141,7 +143,7 @@ const Dendrogram = ({
             <g
               key={`link-${indexLink}`}
               transform={'rotate(' + (x - 90) + ')'}
-              onContextMenu={(e) => handleContextMenu(e, link)}
+              
             >
               <line
                 x1={0}
@@ -152,6 +154,7 @@ const Dendrogram = ({
                 fill={pathFill}
                 strokeWidth={strokeWidth}
                 strokeOpacity={strokeOpacity}
+                onContextMenu={(e) => handleContextMenu(e, link)}
               />
               ;
             </g>
