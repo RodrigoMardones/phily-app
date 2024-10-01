@@ -1,7 +1,8 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { dendrogramGenerator, drawCurve, transformSVG } from './utils';
+import SubMenu from '../submenu/submenu';
 import * as d3 from 'd3';
-
+import useSubMenu from '../submenu/useSubmenu';
 const Dendrogram = ({
   data,
   width,
@@ -11,15 +12,15 @@ const Dendrogram = ({
   angle,
   globalStyles,
 }) => {
-
-  const hierarchy = useMemo(() => { 
+  const { handleContextMenu } = useSubMenu();
+  const hierarchy = useMemo(() => {
     const HierarchyCreated = d3.hierarchy(data);
     HierarchyCreated.sort((a, b) => d3.ascending(a.data.name, b.data.name));
     return HierarchyCreated;
   }, [data]);
 
   const radius = useMemo(() => {
-    return Math.min(width, height) / 2 ;
+    return Math.min(width, height) / 2;
   }, [width, height]);
 
   const [curve, transform] = useMemo(() => {
@@ -39,7 +40,12 @@ const Dendrogram = ({
   const {
     nodeStyle: { radius: globalRadius, stroke, fill },
     labelStyle: { fontSize, fill: labelFill, color },
-    pathStyle: { stroke: pathStroke, fill: pathFill, strokeWidth, strokeOpacity },
+    pathStyle: {
+      stroke: pathStroke,
+      fill: pathFill,
+      strokeWidth,
+      strokeOpacity,
+    },
   } = globalStyles;
   // podria separar esto en otros componentes
   const renderNode = useCallback(
@@ -65,6 +71,7 @@ const Dendrogram = ({
               stroke={stroke}
               fill={fill}
               className="label hover:cursor-pointer"
+              onContextMenu={(e) => handleContextMenu(e, node)}
             />
             {!children.length && (
               <text
@@ -75,9 +82,8 @@ const Dendrogram = ({
                 fill={labelFill}
                 textAnchor={turnLabelUpsideDown ? 'end' : 'start'}
                 transform={turnLabelUpsideDown ? 'rotate(180)' : 'rotate(0)'}
-                onClick={(e) => {
-                }}
                 alignmentBaseline="middle"
+                onContextMenu={(e) => handleContextMenu(e, node)}
               >
                 {name}
               </text>
@@ -94,6 +100,7 @@ const Dendrogram = ({
             r={globalRadius}
             stroke={stroke}
             fill={fill}
+            onContextMenu={(e) => handleContextMenu(e, node)}
           />
           <text
             x={y + 30}
@@ -102,24 +109,39 @@ const Dendrogram = ({
             fill={labelFill}
             textAnchor={children.length ? 'end' : 'start'}
             alignmentBaseline="central"
+            onContextMenu={(e) => handleContextMenu(e, node)}
           >
             {name}
           </text>
         </g>
       );
     },
-    [normalize, curveType, globalStyles, globalRadius, stroke, fill, fontSize, labelFill]
+    [
+      normalize,
+      curveType,
+      globalStyles,
+      globalRadius,
+      stroke,
+      fill,
+      fontSize,
+      labelFill,
+    ]
   );
 
   const renderEdges = useCallback(
     (link, indexLink) => {
-      const { source : {depth = 0}, target : {x,y}, source } = link;
+      const {
+        source: { depth = 0 },
+        target: { x, y },
+        source,
+      } = link;
       if (curveType === 'circular' || curveType === 'circular-step') {
         if (depth === 0) {
           return (
             <g
               key={`link-${indexLink}`}
               transform={'rotate(' + (x - 90) + ')'}
+              onContextMenu={(e) => handleContextMenu(e, link)}
             >
               <line
                 x1={0}
@@ -143,6 +165,7 @@ const Dendrogram = ({
             strokeOpacity={strokeOpacity}
             strokeWidth={strokeWidth}
             d={curve(link) || undefined}
+            onContextMenu={(e) => handleContextMenu(e, link)}
           />
         );
       } else {
@@ -156,6 +179,7 @@ const Dendrogram = ({
             stroke={pathStroke}
             strokeOpacity={strokeOpacity}
             strokeWidth={strokeWidth}
+            onContextMenu={(e) => handleContextMenu(e, link)}
             d={curve({
               source: [link.source.y, link.source.x],
               target: [link.target.y, link.target.x],
@@ -164,7 +188,15 @@ const Dendrogram = ({
         );
       }
     },
-    [normalize, curveType, globalStyles, pathStroke, pathFill, strokeWidth, strokeOpacity]
+    [
+      normalize,
+      curveType,
+      globalStyles,
+      pathStroke,
+      pathFill,
+      strokeWidth,
+      strokeOpacity,
+    ]
   );
 
   const allNodes = useCallback(
@@ -177,7 +209,7 @@ const Dendrogram = ({
   );
 
   return (
-    <g transform={transform} id="dendrogram-g" >
+    <g transform={transform} id="dendrogram-g">
       {allEdges()}
       {allNodes()}
     </g>
