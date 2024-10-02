@@ -90,7 +90,7 @@ const Dendrogram = ({
                 textAnchor={turnLabelUpsideDown ? 'end' : 'start'}
                 transform={turnLabelUpsideDown ? 'rotate(180)' : 'rotate(0)'}
                 alignmentBaseline="auto"
-                id={`node-text-${nodeIndex}`}
+                id={`label-${nodeIndex}`}
                 onContextMenu={(e) => handleContextMenu(e, node, nodeIndex, 'label')}
               >
                 {name}
@@ -118,7 +118,8 @@ const Dendrogram = ({
             fill={labelFill}
             textAnchor={children.length ? 'end' : 'start'}
             alignmentBaseline="central"
-            id={`node-text-${nodeIndex}`}
+            id={`label-${nodeIndex}`}
+            onContextMenu={(e) => handleContextMenu(e, node, nodeIndex, 'label')}
           >
             {name}
           </text>

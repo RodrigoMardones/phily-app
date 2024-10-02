@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { getTree, set as setTree } from '../store/tree/slice';
-import { modifyEspecificNodeStyle, createBaseNodeStyle, createBaseLabelStyle } from '@/lib/TreeData';
+import { modifyEspecificNodeStyle, createBaseNodeStyle, createBaseLabelStyle, modifyEspecificLabelStyle } from '@/lib/TreeData';
 import {
   set as setContextMenu,
   getContextMenu,
@@ -16,7 +16,9 @@ const useSubMenu = () => {
 
   const handleContextMenu = (event, component, nodeIndex, typeElement) => {
     event.preventDefault();
-    const element = document.getElementById(`node-${nodeIndex}`);
+    console.log('typeElement', typeElement);
+    const element = document.getElementById(`${typeElement}-${nodeIndex}`);
+    console.log('element', element);
     const contextMenu = document.getElementById('contextMenuObject');
     const canvas = document.getElementById('canvas');
     const sizeCanvas = canvas.getBoundingClientRect();
@@ -120,7 +122,7 @@ const useSubMenu = () => {
       ...componentStyle,
       fontSize: size,
     });
-    modifyEspecificNodeStyle(clonedTree, overrideStyle, component.data.id);
+    modifyEspecificLabelStyle(clonedTree, overrideStyle, component.data.id);
     dispatch(
       setContextMenu({
         ...contextMenu,
@@ -147,7 +149,7 @@ const useSubMenu = () => {
       ...componentStyle,
       fill: color,
     });
-    modifyEspecificNodeStyle(clonedTree, overrideStyle, component.data.id);
+    modifyEspecificLabelStyle(clonedTree, overrideStyle, component.data.id);
     dispatch(
       setContextMenu({
         ...contextMenu,

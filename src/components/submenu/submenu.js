@@ -2,7 +2,14 @@ import React, { useEffect } from 'react';
 import useSubMenu from './useSubmenu';
 
 const SubMenu = () => {
-  const { contextMenu, handleClose, modifyNodeRadius, modifyNodeColor } = useSubMenu();
+  const {
+    contextMenu,
+    handleClose,
+    modifyNodeRadius,
+    modifyNodeColor,
+    modifyLabelSize,
+    modifyLabelColor,
+  } = useSubMenu();
   const { pointerX, pointerY, component, typeElement, toggled } = contextMenu;
 
   return (
@@ -16,7 +23,7 @@ const SubMenu = () => {
       hidden={toggled}
     >
       <ul className="list-none m-0 p-2">
-        <li className="p-2 cursor-pointer">
+        <li className="p-2 cursor-pointer" hidden={typeElement !== 'node'}>
           <label className="label text-black text-sm">Radio</label>
           <input
             type="number"
@@ -26,16 +33,36 @@ const SubMenu = () => {
             onChange={modifyNodeRadius}
           />
         </li>
-        <li className="p-2 cursor-pointer">
+        <li className="p-2 cursor-pointer" hidden={typeElement !== 'node'}>
           <label className="label text-black text-sm">Color</label>
-          <input 
-          type="color" 
-          className="input w-40 h-6 min-h-6 rounded-md"
-          onChange={modifyNodeColor}
+          <input
+            type="color"
+            className="input w-40 h-6 min-h-6 rounded-md"
+            onChange={modifyNodeColor}
+          />
+        </li>
+        <li className="p-2 cursor-pointer" hidden={typeElement !== 'label'}>
+          <label className="label text-black text-sm">Tamaño</label>
+          <input
+            type="number"
+            className="input w-40 h-6 min-h-6 rounded-md mr-2 bg-[#FAEECC]"
+            placeholder="10px"
+            min={0}
+            onChange={modifyLabelSize}
+          />
+        </li>
+        <li className="p-2 cursor-pointer" hidden={typeElement !== 'label'}>
+          <label className="label text-black text-sm">Color</label>
+          <input
+            type="color"
+            className="input w-40 h-6 min-h-6 rounded-md"
+            onChange={modifyLabelColor}
           />
         </li>
       </ul>
-      <button className='btn btn-secondary' onClick={handleClose}>close</button>
+      <button className="btn btn-secondary" onClick={handleClose}>
+        close
+      </button>
     </div>
   );
 };
