@@ -8,6 +8,7 @@ import DownloadIcon from '../icons/download';
 import { getTree } from '../store/tree/slice';
 import { getFile } from '../store/file/slice';
 import { getError } from '../store/error/slice';
+import Footer from '../footer/footer';
 import {
   useUpload,
   useDownload,
@@ -67,7 +68,7 @@ const Dashboard = () => {
               alt="logo"
             />
             <Card.Title className="text-white ml-2 items-end text-4xl align-middle">
-              PhilyApp
+              Phily
             </Card.Title>
           </div>
           {/**
@@ -306,6 +307,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
+        <Footer />
       </Card>
     </>
   );
