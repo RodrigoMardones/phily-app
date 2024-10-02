@@ -170,50 +170,6 @@ export const getDepth = function (obj) {
   return 1 + depth;
 };
 
-/**
- * Modify the node style of a tree object
- * @param {object} obj - the tree object
- * @param {object} nodeStyle - the node style object
- * @returns {undefined}
- */
-export const modifyNodeStyle = function (obj, nodeStyle) {
-  obj.nodeStyle = nodeStyle;
-  if (obj.children) {
-    obj.children.forEach(function (d) {
-      modifyNodeStyle(d, nodeStyle);
-    });
-  }
-};
-
-/**
- * Modify the path style of a tree object
- * @param {object} obj - the tree object
- * @param {object} pathStyle - the path style object
- * @returns {undefined}
- */
-export const modifyPathStyle = function (obj, pathStyle) {
-  obj.pathStyle = pathStyle;
-  if (obj.children) {
-    obj.children.forEach(function (d) {
-      modifyPathStyle(d, pathStyle);
-    });
-  }
-};
-
-/**
- * Modify the label style of a tree object
- * @param {object} obj - the tree object
- * @param {object} labelStyle - the label style object
- * @returns {undefined}
- */
-export const modifyLabelStyle = function (obj, labelStyle) {
-  obj.labelStyle = labelStyle;
-  if (obj.children) {
-    obj.children.forEach(function (d) {
-      modifyLabelStyle(d, labelStyle);
-    });
-  }
-};
 
 /**
  * Modify the node style of a specific node in a tree object

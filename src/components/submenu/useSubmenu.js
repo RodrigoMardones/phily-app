@@ -1,6 +1,13 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { getTree, set as setTree } from '../store/tree/slice';
-import { modifyEspecificNodeStyle, createBaseNodeStyle, createBaseLabelStyle, modifyEspecificLabelStyle } from '@/lib/TreeData';
+import {
+  modifyEspecificNodeStyle,
+  createBaseNodeStyle,
+  createBaseLabelStyle,
+  modifyEspecificLabelStyle,
+  createBasePathStyle,
+  modifyEspecificPathStyle
+} from '@/lib/TreeData';
 import {
   set as setContextMenu,
   getContextMenu,
@@ -14,23 +21,23 @@ const useSubMenu = () => {
   const { tree: treeData, ...treeRest } = tree;
   const { component } = contextMenu;
 
-  const handleContextMenu = (event, component, nodeIndex, typeElement) => {
+  const handleContextMenu = (event, component, index, typeElement) => {
     event.preventDefault();
-    console.log('typeElement', typeElement);
-    const element = document.getElementById(`${typeElement}-${nodeIndex}`);
+    console.log({ event, component, index, typeElement });
+    const element = document.getElementById(`${typeElement}-${index}`);
     console.log('element', element);
     const contextMenu = document.getElementById('contextMenuObject');
     const canvas = document.getElementById('canvas');
     const sizeCanvas = canvas.getBoundingClientRect();
     const elementSize = element.getBoundingClientRect();
     const contextMenuSize = contextMenu.getBoundingClientRect();
-
+    console.log({ sizeCanvas, elementSize, contextMenuSize });
     // se deja un offsetRelativo al tamaño creado
     const offsetX = contextMenuSize.width ? contextMenuSize.width - 5 : 145;
     const offsetY = contextMenuSize.height ? contextMenuSize.height - 5 : 100;
     const isRight = elementSize.left - sizeCanvas.x > sizeCanvas.width / 2;
     const isBottom = elementSize.y + sizeCanvas.y > sizeCanvas.height / 2;
-
+    console.log({ isRight, isBottom });
     // posiciones a guardar para el menu de contexto
     let newPositionX = isRight
       ? elementSize.left - sizeCanvas.x - offsetX
@@ -39,11 +46,14 @@ const useSubMenu = () => {
       ? elementSize.y + sizeCanvas.y - offsetY
       : elementSize.y + sizeCanvas.y;
 
+    // se obtiene el componente correcto dependiendo del tipo de elemento
+    const newComponent = typeElement === 'link' ? component.source : component;
+    
     dispatch(
       setContextMenu({
         pointerX: newPositionX,
         pointerY: newPositionY,
-        component: component,
+        component: newComponent,
         typeElement: typeElement,
         toggled: false,
       })
@@ -53,7 +63,7 @@ const useSubMenu = () => {
     dispatch(resetContextMenu());
   };
   /**
-   * @description modify the radius of the node
+   * @description modify the radius of the node selected 
    * @param {*} event event object
    */
   const modifyNodeRadius = (event) => {
@@ -83,7 +93,7 @@ const useSubMenu = () => {
   };
 
   /**
-   * @description modify the color of the node
+   * @description modify the color of the node selected
    * @param {*} event event object
    */
   const modifyNodeColor = (event) => {
@@ -111,7 +121,7 @@ const useSubMenu = () => {
   };
 
   /**
-   * @description modify the size of the label
+   * @description modify the size of the label of the node selected
    * @param {*} event event object
    */
   const modifyLabelSize = (event) => {
@@ -138,8 +148,8 @@ const useSubMenu = () => {
     dispatch(setTree({ ...treeRest, tree: clonedTree }));
   };
   /**
-   * @description modify the color of the label
-   * @param {*} event 
+   * @description modify the color of the label of the node selected
+   * @param {*} event event object
    */
   const modifyLabelColor = (event) => {
     const color = event.target.value;
@@ -165,18 +175,61 @@ const useSubMenu = () => {
     dispatch(setTree({ ...treeRest, tree: clonedTree }));
   };
 
-
-  const modifyColorPath = (name, color) => {
-    const newStyle = createBasePathStyle({ fill: color });
-    const newtree = { ...treeData };
-    modifyEspecificNodeStyle(newtree, name, newStyle);
-    dispatch(setTree({ ...tree, hasOwnSyle: true, tree: newtree }));
+  /**
+   * @description modify the color of the path of the node selected
+   * @param {*} event event object
+   */
+  const modifyColorPath = (event) => {
+    const color = event.target.value;
+    let componentStyle = component.data?.pathStyle;
+    let clonedTree = structuredClone(treeData);
+    const overrideStyle = createBasePathStyle({
+      ...componentStyle,
+      stroke: color,
+    });
+    modifyEspecificPathStyle(clonedTree, overrideStyle, component.data.id);
+    dispatch(
+      setContextMenu({
+        ...contextMenu,
+        component: {
+          ...component,
+          data: {
+            ...component.data,
+            pathStyle: overrideStyle,
+          },
+        },
+      })
+    );
+    dispatch(setTree({ ...treeRest, tree: clonedTree }));
   };
-  const modifyWidthPath = (name, width) => {
-    const newStyle = createBasePathStyle({ strokeWidth: width });
-    const newtree = { ...treeData };
-    modifyEspecificNodeStyle(newtree, name, newStyle);
-    dispatch(setTree({ ...tree, hasOwnSyle: true, tree: newtree }));
+
+  /**
+   * @description modify the width of the path of the node selected
+   * @param {*} event event object
+   */
+  const modifyWidthPath = (event) => {
+    const width = event.target.value;
+    console.logWidth;
+    let componentStyle = component.data?.pathStyle;
+    let clonedTree = structuredClone(treeData);
+    const overrideStyle = createBasePathStyle({
+      ...componentStyle,
+      strokeWidth: width,
+    });
+    modifyEspecificPathStyle(clonedTree, overrideStyle, component.data.id);
+    dispatch(
+      setContextMenu({
+        ...contextMenu,
+        component: {
+          ...component,
+          data: {
+            ...component.data,
+            pathStyle: overrideStyle,
+          },
+        },
+      })
+    );
+    dispatch(setTree({ ...treeRest, tree: clonedTree }));
   };
 
   return {

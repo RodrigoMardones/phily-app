@@ -41,10 +41,10 @@ const Dendrogram = ({
     nodeStyle: { radius: globalNodeRadius, stroke: globalNodeStroke,  fill: globalNodeFill },
     labelStyle: { fontSize: globalLabelFontSize, fill: globalLabelFill },
     pathStyle: {
-      stroke: pathStroke,
-      fill: pathFill,
-      strokeWidth,
-      strokeOpacity,
+      stroke: globalPathStroke,
+      fill: globalPathFill,
+      strokeWidth: globalStrokeWidth,
+      strokeOpacity: globalStrokeOpacity,
     },
   } = globalStyles;
   // podria separar esto en otros componentes
@@ -144,6 +144,11 @@ const Dendrogram = ({
         target: { x, y },
         source,
       } = link;
+      const pathStroke = source.data?.pathStyle?.stroke || globalPathStroke;
+      const pathFill = source.data?.pathStyle?.fill || globalPathFill;
+      const strokeWidth = source.data?.pathStyle?.strokeWidth || globalStrokeWidth;
+      const strokeOpacity = source.data?.pathStyle?.strokeOpacity || globalStrokeOpacity;
+
       if (curveType === 'circular' || curveType === 'circular-step') {
         if (depth === 0) {
           return (
@@ -161,7 +166,8 @@ const Dendrogram = ({
                 fill={pathFill}
                 strokeWidth={strokeWidth}
                 strokeOpacity={strokeOpacity}
-                onContextMenu={(e) => handleContextMenu(e, link)}
+                id={`link-${indexLink}`}
+                onContextMenu={(e) => handleContextMenu(e, link, indexLink, 'link')}
               />
               ;
             </g>
@@ -175,7 +181,8 @@ const Dendrogram = ({
             strokeOpacity={strokeOpacity}
             strokeWidth={strokeWidth}
             d={curve(link) || undefined}
-            onContextMenu={(e) => handleContextMenu(e, link)}
+            id={`link-${indexLink}`}
+            onContextMenu={(e) => handleContextMenu(e, link, indexLink, 'link')}
           />
         );
       } else {
@@ -189,7 +196,7 @@ const Dendrogram = ({
             stroke={pathStroke}
             strokeOpacity={strokeOpacity}
             strokeWidth={strokeWidth}
-            onContextMenu={(e) => handleContextMenu(e, link)}
+            id={`link-${indexLink}`}
             d={curve({
               source: [link.source.y, link.source.x],
               target: [link.target.y, link.target.x],
@@ -202,10 +209,10 @@ const Dendrogram = ({
       normalize,
       curveType,
       globalStyles,
-      pathStroke,
-      pathFill,
-      strokeWidth,
-      strokeOpacity,
+      globalPathStroke,
+      globalPathFill,
+      globalStrokeWidth,
+      globalStrokeOpacity,
     ]
   );
 

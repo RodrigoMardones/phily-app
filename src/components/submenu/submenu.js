@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import useSubMenu from './useSubmenu';
 
 const SubMenu = () => {
@@ -9,8 +9,10 @@ const SubMenu = () => {
     modifyNodeColor,
     modifyLabelSize,
     modifyLabelColor,
+    modifyWidthPath,
+    modifyColorPath
   } = useSubMenu();
-  const { pointerX, pointerY, component, typeElement, toggled } = contextMenu;
+  const { pointerX, pointerY, typeElement, toggled } = contextMenu;
 
   return (
     <div
@@ -59,6 +61,25 @@ const SubMenu = () => {
             onChange={modifyLabelColor}
           />
         </li>
+        <li className="p-2 cursor-pointer" hidden={typeElement !== 'link'}>
+          <label className="label text-black text-sm">Tamaño</label>
+          <input
+            type="number"
+            className="input w-40 h-6 min-h-6 rounded-md mr-2 bg-[#FAEECC]"
+            placeholder="10px"
+            min={0}
+            onChange={modifyWidthPath}
+          />
+        </li>
+        <li className="p-2 cursor-pointer" hidden={typeElement !== 'link'}>
+          <label className="label text-black text-sm">Color</label>
+          <input
+            type="color"
+            className="input w-40 h-6 min-h-6 rounded-md"
+            onChange={modifyColorPath}
+          />
+        </li>
+
       </ul>
       <button className="btn btn-secondary" onClick={handleClose}>
         close
