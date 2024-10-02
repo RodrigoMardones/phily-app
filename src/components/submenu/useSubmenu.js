@@ -1,65 +1,248 @@
-import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTree, set as setTree } from '../store/tree/slice';
-import { modifyEspecificNodeStyle } from '@/lib/TreeData';
+import {
+  modifyEspecificNodeStyle,
+  createBaseNodeStyle,
+  createBaseLabelStyle,
+  modifyEspecificLabelStyle,
+  createBasePathStyle,
+  modifyEspecificPathStyle
+} from '@/lib/TreeData';
+import {
+  set as setContextMenu,
+  getContextMenu,
+  RESET as resetContextMenu,
+} from '../store/submenu/slice';
 
 const useSubMenu = () => {
-    const tree = useSelector(getTree);
-    const dispatch = useDispatch();
-    const { tree : treeData} = tree;
-    const [submenuOpen, setSubmenuOpen] = useState(false);
-    const handleSubmenuOpen = () => {
-        setSubmenuOpen(!submenuOpen);
-    }
-    const handleSubmenuClose = () => {
-        setSubmenuOpen(false);
-    }
-    const modifyColorPath = (name, color) => {
-        const newStyle = createBasePathStyle({fill: color});
-        const newtree = {...treeData};
-        modifyEspecificNodeStyle(newtree, name, newStyle);
-        dispatch(setTree({...tree, hasOwnSyle: true, tree: newtree}));
-    }
-    const modifyWidthPath = (name, width) => {
-        const newStyle = createBasePathStyle({strokeWidth: width});
-        const newtree = {...treeData};
-        modifyEspecificNodeStyle(newtree, name, newStyle);
-        dispatch(setTree({...tree, hasOwnSyle: true, tree: newtree}));
-    }
-    const modifyNodeColor = (name, color) => {
-        const newStyle = createBaseNodeStyle({fill: color});
-        const newtree = {...treeData};
-        modifyEspecificNodeStyle(newtree, name, newStyle);
-        dispatch(setTree({...tree, hasOwnSyle: true, tree: newtree}));
-    }
-    const modifyNodeRadius = (name, radius) => {
-        const newStyle = createBaseNodeStyle({radius: radius});
-        const newtree = {...treeData};
-        modifyEspecificNodeStyle(newtree, name, newStyle);
-        dispatch(setTree({...tree, hasOwnSyle: true, tree: newtree}));
-    }
-    const modifyLabelSize = (name, size) => {
-        const newStyle = createBaseLabelStyle({fontSize: size});
-        const newtree = {...treeData};
-        modifyEspecificNodeStyle(newtree, name, newStyle);
-        dispatch(setTree({...tree, hasOwnSyle: true, tree: newtree}));
-    }
-    const modifyLabelColor = (name, color) => {
-        const newStyle = createBaseLabelStyle({fill: color});
-        const newtree = {...treeData};
-        modifyEspecificNodeStyle(newtree, name, newStyle);
-        dispatch(setTree({...tree, hasOwnSyle: true, tree: newtree}));
-    }
-    return {
-        submenuOpen,
-        handleSubmenuOpen,
-        handleSubmenuClose,
-        modifyColorPath,
-        modifyWidthPath,
-        modifyNodeColor,
-        modifyNodeRadius,
-        modifyLabelSize,
-        modifyLabelColor
-    }
+  const tree = useSelector(getTree);
+  const contextMenu = useSelector(getContextMenu);
+  const dispatch = useDispatch();
+  const { tree: treeData, ...treeRest } = tree;
+  const { component } = contextMenu;
+
+  const handleContextMenu = (event, component, index, typeElement) => {
+    event.preventDefault();
+    console.log({ event, component, index, typeElement });
+    const element = document.getElementById(`${typeElement}-${index}`);
+    console.log('element', element);
+    const contextMenu = document.getElementById('contextMenuObject');
+    const canvas = document.getElementById('canvas');
+    const sizeCanvas = canvas.getBoundingClientRect();
+    const elementSize = element.getBoundingClientRect();
+    const contextMenuSize = contextMenu.getBoundingClientRect();
+    console.log({ sizeCanvas, elementSize, contextMenuSize });
+    // se deja un offsetRelativo al tamaño creado
+    const offsetX = contextMenuSize.width ? contextMenuSize.width - 5 : 145;
+    const offsetY = contextMenuSize.height ? contextMenuSize.height - 5 : 100;
+    const isRight = elementSize.left - sizeCanvas.x > sizeCanvas.width / 2;
+    const isBottom = elementSize.y + sizeCanvas.y > sizeCanvas.height / 2;
+    console.log({ isRight, isBottom });
+    // posiciones a guardar para el menu de contexto
+    let newPositionX = isRight
+      ? elementSize.left - sizeCanvas.x - offsetX
+      : elementSize.left - sizeCanvas.x;
+    let newPositionY = isBottom
+      ? elementSize.y + sizeCanvas.y - offsetY
+      : elementSize.y + sizeCanvas.y;
+
+    // se obtiene el componente correcto dependiendo del tipo de elemento
+    const newComponent = typeElement === 'link' ? component.source : component;
+    
+    dispatch(
+      setContextMenu({
+        pointerX: newPositionX,
+        pointerY: newPositionY,
+        component: newComponent,
+        typeElement: typeElement,
+        toggled: false,
+      })
+    );
+  };
+  const handleClose = () => {
+    dispatch(resetContextMenu());
+  };
+  /**
+   * @description modify the radius of the node selected 
+   * @param {*} event event object
+   */
+  const modifyNodeRadius = (event) => {
+    const radius = event.target.value;
+    // caso base el estilo no existe
+    let componentStyle = component.data?.nodeStyle;
+
+    let clonedTree = structuredClone(treeData);
+    const overrideStyle = createBaseNodeStyle({
+      ...componentStyle,
+      radius: radius,
+    });
+    dispatch(
+      setContextMenu({
+        ...contextMenu,
+        component: {
+          ...component,
+          data: {
+            ...component.data,
+            nodeStyle: overrideStyle,
+          },
+        },
+      })
+    );
+    modifyEspecificNodeStyle(clonedTree, overrideStyle, component.data.id);
+    dispatch(setTree({ ...treeRest, tree: clonedTree }));
+  };
+
+  /**
+   * @description modify the color of the node selected
+   * @param {*} event event object
+   */
+  const modifyNodeColor = (event) => {
+    const color = event.target.value;
+    let componentStyle = component.data.nodeStyle;
+    let clonedTree = structuredClone(treeData);
+    const overrideStyle = createBaseNodeStyle({
+      ...componentStyle,
+      fill: color,
+    });
+    modifyEspecificNodeStyle(clonedTree, overrideStyle, component.data.id);
+    dispatch(
+      setContextMenu({
+        ...contextMenu,
+        component: {
+          ...component,
+          data: {
+            ...component.data,
+            nodeStyle: overrideStyle,
+          },
+        },
+      })
+    );
+    dispatch(setTree({ ...treeRest, tree: clonedTree }));
+  };
+
+  /**
+   * @description modify the size of the label of the node selected
+   * @param {*} event event object
+   */
+  const modifyLabelSize = (event) => {
+    const size = event.target.value;
+    let componentStyle = component.data.labelStyle;
+    let clonedTree = structuredClone(treeData);
+    const overrideStyle = createBaseLabelStyle({
+      ...componentStyle,
+      fontSize: size,
+    });
+    modifyEspecificLabelStyle(clonedTree, overrideStyle, component.data.id);
+    dispatch(
+      setContextMenu({
+        ...contextMenu,
+        component: {
+          ...component,
+          data: {
+            ...component.data,
+            labelStyle: overrideStyle,
+          },
+        },
+      })
+    );
+    dispatch(setTree({ ...treeRest, tree: clonedTree }));
+  };
+  /**
+   * @description modify the color of the label of the node selected
+   * @param {*} event event object
+   */
+  const modifyLabelColor = (event) => {
+    const color = event.target.value;
+    let componentStyle = component.data.labelStyle;
+    let clonedTree = structuredClone(treeData);
+    const overrideStyle = createBaseLabelStyle({
+      ...componentStyle,
+      fill: color,
+    });
+    modifyEspecificLabelStyle(clonedTree, overrideStyle, component.data.id);
+    dispatch(
+      setContextMenu({
+        ...contextMenu,
+        component: {
+          ...component,
+          data: {
+            ...component.data,
+            labelStyle: overrideStyle,
+          },
+        },
+      })
+    );
+    dispatch(setTree({ ...treeRest, tree: clonedTree }));
+  };
+
+  /**
+   * @description modify the color of the path of the node selected
+   * @param {*} event event object
+   */
+  const modifyColorPath = (event) => {
+    const color = event.target.value;
+    let componentStyle = component.data?.pathStyle;
+    let clonedTree = structuredClone(treeData);
+    const overrideStyle = createBasePathStyle({
+      ...componentStyle,
+      stroke: color,
+    });
+    modifyEspecificPathStyle(clonedTree, overrideStyle, component.data.id);
+    dispatch(
+      setContextMenu({
+        ...contextMenu,
+        component: {
+          ...component,
+          data: {
+            ...component.data,
+            pathStyle: overrideStyle,
+          },
+        },
+      })
+    );
+    dispatch(setTree({ ...treeRest, tree: clonedTree }));
+  };
+
+  /**
+   * @description modify the width of the path of the node selected
+   * @param {*} event event object
+   */
+  const modifyWidthPath = (event) => {
+    const width = event.target.value;
+    console.logWidth;
+    let componentStyle = component.data?.pathStyle;
+    let clonedTree = structuredClone(treeData);
+    const overrideStyle = createBasePathStyle({
+      ...componentStyle,
+      strokeWidth: width,
+    });
+    modifyEspecificPathStyle(clonedTree, overrideStyle, component.data.id);
+    dispatch(
+      setContextMenu({
+        ...contextMenu,
+        component: {
+          ...component,
+          data: {
+            ...component.data,
+            pathStyle: overrideStyle,
+          },
+        },
+      })
+    );
+    dispatch(setTree({ ...treeRest, tree: clonedTree }));
+  };
+
+  return {
+    contextMenu,
+    setContextMenu,
+    handleContextMenu,
+    handleClose,
+    modifyColorPath,
+    modifyWidthPath,
+    modifyNodeColor,
+    modifyNodeRadius,
+    modifyLabelSize,
+    modifyLabelColor,
+  };
 };
 export default useSubMenu;

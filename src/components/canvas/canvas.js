@@ -9,19 +9,16 @@ import ZoomAddIcon from '../icons/zoomAdd';
 import ZoomSubsIcon from '../icons/zoomSubs';
 import useDendrogramForm from '../dashboard/hooks/useDendrogramForm';
 import useStyle from '../dashboard/hooks/useStyle';
-import useDownload from '../dashboard/hooks/useDownload';
-
-
+import SubMenu from '../submenu/submenu';
 
 const Canvas = () => {
-  const ref = useRef(null);
+  const contextRef = useRef(null);
   const [key, setKey] = useState(0);
   const { deferredAngle, deferredCurveType, deferredNormalize } =
     useDendrogramForm();
   const { deferredGlobalStyle } = useStyle();
   const { tree, name, width, height } = useSelector(getTree);
   const { handleAddZoomClick, handleSubstractZoomClick } = useZoom();
-
   useEffect(() => {
     setKey((key) => key + 1);
   }, [
@@ -36,7 +33,7 @@ const Canvas = () => {
 
   return (
     <Card className="bg-white m-4 rounded-none border-none w-5/6">
-      <div className="flex justify-center h-full relative">
+      <div className="flex justify-center h-full">
         <button
           className=" bg-transparent absolute top-0 right-0 m-2"
           onClick={handleAddZoomClick}
@@ -51,7 +48,9 @@ const Canvas = () => {
         >
           <ZoomSubsIcon />
         </button>
-        <div className="item h-full w-full" ref={ref}>
+        
+        <div className="item h-full w-full" ref={contextRef} id='canvas'>
+          <SubMenu />
           <ZoomableSVG width={width} height={height}>
             {name && (
               <Dendrogram

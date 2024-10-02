@@ -95,7 +95,6 @@ const useUpload = () => {
         let parsedTree;
         try {
           parsedTree = parseStringToTree(file.content);
-          console.log(parsedTree);
         } catch (error) {
           dispatch(
             setError({

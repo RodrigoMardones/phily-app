@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 // TDA for tree data
 
 /**
@@ -15,7 +16,7 @@ export const createBaseNodeStyle = ({
 }) => {
   return {
     radius: radius,
-    stroke: stroke,
+    stroke: stroke, 
     fill: fill,
   };
 };
@@ -89,6 +90,7 @@ export const createBaseTree = () => {
   return {
     name: '',
     length: '',
+    id: uuidv4(),
     hasOwnStyle: false,
     children: [],
   };
@@ -168,50 +170,6 @@ export const getDepth = function (obj) {
   return 1 + depth;
 };
 
-/**
- * Modify the node style of a tree object
- * @param {object} obj - the tree object
- * @param {object} nodeStyle - the node style object
- * @returns {undefined}
- */
-export const modifyNodeStyle = function (obj, nodeStyle) {
-  obj.nodeStyle = nodeStyle;
-  if (obj.children) {
-    obj.children.forEach(function (d) {
-      modifyNodeStyle(d, nodeStyle);
-    });
-  }
-};
-
-/**
- * Modify the path style of a tree object
- * @param {object} obj - the tree object
- * @param {object} pathStyle - the path style object
- * @returns {undefined}
- */
-export const modifyPathStyle = function (obj, pathStyle) {
-  obj.pathStyle = pathStyle;
-  if (obj.children) {
-    obj.children.forEach(function (d) {
-      modifyPathStyle(d, pathStyle);
-    });
-  }
-};
-
-/**
- * Modify the label style of a tree object
- * @param {object} obj - the tree object
- * @param {object} labelStyle - the label style object
- * @returns {undefined}
- */
-export const modifyLabelStyle = function (obj, labelStyle) {
-  obj.labelStyle = labelStyle;
-  if (obj.children) {
-    obj.children.forEach(function (d) {
-      modifyLabelStyle(d, labelStyle);
-    });
-  }
-};
 
 /**
  * Modify the node style of a specific node in a tree object
@@ -219,13 +177,13 @@ export const modifyLabelStyle = function (obj, labelStyle) {
  * @param {object} nodeStyle - the node style object
  * @param {string} node - the name of the node
  */
-export const modifyEspecificNodeStyle = function (obj, nodeStyle, node) {
-  if (obj.name === node) {
+export const modifyEspecificNodeStyle = function (obj, nodeStyle, id) {
+  if (obj.id === id) {
     obj.nodeStyle = nodeStyle;
   }
   if (obj.children) {
     obj.children.forEach(function (d) {
-      modifyEspecificNodeStyle(d, nodeStyle, node);
+      modifyEspecificNodeStyle(d, nodeStyle, id);
     });
   }
 };
@@ -237,13 +195,13 @@ export const modifyEspecificNodeStyle = function (obj, nodeStyle, node) {
  * @param {string} node - the name of the node
  * @returns {undefined}
  */
-export const modifyEspecificPathStyle = function (obj, pathStyle, node) {
-  if (obj.name === node) {
+export const modifyEspecificPathStyle = function (obj, pathStyle, id) {
+  if (obj.id === id) {
     obj.pathStyle = pathStyle;
   }
   if (obj.children) {
     obj.children.forEach(function (d) {
-      modifyEspecificPathStyle(d, pathStyle, node);
+      modifyEspecificPathStyle(d, pathStyle, id);
     });
   }
 };
@@ -255,13 +213,13 @@ export const modifyEspecificPathStyle = function (obj, pathStyle, node) {
  * @param {string} node - the name of the node
  * @returns {undefined}
  */
-export const modifyEspecificLabelStyle = function (obj, labelStyle, node) {
-  if (obj.name === node) {
+export const modifyEspecificLabelStyle = function (obj, labelStyle, id) {
+  if (obj.id === id) {
     obj.labelStyle = labelStyle;
   }
   if (obj.children) {
     obj.children.forEach(function (d) {
-      modifyEspecificLabelStyle(d, labelStyle, node);
+      modifyEspecificLabelStyle(d, labelStyle, id);
     });
   }
 };

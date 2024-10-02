@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
 import { useRef } from 'react';
 import { useState, useEffect } from 'react';
+import SubMenu from '../../submenu/submenu';
 
 export default function ZoomableSVG({ children, width, height}) {
   const svgRef = useRef();
@@ -19,7 +20,7 @@ export default function ZoomableSVG({ children, width, height}) {
     d3.select(svgRef.current).call(zoom);
   }, []);
   return (
-      <svg ref={svgRef} width={"100%"} height={"100%"} id='dendrogram-svg'>
+      <svg ref={svgRef} width={"100%"} height={"100%"}>
         <g
           transform={`translate(${x},${y})scale(${k})`}
           >{children}</g>
