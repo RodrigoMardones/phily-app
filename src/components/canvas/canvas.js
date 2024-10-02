@@ -33,7 +33,7 @@ const Canvas = () => {
 
   return (
     <Card className="bg-white m-4 rounded-none border-none w-5/6">
-      <div className="flex justify-center h-full relative">
+      <div className="flex justify-center h-full">
         <button
           className=" bg-transparent absolute top-0 right-0 m-2"
           onClick={handleAddZoomClick}
@@ -49,7 +49,7 @@ const Canvas = () => {
           <ZoomSubsIcon />
         </button>
         
-        <div className="item h-full w-full relative" ref={contextRef} id='canvas'>
+        <div className="item h-full w-full" ref={contextRef} id='canvas'>
           <SubMenu />
           <ZoomableSVG width={width} height={height}>
             {name && (

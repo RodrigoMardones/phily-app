@@ -38,8 +38,8 @@ const Dendrogram = ({
     return dendogramCreated(hierarchy);
   }, [hierarchy, width, height, normalize, curveType, angle]);
   const {
-    nodeStyle: { radius: globalRadius, stroke, fill },
-    labelStyle: { fontSize, fill: labelFill, color },
+    nodeStyle: { radius: globalNodeRadius, stroke: globalNodeStroke,  fill: globalNodeFill },
+    labelStyle: { fontSize: globalLabelFontSize, fill: globalLabelFill },
     pathStyle: {
       stroke: pathStroke,
       fill: pathFill,
@@ -56,9 +56,15 @@ const Dendrogram = ({
         x,
         y,
       } = node;
+      const nodeStyle = node.data?.nodeStyle;
+      const labelStyle = node.data?.labelStyle;
+      const fontSize = labelStyle?.fontSize || globalLabelFontSize;
+      const labelFill = labelStyle?.fill || globalLabelFill;
+      const radius = nodeStyle?.radius || globalNodeRadius;
+      const stroke = nodeStyle?.stroke || globalNodeStroke;
+      const fill = nodeStyle?.fill || globalNodeFill;
       if (curveType === 'circular' || curveType === 'circular-step') {
         const turnLabelUpsideDown = x > 180;
-        // const nodeStyle = node.data.nodeStyle;
         return (
           <g
             key={`node-${nodeIndex}`}
@@ -67,24 +73,25 @@ const Dendrogram = ({
             <circle
               cx={0}
               cy={0}
-              r={globalRadius}
+              r={radius}
               stroke={stroke}
               fill={fill}
               className="label hover:cursor-pointer"
               id={`node-${nodeIndex}`}
-              onContextMenu={(e) => handleContextMenu(e, node, nodeIndex)}
+              onContextMenu={(e) => handleContextMenu(e, node, nodeIndex, 'node')}
             />
-            {!children.length && (
+            {(
               <text
                 x={turnLabelUpsideDown ? -15 : 15}
-                y={0}
+                y={-10}
                 className="label hover:cursor-pointer"
                 fontSize={fontSize}
                 fill={labelFill}
                 textAnchor={turnLabelUpsideDown ? 'end' : 'start'}
                 transform={turnLabelUpsideDown ? 'rotate(180)' : 'rotate(0)'}
-                alignmentBaseline="middle"
+                alignmentBaseline="auto"
                 id={`node-text-${nodeIndex}`}
+                onContextMenu={(e) => handleContextMenu(e, node, nodeIndex, 'label')}
               >
                 {name}
               </text>
@@ -98,11 +105,11 @@ const Dendrogram = ({
           <circle
             cx={y}
             cy={x}
-            r={globalRadius}
+            r={radius}
             stroke={stroke}
             fill={fill}
             id={`node-${nodeIndex}`}
-            onContextMenu={(e) => handleContextMenu(e, node, nodeIndex)}
+            onContextMenu={(e) => handleContextMenu(e, node, nodeIndex, 'node')}
           />
           <text
             x={y + 30}
@@ -121,12 +128,11 @@ const Dendrogram = ({
     [
       normalize,
       curveType,
-      globalStyles,
-      globalRadius,
-      stroke,
-      fill,
-      fontSize,
-      labelFill,
+      globalNodeRadius,
+      globalNodeStroke,
+      globalNodeFill,
+      globalLabelFontSize,
+      globalLabelFill,
     ]
   );
 
