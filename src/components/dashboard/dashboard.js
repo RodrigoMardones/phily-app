@@ -203,7 +203,7 @@ const Dashboard = () => {
                 Diseño general
               </Card.Title>
               <Card.Title className="text-white items-end text-sm mt-2">
-                Ramas
+                Enlaces
               </Card.Title>
               <div className="flex justify-evenly md:flex-row sm:flex-col ">
                 <div className="md:flex-row sm:flex-col">

@@ -76,7 +76,7 @@ const SubMenu = () => {
                 onChange={modifyLabelSize}
               />
             </li>
-            <li className="flex items-center space-x-2">
+            <li className="flex items-center">
               <label className="text-black text-sm">Color</label>
               <input
                 type="color"
@@ -104,7 +104,7 @@ const SubMenu = () => {
               <label className="text-black text-sm">Color</label>
               <input
                 type="color"
-                className="w-40 h-8 rounded-md p-1 ml-auto"
+                className="w-40 h-8 rounded-md bg-[#FAEECC] p-1 ml-auto"
                 defaultValue={component.data?.pathStyle?.stroke}
                 onChange={modifyColorPath}
               />
