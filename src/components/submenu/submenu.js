@@ -5,6 +5,7 @@ const SubMenu = () => {
   const {
     contextMenu,
     handleClose,
+    
     modifyNodeRadius,
     modifyNodeColor,
     modifyLabelSize,
@@ -12,9 +13,7 @@ const SubMenu = () => {
     modifyWidthPath,
     modifyColorPath,
   } = useSubMenu();
-  const { pointerX, pointerY, typeElement, toggled } = contextMenu;
-
-
+  const { pointerX, pointerY, typeElement, toggled, component } = contextMenu;
   const getTitle = () => {
     switch (typeElement) {
       case 'node':
@@ -49,6 +48,7 @@ const SubMenu = () => {
                 className="w-40 h-8 rounded-md bg-[#FAEECC] p-1 ml-auto"
                 placeholder="10px"
                 min={0}
+                defaultValue={component.data?.nodeStyle?.radius}
                 onChange={modifyNodeRadius}
               />
             </li>
@@ -57,6 +57,7 @@ const SubMenu = () => {
               <input
                 type="color"
                 className="w-40 h-8 rounded-md p-1 ml-auto"
+                defaultValue={component.data?.nodeStyle?.fill}
                 onChange={modifyNodeColor}
               />
             </li>
@@ -71,6 +72,7 @@ const SubMenu = () => {
                 className="w-40 h-8 rounded-md bg-[#FAEECC] p-1 ml-auto"
                 placeholder="10px"
                 min={0}
+                defaultValue={component.data?.labelStyle?.fontSize}
                 onChange={modifyLabelSize}
               />
             </li>
@@ -79,6 +81,7 @@ const SubMenu = () => {
               <input
                 type="color"
                 className="w-40 h-8 rounded-md p-1 ml-auto"
+                defaultValue={component.data?.labelStyle?.fill}
                 onChange={modifyLabelColor}
               />
             </li>
@@ -93,6 +96,7 @@ const SubMenu = () => {
                 className="w-40 h-8 rounded-md bg-[#FAEECC] p-1 ml-auto"
                 placeholder="10px"
                 min={0}
+                defaultValue={component.data?.pathStyle?.strokeWidth}
                 onChange={modifyWidthPath}
               />
             </li>
@@ -101,13 +105,17 @@ const SubMenu = () => {
               <input
                 type="color"
                 className="w-40 h-8 rounded-md p-1 ml-auto"
+                defaultValue={component.data?.pathStyle?.stroke}
                 onChange={modifyColorPath}
               />
             </li>
           </>
         )}
       </ul>
-      <button className="btn btn-secondary text-white min-h-6 mt-4 px-2 py-1 text-sm" onClick={handleClose}>
+      <button
+        className="btn btn-secondary text-white min-h-6 mt-4 px-2 py-1 text-sm"
+        onClick={handleClose}
+      >
         cerrar
       </button>
     </div>
