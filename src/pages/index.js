@@ -22,7 +22,7 @@ export default function Home() {
         <meta property='og:image' content="/favicon.ico"/>
       </Head>
       <main>
-        <div className="flex h-screen bg-gray-400" id='app'>
+        <div className="flex h-screen bg-gray-400" id='app' onContextMenu={(e) => e.preventDefault()}>
           <Dashboard/>
           <Canvas/>
         </div>

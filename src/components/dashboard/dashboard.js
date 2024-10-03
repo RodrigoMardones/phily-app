@@ -56,7 +56,7 @@ const Dashboard = () => {
   );
   return (
     <>
-      <Card className="bg-primary w-auto p-4 rounded-none border-none overflow-y-auto">
+      <Card className="bg-primary w-auto p-4 rounded-none border-none overflow-y-auto" onContextMenu={(e) => e.preventDefault()}>
         <Error message={message} open={open} />
         <div className="grid grid-cols-1">
           <div className="flex flex-row items-center">
