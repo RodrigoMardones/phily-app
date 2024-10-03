@@ -38,7 +38,11 @@ const Dendrogram = ({
     return dendogramCreated(hierarchy);
   }, [hierarchy, width, height, normalize, curveType, angle]);
   const {
-    nodeStyle: { radius: globalNodeRadius, stroke: globalNodeStroke,  fill: globalNodeFill },
+    nodeStyle: {
+      radius: globalNodeRadius,
+      stroke: globalNodeStroke,
+      fill: globalNodeFill,
+    },
     labelStyle: { fontSize: globalLabelFontSize, fill: globalLabelFill },
     pathStyle: {
       stroke: globalPathStroke,
@@ -76,11 +80,13 @@ const Dendrogram = ({
               r={radius}
               stroke={stroke}
               fill={fill}
-              className="label hover:cursor-pointer"
+              className="hover:cursor-pointer"
               id={`node-${nodeIndex}`}
-              onContextMenu={(e) => handleContextMenu(e, node, nodeIndex, 'node')}
+              onContextMenu={(e) =>
+                handleContextMenu(e, node, nodeIndex, 'node')
+              }
             />
-            {(
+            {
               <text
                 x={turnLabelUpsideDown ? -15 : 15}
                 y={-10}
@@ -91,17 +97,19 @@ const Dendrogram = ({
                 transform={turnLabelUpsideDown ? 'rotate(180)' : 'rotate(0)'}
                 alignmentBaseline="auto"
                 id={`label-${nodeIndex}`}
-                onContextMenu={(e) => handleContextMenu(e, node, nodeIndex, 'label')}
+                onContextMenu={(e) =>
+                  handleContextMenu(e, node, nodeIndex, 'label')
+                }
               >
                 {name}
               </text>
-            )}
+            }
           </g>
         );
       }
 
       return (
-        <g key={`node-${nodeIndex}`} >
+        <g key={`node-${nodeIndex}`}>
           <circle
             cx={y}
             cy={x}
@@ -109,6 +117,7 @@ const Dendrogram = ({
             stroke={stroke}
             fill={fill}
             id={`node-${nodeIndex}`}
+            className="hover:cursor-pointer"
             onContextMenu={(e) => handleContextMenu(e, node, nodeIndex, 'node')}
           />
           <text
@@ -119,7 +128,10 @@ const Dendrogram = ({
             textAnchor={children.length ? 'end' : 'start'}
             alignmentBaseline="central"
             id={`label-${nodeIndex}`}
-            onContextMenu={(e) => handleContextMenu(e, node, nodeIndex, 'label')}
+            className="label hover:cursor-pointer"
+            onContextMenu={(e) =>
+              handleContextMenu(e, node, nodeIndex, 'label')
+            }
           >
             {name}
           </text>
@@ -146,17 +158,15 @@ const Dendrogram = ({
       } = link;
       const pathStroke = source.data?.pathStyle?.stroke || globalPathStroke;
       const pathFill = source.data?.pathStyle?.fill || globalPathFill;
-      const strokeWidth = source.data?.pathStyle?.strokeWidth || globalStrokeWidth;
-      const strokeOpacity = source.data?.pathStyle?.strokeOpacity || globalStrokeOpacity;
+      const strokeWidth =
+        source.data?.pathStyle?.strokeWidth || globalStrokeWidth;
+      const strokeOpacity =
+        source.data?.pathStyle?.strokeOpacity || globalStrokeOpacity;
 
       if (curveType === 'circular' || curveType === 'circular-step') {
         if (depth === 0) {
           return (
-            <g
-              key={`link-${indexLink}`}
-              transform={'rotate(' + (x - 90) + ')'}
-              
-            >
+            <g key={`link-${indexLink}`} transform={'rotate(' + (x - 90) + ')'}>
               <line
                 x1={0}
                 y1={0}
@@ -167,7 +177,10 @@ const Dendrogram = ({
                 strokeWidth={strokeWidth}
                 strokeOpacity={strokeOpacity}
                 id={`link-${indexLink}`}
-                onContextMenu={(e) => handleContextMenu(e, link, indexLink, 'link')}
+                className="hover:cursor-pointer"
+                onContextMenu={(e) =>
+                  handleContextMenu(e, link, indexLink, 'link')
+                }
               />
               ;
             </g>
@@ -181,6 +194,7 @@ const Dendrogram = ({
             strokeOpacity={strokeOpacity}
             strokeWidth={strokeWidth}
             d={curve(link) || undefined}
+            className="hover:cursor-pointer"
             id={`link-${indexLink}`}
             onContextMenu={(e) => handleContextMenu(e, link, indexLink, 'link')}
           />
@@ -197,6 +211,7 @@ const Dendrogram = ({
             strokeOpacity={strokeOpacity}
             strokeWidth={strokeWidth}
             id={`link-${indexLink}`}
+            className="hover:cursor-pointer"
             d={curve({
               source: [link.source.y, link.source.x],
               target: [link.target.y, link.target.x],
