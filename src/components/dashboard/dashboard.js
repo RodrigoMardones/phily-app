@@ -64,7 +64,7 @@ const Dashboard = () => {
         <Card className="bg-primary w-20 p-4 rounded-none border-none overflow-y-auto scrollbar scrollbar-none ml-1/5">
           <button onClick={handleOpen}>
             <Image
-              src="/tree.svg"
+              src="/treeIcon.svg"
               width={86}
               height={82}
               className="invert"
@@ -88,7 +88,7 @@ const Dashboard = () => {
           <div className="flex flex-row items-center">
             <button onClick={handleOpen}>
               <Image
-                src="/tree.svg"
+                src="/treeIcon.svg"
                 width={86}
                 height={82}
                 className="invert"
