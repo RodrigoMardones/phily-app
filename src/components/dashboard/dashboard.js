@@ -147,13 +147,14 @@ const Dashboard = () => {
               <Card.Title className="text-white items-end text-md">
                 Visualización
               </Card.Title>
-              <Card.Title className="text-white items-end text-lg mt-2">
+              <span className="label-text text-white text-lg mt-2 text-center">
                 Lateral
-              </Card.Title>
+              </span>
               <div className="flex justify-evenly md:flex-row sm:flex-col mt-2">
                 <button
                   className={`btn h-8 min-h-8 min-w-24 border-none text-white rounded-md ${deferredCurveType === 'step' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
                   value={'step'}
+                  disabled={!fileName}
                   onClick={handleStepChange}
                 >
                   escalon
@@ -161,6 +162,7 @@ const Dashboard = () => {
                 <button
                   className={`btn h-8 min-h-8 min-w-24 border-none text-white rounded-md ${deferredCurveType === 'curve' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
                   value={'curve'}
+                  disabled={!fileName}
                   onClick={handleStepChange}
                 >
                   suave
@@ -168,19 +170,22 @@ const Dashboard = () => {
                 <button
                   className={`btn h-8 min-h-8 min-w-24 border-none text-white rounded-md ${deferredCurveType === 'slanted' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
                   value={'slanted'}
+                  disabled={!fileName}
                   onClick={handleStepChange}
                 >
                   inclinado
                 </button>
               </div>
             </div>
-            <Card.Title className="text-white items-end text-lg mt-2">
-              circular
-            </Card.Title>
+            <span className="label-text text-white text-lg text-left mt-2">
+                Circular
+              </span>
             <div className="flex justify-evenly md:flex-row sm:flex-col mt-2">
+              
               <button
                 className={`btn h-8 min-h-8 min-w-36 border-none text-white rounded-md ${deferredCurveType === 'circular' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
                 value={'circular'}
+                disabled={!fileName}
                 onClick={handleStepChange}
               >
                 circular
@@ -188,19 +193,21 @@ const Dashboard = () => {
               <button
                 className={`btn h-8 min-h-8 min-w-36 border-none text-white rounded-md ${curveType === 'circular-step' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
                 value={'circular-step'}
+                disabled={!fileName}
                 onClick={handleStepChange}
               >
                 circular escalonado
               </button>
             </div>
-            <label className="cursor-pointer label">
-              <span className="label-text text-white text-lg mt-2">
+            <label className="cursor-pointer label mt-2 ">
+              <span className="label-text text-white text-lg  text-center">
                 Profundidad
               </span>
               <input
                 type="checkbox"
                 className="toggle checked:toggle-secondary active:toggle-secondary"
                 id="normalize"
+                disabled={!fileName}
                 value={normalize}
                 defaultChecked={normalize}
                 onClick={handleNormalizationChange}
@@ -215,8 +222,9 @@ const Dashboard = () => {
                 max={360}
                 defaultValue={360}
                 disabled={
-                  deferredCurveType !== 'circular' &&
-                  deferredCurveType !== 'circular-step'
+                  (deferredCurveType !== 'circular' &&
+                  deferredCurveType !== 'circular-step') || 
+                  !fileName
                 }
                 className="range range-secondary disabled:opacity-50 disabled:bg-gray-300 disabled:cursor-not-allowed"
                 onClick={handleAngleChange}
@@ -239,6 +247,7 @@ const Dashboard = () => {
                     type="number"
                     className="input w-40 h-6 min-h-6 rounded-md mr-2 bg-[#FAEECC]"
                     placeholder="48px"
+                    disabled={!fileName}
                     value={pathWidth}
                     onChange={pathWidthChange}
                   />
@@ -248,6 +257,7 @@ const Dashboard = () => {
                   <input
                     type="color"
                     className="input  w-40 h-6 min-h-6 rounded-md"
+                    disabled={!fileName}
                     value={pathColor}
                     onChange={pathColorChange}
                   />
@@ -264,6 +274,7 @@ const Dashboard = () => {
                     className="input w-40 h-6 min-h-6 rounded-md mr-2 bg-[#FAEECC]"
                     placeholder="10px"
                     min={0}
+                    disabled={!fileName}
                     value={nodeRadius}
                     onChange={nodeRadiusChange}
                   />
@@ -273,6 +284,7 @@ const Dashboard = () => {
                   <input
                     type="color"
                     className="input  w-40 h-6 min-h-6 rounded-md"
+                    disabled={!fileName}
                     value={nodeColor}
                     onChange={nodeColorChange}
                   />
@@ -289,6 +301,7 @@ const Dashboard = () => {
                     className="input w-40 h-6 min-h-6 rounded-md mr-2 bg-[#FAEECC]"
                     placeholder="48px"
                     min={0}
+                    disabled={!fileName}
                     value={labelSize}
                     onChange={labelSizeChange}
                   />
@@ -298,6 +311,7 @@ const Dashboard = () => {
                   <input
                     type="color"
                     className="input  w-40 h-6 min-h-6 rounded-md"
+                    disabled={!fileName}
                     value={labelColor}
                     onChange={labelColorChange}
                   />
