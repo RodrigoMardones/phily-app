@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 import { useRef } from 'react';
 import { useState, useEffect } from 'react';
-import SubMenu from '../../submenu/submenu';
+import { handleClose } from '../../submenu/useSubmenu';
 
 export default function ZoomableSVG({ children, width, height}) {
   const svgRef = useRef();
@@ -23,6 +23,7 @@ export default function ZoomableSVG({ children, width, height}) {
       <svg ref={svgRef} width={"100%"} height={"100%"}>
         <g
           transform={`translate(${x},${y})scale(${k})`}
+          onClick={handleClose}
           >{children}</g>
       </svg>
   );
