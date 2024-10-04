@@ -8,11 +8,10 @@ import { useEffect } from 'react';
 export default function page() {
   const searchParams = useSearchParams();
   const tree = searchParams.get('tree');
-  const decodedTree = atob(tree);
   const { handleParamLoad } = useUpload();
 
   useEffect(() => {
-    handleParamLoad(decodedTree);
+    handleParamLoad(tree);
   }, [tree]);
   return (
     <div
