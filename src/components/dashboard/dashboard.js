@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { Button, Card } from 'react-daisyui';
@@ -15,6 +16,7 @@ import {
   useStyle,
   useCleanDashboard,
   useDendrogramForm,
+  useBurgerMenu,
 } from './hooks';
 import { useCallback } from 'react';
 const accepts = ['.nwk', '.json'];
@@ -40,6 +42,7 @@ const Dashboard = () => {
     labelSize,
     labelColor,
   } = useStyle();
+  const { isOpen, handleOpen } = useBurgerMenu();
   const { handleCleanClick } = useCleanDashboard();
   const {
     handleCurveChange,
@@ -47,6 +50,7 @@ const Dashboard = () => {
     handleAngleChange,
     deferredCurveType,
   } = useDendrogramForm();
+
   const handleStepChange = useCallback(
     (e) => {
       e.preventDefault();
@@ -54,15 +58,11 @@ const Dashboard = () => {
     },
     [handleCurveChange]
   );
-  return (
-    <>
-      <Card
-        className="bg-primary w-auto p-4 rounded-none border-none overflow-y-auto scrollbar scrollbar-none"
-        onContextMenu={(e) => e.preventDefault()}
-      >
-        <Error message={message} open={open} />
-        <div className="grid grid-cols-1">
-          <div className="flex flex-row items-center">
+  if (!isOpen) {
+    return (
+      <>
+        <Card className="bg-primary w-20 p-4 rounded-none border-none overflow-y-auto scrollbar scrollbar-none ml-1/5">
+          <button onClick={handleOpen}>
             <Image
               src="/tree.svg"
               width={86}
@@ -70,6 +70,31 @@ const Dashboard = () => {
               className="invert"
               alt="logo"
             />
+          </button>
+        </Card>
+      </>
+    );
+  }
+  return (
+    <>
+      <Card
+        //className="bg-primary w-auto p-4 rounded-none border-none overflow-y-auto scrollbar scrollbar-none"
+        id="dashboard"
+        className="bg-primary w-auto p-4 rounded-none border-none overflow-y-auto scrollbar scrollbar-none"
+        onContextMenu={(e) => e.preventDefault()}
+      >
+        <Error message={message} open={open} />
+        <div className="grid grid-cols-1">
+          <div className="flex flex-row items-center">
+            <button onClick={handleOpen}>
+              <Image
+                src="/tree.svg"
+                width={86}
+                height={82}
+                className="invert"
+                alt="logo"
+              />
+            </button>
             <Card.Title className="text-white ml-2 items-end text-4xl align-middle">
               Phily
             </Card.Title>

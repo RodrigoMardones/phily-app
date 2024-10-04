@@ -10,7 +10,7 @@ import ZoomSubsIcon from '../icons/zoomSubs';
 import useDendrogramForm from '../dashboard/hooks/useDendrogramForm';
 import useStyle from '../dashboard/hooks/useStyle';
 import SubMenu from '../submenu/submenu';
-import { handleClose } from '../submenu/useSubmenu';
+import { useBurgerMenu } from '../dashboard/hooks';
 
 const Canvas = () => {
   const contextRef = useRef(null);
@@ -20,6 +20,7 @@ const Canvas = () => {
   const { deferredGlobalStyle } = useStyle();
   const { tree, name, width, height } = useSelector(getTree);
   const { handleAddZoomClick, handleSubstractZoomClick } = useZoom();
+  const { isOpen } = useBurgerMenu();
   useEffect(() => {
     setKey((key) => key + 1);
   }, [
@@ -31,9 +32,12 @@ const Canvas = () => {
     height,
     deferredGlobalStyle,
   ]);
-
+  useEffect(() => {
+    console.log(isOpen)
+  }, [isOpen])
   return (
-    <Card className="bg-white m-4 rounded-none border-none w-5/6" >
+    <Card 
+    className={ isOpen ? `bg-white m-4 rounded-md border-none w-5/6`:`bg-white m-4 rounded-md border-none w-full`}>
       <div className="flex justify-center h-full">
         <button
           className=" bg-transparent absolute top-0 right-0 m-2"
