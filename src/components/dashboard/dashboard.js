@@ -58,7 +58,7 @@ const Dashboard = () => {
     },
     [handleCurveChange]
   );
-  if (!isOpen) {
+  if (isOpen) {
     return (
       <>
         <Card className="bg-primary w-20 p-4 rounded-none border-none overflow-y-auto scrollbar scrollbar-none ml-1/5">
@@ -78,7 +78,6 @@ const Dashboard = () => {
   return (
     <>
       <Card
-        //className="bg-primary w-auto p-4 rounded-none border-none overflow-y-auto scrollbar scrollbar-none"
         id="dashboard"
         className="bg-primary w-auto p-4 rounded-none border-none overflow-y-auto scrollbar scrollbar-none"
         onContextMenu={(e) => e.preventDefault()}

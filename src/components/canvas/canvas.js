@@ -32,12 +32,15 @@ const Canvas = () => {
     height,
     deferredGlobalStyle,
   ]);
-  useEffect(() => {
-    console.log(isOpen)
-  }, [isOpen])
+
   return (
-    <Card 
-    className={ isOpen ? `bg-white m-4 rounded-md border-none w-5/6`:`bg-white m-4 rounded-md border-none w-full`}>
+    <Card
+      className={
+        isOpen
+          ? `bg-white m-4 rounded-md border-none w-full`
+          : ` bg-white m-4 rounded-md border-none w-5/6`
+      }
+    >
       <div className="flex justify-center h-full">
         <button
           className=" bg-transparent absolute top-0 right-0 m-2"
@@ -54,11 +57,7 @@ const Canvas = () => {
           <ZoomSubsIcon />
         </button>
 
-        <div
-          className="item h-full w-full"
-          ref={contextRef}
-          id="canvas"
-        >
+        <div className="item h-full w-full" ref={contextRef} id="canvas">
           <SubMenu />
           <ZoomableSVG width={width} height={height}>
             {name && (
