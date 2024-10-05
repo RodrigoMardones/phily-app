@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import LZString from 'lz-string';
 import Canvas from '../../components/canvas/canvas';
 import Dashboard from '../../components/dashboard/dashboard';
 import { useSearchParams } from 'next/navigation';
@@ -7,19 +8,20 @@ import { useEffect } from 'react';
 
 export default function page() {
   const searchParams = useSearchParams();
-  const tree = searchParams.get('tree');
+  const compressedTree = searchParams.get('tree');
   const { handleParamLoad } = useUpload();
 
   useEffect(() => {
+    const tree = LZString.decompressFromEncodedURIComponent(compressedTree);
     handleParamLoad(tree);
-  }, [tree]);
+  }, [compressedTree]);
   return (
     <div
       className="flex h-screen bg-gray-400"
       id="app"
       onContextMenu={(e) => e.preventDefault()}
     >
-      <Dashboard dendrogram={tree}/>
+      <Dashboard/>
       <Canvas />
     </div>
   );
