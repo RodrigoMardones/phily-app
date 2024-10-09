@@ -1,0 +1,64 @@
+{
+  "name": "dendrogram",
+  "normalize": true,
+  "curveType": "step",
+  "angle": 360,
+  "width": 600,
+  "height": 600,
+  "globalStyles": {
+    "labelStyle": {
+      "hidden": false,
+      "fontSize": 48,
+      "fill": "#000000"
+    },
+    "nodeStyle": {
+      "radius": 10,
+      "stroke": "transparent",
+      "fill": "#69b3a2"
+    },
+    "pathStyle": {
+      "fill": "none",
+      "stroke": "#000000",
+      "strokeOpacity": 1,
+      "strokeWidth": 2
+    }
+  },
+  "tree": {
+    "name": "F",
+    "length": "",
+    "id": "4381f731-b333-4d15-971c-0b80bfc92215",
+    "children": [
+      {
+        "name": "A",
+        "length": "0.1",
+        "id": "98df7bfa-539b-4847-84dd-5450eb63127d",
+        "children": []
+      },
+      {
+        "name": "B",
+        "length": "0.2",
+        "id": "05cd23f8-2ea9-479d-af30-566209f038d4",
+        "children": []
+      },
+      {
+        "name": "E",
+        "length": "0.5",
+        "id": "a32cbfbd-fb5f-47a3-b3e9-b92f520962a5",
+        "children": [
+          {
+            "name": "C",
+            "length": "0.3",
+            "id": "012fdbd3-295b-40ff-a954-f5558b17c059",
+            "children": []
+          },
+          {
+            "name": "D",
+            "length": "0.4",
+            "id": "bdc119a8-ccfe-4458-bde2-a939515fe09c",
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+}

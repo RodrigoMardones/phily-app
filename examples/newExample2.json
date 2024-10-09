@@ -1,0 +1,2883 @@
+{
+  "name": "example_4.nwk",
+  "normalize": true,
+  "curveType": "circular-step",
+  "angle": 360,
+  "width": 600,
+  "height": 600,
+  "globalStyles": {
+    "labelStyle": {
+      "hidden": false,
+      "fontSize": 48,
+      "fill": "#000000"
+    },
+    "nodeStyle": {
+      "radius": 10,
+      "stroke": "transparent",
+      "fill": "#69b3a2"
+    },
+    "pathStyle": {
+      "fill": "none",
+      "stroke": "#000000",
+      "strokeOpacity": 1,
+      "strokeWidth": 2
+    }
+  },
+  "tree": {
+    "name": "",
+    "length": "",
+    "id": "cc1dabd1-d189-434c-ab92-4e75df0b18a3",
+    "hasOwnStyle": false,
+    "children": [
+      {
+        "name": "",
+        "length": "0.88776",
+        "id": "26083119-c631-48ec-868b-5c7b4a5439a3",
+        "hasOwnStyle": false,
+        "children": [
+          {
+            "name": "Archaea",
+            "length": "0.43325[100]",
+            "id": "2a71c923-3a88-4831-8300-590eda055508",
+            "hasOwnStyle": false,
+            "children": [
+              {
+                "name": "Archaea",
+                "length": "0.15444[100]",
+                "id": "e20c3e34-08c8-44cd-969e-47b7667e45a2",
+                "hasOwnStyle": false,
+                "children": [
+                  {
+                    "name": "Nanoarchaeum_equitans",
+                    "length": "0.81078",
+                    "id": "207da904-1b40-467f-9ee1-f5087a0f45a1",
+                    "hasOwnStyle": false,
+                    "children": []
+                  },
+                  {
+                    "name": "Thermoprotei",
+                    "length": "0.12018[100]",
+                    "id": "9eb560d8-abb5-433c-9967-ad8fc308d6a2",
+                    "hasOwnStyle": false,
+                    "children": [
+                      {
+                        "name": "Pyrobaculum_aerophilum",
+                        "length": "0.55514",
+                        "id": "8b653eba-dfc1-411c-8736-a34272138db9",
+                        "hasOwnStyle": false,
+                        "children": []
+                      },
+                      {
+                        "name": "Thermoprotei",
+                        "length": "0.09462[94]",
+                        "id": "4d0bb11b-b1c6-41c4-b252-4b07ba175dad",
+                        "hasOwnStyle": false,
+                        "children": [
+                          {
+                            "name": "Aeropyrum_pernix",
+                            "length": "0.43380",
+                            "id": "5bf3940c-fd1c-42b6-844c-1b6642a982ae",
+                            "hasOwnStyle": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Sulfolobus",
+                            "length": "0.33720[100]",
+                            "id": "bb412c3c-a54b-47f8-a0a5-48a886b9798e",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Sulfolobus_solfataricus",
+                                "length": "0.18962",
+                                "id": "d443eb19-ae1b-4351-b8b1-111d80c6eac0",
+                                "hasOwnStyle": false,
+                                "children": []
+                              },
+                              {
+                                "name": "Sulfolobus_tokodaii",
+                                "length": "0.17389",
+                                "id": "2a0bcb69-441c-452b-975f-b032b3255afd",
+                                "hasOwnStyle": false,
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Euryarchaeota",
+                "length": "0.11833[99]",
+                "id": "35b5b41c-4c17-4262-a0ce-d9208df5b397",
+                "hasOwnStyle": false,
+                "children": [
+                  {
+                    "name": "Thermoplasma",
+                    "length": "0.66151[100]",
+                    "id": "fa5ca11b-7df6-4903-aa76-39b76efeddca",
+                    "hasOwnStyle": false,
+                    "children": [
+                      {
+                        "name": "Thermoplasma_volcanium",
+                        "length": "0.10412",
+                        "id": "127df19a-9764-460a-9f59-3bd567ac6e74",
+                        "hasOwnStyle": false,
+                        "children": []
+                      },
+                      {
+                        "name": "Thermoplasma_acidophilum",
+                        "length": "0.09785",
+                        "id": "eb4eb547-1a36-41bb-9e7f-b0fd93f2723c",
+                        "hasOwnStyle": false,
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Euryarchaeota",
+                    "length": "0.06815[62]",
+                    "id": "1ea82f30-6554-491e-b597-a3297ef4b262",
+                    "hasOwnStyle": false,
+                    "children": [
+                      {
+                        "name": "Euryarchaeota",
+                        "length": "0.10395[100]",
+                        "id": "4bbc91c7-7be2-43ed-b15d-54ed24e03eac",
+                        "hasOwnStyle": false,
+                        "children": [
+                          {
+                            "name": "Archaeoglobus_fulgidus",
+                            "length": "0.34660",
+                            "id": "7358abcb-6a5b-4623-b2a1-856e6a32af40",
+                            "hasOwnStyle": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Euryarchaeota",
+                            "length": "0.12801[100]",
+                            "id": "709f1ea0-3c89-4c3e-a6d9-80cf9a3ffc13",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Halobacterium_sp._NRC-1",
+                                "length": "0.61597",
+                                "id": "2c4b1ab4-e3e4-4057-9dd2-83494c5aff5f",
+                                "hasOwnStyle": false,
+                                "children": []
+                              },
+                              {
+                                "name": "Methanosarcina",
+                                "length": "0.30588[100]",
+                                "id": "125fd340-8208-48d3-bbda-63465e1d01c7",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Methanosarcina_acetivorans",
+                                    "length": "0.02602",
+                                    "id": "0b189b0d-4a54-4e0b-b072-90d7ca8251c5",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  },
+                                  {
+                                    "name": "Methanosarcina_mazei",
+                                    "length": "0.03087",
+                                    "id": "67b41ec1-acdb-4cc4-8ce7-10bdcc60c199",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Euryarchaeota",
+                        "length": "0.04469[51]",
+                        "id": "a8fe68a3-9159-407f-8183-33a95351b8fc",
+                        "hasOwnStyle": false,
+                        "children": [
+                          {
+                            "name": "Pyrococcus",
+                            "length": "0.36220[100]",
+                            "id": "b099e812-83e1-4fd2-ac6c-970872b1df72",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Pyrococcus_furiosus",
+                                "length": "0.02366",
+                                "id": "fba71cc7-25a4-4e4e-9e4b-905305ee9fd4",
+                                "hasOwnStyle": false,
+                                "children": []
+                              },
+                              {
+                                "name": "Pyrococcus",
+                                "length": "0.02239[100]",
+                                "id": "a3b6a9a6-898c-44ea-aa63-e4d103acf3d3",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Pyrococcus_horikoshii",
+                                    "length": "0.02786",
+                                    "id": "a8fc2cb5-da52-469e-9dc6-75628b490007",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  },
+                                  {
+                                    "name": "Pyrococcus_abyssi",
+                                    "length": "0.02179",
+                                    "id": "0c11e7e0-a65d-49ac-8c4c-b981fd72ad12",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "name": "Euryarchaeota",
+                            "length": "0.06284[100]",
+                            "id": "c82ec5a2-22ea-47b8-8b64-07dbeed092a9",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Methanococcales",
+                                "length": "0.23828[100]",
+                                "id": "67e8e93b-78a3-4695-8369-a0df277f6c4d",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Methanococcus_maripaludis",
+                                    "length": "0.28592",
+                                    "id": "fd4deefa-1e39-4b08-8fb5-720cf88c068d",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  },
+                                  {
+                                    "name": "Methanococcus_jannaschii",
+                                    "length": "0.13226",
+                                    "id": "ea3db87e-397c-41d1-879a-38537448e625",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "Euryarchaeota",
+                                "length": "0.07446[99]",
+                                "id": "08569f84-1838-4214-bc76-7a9b68f49735",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Methanopyrus_kandleri",
+                                    "length": "0.35331",
+                                    "id": "b022806b-30e3-403e-bf4e-1d627db20dde",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  },
+                                  {
+                                    "name": "Methanobacterium_thermautotrophicum",
+                                    "length": "0.36583",
+                                    "id": "0ebb6f00-7d55-4a80-882e-43c5206301d7",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Eukaryota",
+            "length": "0.57543[100]",
+            "id": "cd11b4a9-cb81-4eb7-8a31-3158765c549b",
+            "hasOwnStyle": false,
+            "children": [
+              {
+                "name": "Giardia_lamblia",
+                "length": "0.55482",
+                "id": "9ca81655-ffae-4531-92f1-79ee1313aa46",
+                "hasOwnStyle": false,
+                "children": []
+              },
+              {
+                "name": "Eukaryota",
+                "length": "0.10129[100]",
+                "id": "81a02bbd-f56d-4332-82e0-cc09c3d0d6cd",
+                "hasOwnStyle": false,
+                "children": [
+                  {
+                    "name": "Leishmania_major",
+                    "length": "0.45664",
+                    "id": "06e8902c-5514-4617-a71d-fef7b1f7a9f3",
+                    "hasOwnStyle": false,
+                    "children": []
+                  },
+                  {
+                    "name": "Eukaryota",
+                    "length": "0.06455[87]",
+                    "id": "97cf470b-9dd9-481d-bf2d-223ffe804069",
+                    "hasOwnStyle": false,
+                    "children": [
+                      {
+                        "name": "Eukaryota",
+                        "length": "0.03495[42]",
+                        "id": "dc61fff0-1410-4599-8978-902d9760c345",
+                        "hasOwnStyle": false,
+                        "children": [
+                          {
+                            "name": "Thalassiosira_pseudonana",
+                            "length": "0.33483",
+                            "id": "fc29a6a6-8d37-4cf8-8a74-54497c8f3358",
+                            "hasOwnStyle": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Apicomplexa",
+                            "length": "0.14359[100]",
+                            "id": "8425e8e0-673d-4a50-9fc1-e077dcba59ba",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Plasmodium_falciparum",
+                                "length": "0.28267",
+                                "id": "91497b1e-fb2a-4b54-8324-ec711e2bb75a",
+                                "hasOwnStyle": false,
+                                "children": []
+                              },
+                              {
+                                "name": "Cryptosporidium_hominis",
+                                "length": "0.25048",
+                                "id": "96a4ea91-b971-4800-9121-093e6bfdcaaf",
+                                "hasOwnStyle": false,
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Eukaryota",
+                        "length": "0.02636[44]",
+                        "id": "d20cda58-7d2e-44a1-8cae-ae4872720ff0",
+                        "hasOwnStyle": false,
+                        "children": [
+                          {
+                            "name": "Eukaryota",
+                            "length": "0.08133[96]",
+                            "id": "d5629a42-77d4-4047-a344-ed5827b48e8c",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Cyanidioschyzon_merolae",
+                                "length": "0.38319",
+                                "id": "5d8edbb1-7d3f-4fc1-9aea-1bf42eae880d",
+                                "hasOwnStyle": false,
+                                "children": []
+                              },
+                              {
+                                "name": "Streptophyta",
+                                "length": "0.15770[100]",
+                                "id": "590661ec-ab03-477d-89ad-2b852c459695",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Oryza_sativa",
+                                    "length": "0.07623",
+                                    "id": "6dc9568a-1eab-4bb2-b6c4-ca591f314b41",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  },
+                                  {
+                                    "name": "Arabidopsis_thaliana",
+                                    "length": "0.09366",
+                                    "id": "c7b90d62-9ec0-482a-bb36-f693253beb40",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "name": "Eukaryota",
+                            "length": "0.02708[41]",
+                            "id": "bb052d65-fe78-409a-91a2-b3b6dacc573a",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Dictyostelium_discoideum",
+                                "length": "0.34685",
+                                "id": "9365453f-fe74-4e4a-b01f-b09fe0d31c3d",
+                                "hasOwnStyle": false,
+                                "children": []
+                              },
+                              {
+                                "name": "Eukaryota",
+                                "length": "0.04004[85]",
+                                "id": "407f1140-550d-4f0f-bd19-d429431f8284",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Ascomycota",
+                                    "length": "0.15370[100]",
+                                    "id": "d1606654-f765-4c3b-9ff0-a6e1c94268fa",
+                                    "hasOwnStyle": false,
+                                    "children": [
+                                      {
+                                        "name": "Schizosaccharomyces_pombe",
+                                        "length": "0.24665",
+                                        "id": "434fb788-361a-4c5f-9fc1-5f9ea1195ab2",
+                                        "hasOwnStyle": false,
+                                        "children": []
+                                      },
+                                      {
+                                        "name": "Saccharomycetaceae",
+                                        "length": "0.21170[100]",
+                                        "id": "253ab91c-6802-4af1-a884-a9a773d71272",
+                                        "hasOwnStyle": false,
+                                        "children": [
+                                          {
+                                            "name": "Saccharomyces_cerevisiae",
+                                            "length": "0.07619",
+                                            "id": "c5fc7e4a-0013-4597-a6b4-f654c8faf621",
+                                            "hasOwnStyle": false,
+                                            "children": []
+                                          },
+                                          {
+                                            "name": "Eremothecium_gossypii",
+                                            "length": "0.07298",
+                                            "id": "9db69cef-028e-4f8e-89cf-3ce78d4683be",
+                                            "hasOwnStyle": false,
+                                            "children": []
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Metazoa",
+                                    "length": "0.09911[100]",
+                                    "id": "ac628f2c-41c4-428d-b914-e2346620d0f0",
+                                    "hasOwnStyle": false,
+                                    "children": [
+                                      {
+                                        "name": "Caenorhabditis",
+                                        "length": "0.24324[100]",
+                                        "id": "05a1f0fa-ede6-42c9-a018-47aff64e0349",
+                                        "hasOwnStyle": false,
+                                        "children": [
+                                          {
+                                            "name": "Caenorhabditis_elegans",
+                                            "length": "0.01843",
+                                            "id": "4a6b60ea-50ed-4e5f-a082-7a66c56c4bb0",
+                                            "hasOwnStyle": false,
+                                            "children": []
+                                          },
+                                          {
+                                            "name": "Caenorhabditis_briggsae",
+                                            "length": "0.01896",
+                                            "id": "2c46c93a-70ae-482a-8a60-bacfe89e642e",
+                                            "hasOwnStyle": false,
+                                            "children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "name": "Metazoa",
+                                        "length": "0.03693[95]",
+                                        "id": "78635074-f1a8-4aa1-b7d7-f5aec6ad5e6b",
+                                        "hasOwnStyle": false,
+                                        "children": [
+                                          {
+                                            "name": "Diptera",
+                                            "length": "0.09870[100]",
+                                            "id": "f9eff44c-4b96-4f05-bbb1-d801a49f7a43",
+                                            "hasOwnStyle": false,
+                                            "children": [
+                                              {
+                                                "name": "Drosophila_melanogaster",
+                                                "length": "0.10233",
+                                                "id": "4648b92b-c5ee-4390-8b50-823b2ddcbfcd",
+                                                "hasOwnStyle": false,
+                                                "children": []
+                                              },
+                                              {
+                                                "name": "Anopheles_gambiae",
+                                                "length": "0.10724",
+                                                "id": "d3d6a23d-b244-4ab3-881f-3b8651889612",
+                                                "hasOwnStyle": false,
+                                                "children": []
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "name": "Gnathostomata",
+                                            "length": "0.09688[100]",
+                                            "id": "da6fc5da-d4b1-4898-b2cf-3c8d7085afe7",
+                                            "hasOwnStyle": false,
+                                            "children": [
+                                              {
+                                                "name": "Actinopterygii",
+                                                "length": "0.04335[100]",
+                                                "id": "7e265bc5-ba8c-47da-98d8-4d032979c10b",
+                                                "hasOwnStyle": false,
+                                                "children": [
+                                                  {
+                                                    "name": "Danio_rerio",
+                                                    "length": "0.05230",
+                                                    "id": "114868be-3e7e-4e86-bf74-74b3870e81ae",
+                                                    "hasOwnStyle": false,
+                                                    "children": []
+                                                  },
+                                                  {
+                                                    "name": "Takifugu_rubripes",
+                                                    "length": "0.03142",
+                                                    "id": "8997540e-f0d7-493a-bf2b-941ffa010cc5",
+                                                    "hasOwnStyle": false,
+                                                    "children": []
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "name": "Gnathostomata",
+                                                "length": "0.01859[100]",
+                                                "id": "b0279d9a-b578-48c8-87e2-9b0a4644c956",
+                                                "hasOwnStyle": false,
+                                                "children": [
+                                                  {
+                                                    "name": "Gallus_gallus",
+                                                    "length": "0.04596",
+                                                    "id": "e4b454ea-2cc4-45e3-9907-71540a39fdba",
+                                                    "hasOwnStyle": false,
+                                                    "children": []
+                                                  },
+                                                  {
+                                                    "name": "Euarchontoglires",
+                                                    "length": "0.01629[99]",
+                                                    "id": "228bedc5-f102-432d-bfbc-8ef913e1255c",
+                                                    "hasOwnStyle": false,
+                                                    "children": [
+                                                      {
+                                                        "name": "Hominidae",
+                                                        "length": "0.01549[100]",
+                                                        "id": "d64b7922-c105-4fce-b141-cca5b13f47f7",
+                                                        "hasOwnStyle": false,
+                                                        "children": [
+                                                          {
+                                                            "name": "Homo_sapiens",
+                                                            "length": "0.00957",
+                                                            "id": "30f1b08a-1608-432c-ad89-b797fdf46121",
+                                                            "hasOwnStyle": false,
+                                                            "children": []
+                                                          },
+                                                          {
+                                                            "name": "Pan_troglodytes",
+                                                            "length": "0.03864",
+                                                            "id": "99dc418b-9af3-42d3-a9bc-b16c3d4030b1",
+                                                            "hasOwnStyle": false,
+                                                            "children": []
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "name": "Murinae",
+                                                        "length": "0.00398[91]",
+                                                        "id": "8f1502a3-1da5-480d-ad8c-34610e781158",
+                                                        "hasOwnStyle": false,
+                                                        "children": [
+                                                          {
+                                                            "name": "Rattus_norvegicus",
+                                                            "length": "0.03107",
+                                                            "id": "ce5a5974-97c9-423d-bb5a-3ad43739990e",
+                                                            "hasOwnStyle": false,
+                                                            "children": []
+                                                          },
+                                                          {
+                                                            "name": "Mus_musculus",
+                                                            "length": "0.01651",
+                                                            "id": "f4047456-d67a-4344-b8f5-f2d3e914db15",
+                                                            "hasOwnStyle": false,
+                                                            "children": []
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Bacteria",
+        "length": "1.34959",
+        "id": "12cb467f-94a3-40d1-8d33-396cf171f9a3",
+        "hasOwnStyle": false,
+        "children": [
+          {
+            "name": "Firmicutes",
+            "length": "0.04315[54]",
+            "id": "a358de20-4c23-4018-a151-93f6af4df4fe",
+            "hasOwnStyle": false,
+            "children": [
+              {
+                "name": "Clostridia",
+                "length": "0.11788[100]",
+                "id": "32b7956a-0521-4034-b6fb-cbdc636edc6d",
+                "hasOwnStyle": false,
+                "children": [
+                  {
+                    "name": "Thermoanaerobacter_tengcongensis",
+                    "length": "0.17512",
+                    "id": "ff6d782d-25ca-409c-b674-5872d839cbff",
+                    "hasOwnStyle": false,
+                    "children": []
+                  },
+                  {
+                    "name": "Clostridium",
+                    "length": "0.15056[100]",
+                    "id": "c7b8cffb-a499-419e-b504-46ebf0d6d3c3",
+                    "hasOwnStyle": false,
+                    "children": [
+                      {
+                        "name": "Clostridium_acetobutylicum",
+                        "length": "0.11396",
+                        "id": "4f82db4d-a5a5-4290-9768-4790762d91ae",
+                        "hasOwnStyle": false,
+                        "children": []
+                      },
+                      {
+                        "name": "Clostridium",
+                        "length": "0.03238[78]",
+                        "id": "c23387a7-4448-46ed-9705-86d7fbb15233",
+                        "hasOwnStyle": false,
+                        "children": [
+                          {
+                            "name": "Clostridium_tetani",
+                            "length": "0.10918",
+                            "id": "6c3436e6-912b-4f35-989e-ac7650c99fc3",
+                            "hasOwnStyle": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Clostridium_perfringens",
+                            "length": "0.11535",
+                            "id": "8c128f9c-a81b-402b-8c73-cd77d3bdeb9f",
+                            "hasOwnStyle": false,
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Firmicutes",
+                "length": "0.09540[92]",
+                "id": "8adcc7f9-da02-45f7-a979-1837a8cb3423",
+                "hasOwnStyle": false,
+                "children": [
+                  {
+                    "name": "Mollicutes",
+                    "length": "0.09099[100]",
+                    "id": "bc883923-5846-4295-9df8-f91b4661d471",
+                    "hasOwnStyle": false,
+                    "children": [
+                      {
+                        "name": "Phytoplasma_Onion_yellows",
+                        "length": "0.47843",
+                        "id": "f538e4ab-4762-43cb-9830-ad34be4b3cc2",
+                        "hasOwnStyle": false,
+                        "children": []
+                      },
+                      {
+                        "name": "Mycoplasmataceae",
+                        "length": "0.12541[100]",
+                        "id": "a58f4b41-5a74-4649-8683-cba1736cd1b0",
+                        "hasOwnStyle": false,
+                        "children": [
+                          {
+                            "name": "Mycoplasma_mycoides",
+                            "length": "0.37680",
+                            "id": "9d25fec3-bfc4-48db-b0de-741a7e7ea906",
+                            "hasOwnStyle": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Mycoplasmataceae",
+                            "length": "0.07341[100]",
+                            "id": "2492f454-1d80-4a47-96c8-0ac0691041d5",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Mycoplasma",
+                                "length": "0.28466[100]",
+                                "id": "c9fd238b-aee2-40aa-a6c8-cc0eb5492265",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Mycoplasma_mobile",
+                                    "length": "0.27702",
+                                    "id": "8a7812e0-c703-4153-9e4f-06d6fe3e6449",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  },
+                                  {
+                                    "name": "Mycoplasma_pulmonis",
+                                    "length": "0.28761",
+                                    "id": "eeb1ebd5-fa5a-4acd-9e1d-b0cec7b8414e",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "Mycoplasmataceae",
+                                "length": "0.19177[100]",
+                                "id": "2d56147b-cdfc-4df5-bd01-7d25ebe28a91",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Ureaplasma_parvum",
+                                    "length": "0.33874",
+                                    "id": "6ad9d4f0-d2c3-42b0-8ffa-d39f42510d79",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  },
+                                  {
+                                    "name": "Mycoplasma",
+                                    "length": "0.06674[94]",
+                                    "id": "790fe8eb-33d7-43f7-a14a-6d91caf2398a",
+                                    "hasOwnStyle": false,
+                                    "children": [
+                                      {
+                                        "name": "Mycoplasma_penetrans",
+                                        "length": "0.34890",
+                                        "id": "fded50d0-a5ce-466b-bade-50c5d48e13c6",
+                                        "hasOwnStyle": false,
+                                        "children": []
+                                      },
+                                      {
+                                        "name": "Mycoplasma",
+                                        "length": "0.14180[100]",
+                                        "id": "6d409fb4-595e-417e-b849-df931bb22470",
+                                        "hasOwnStyle": false,
+                                        "children": [
+                                          {
+                                            "name": "Mycoplasma_gallisepticum",
+                                            "length": "0.24373",
+                                            "id": "e0998047-4cc9-4033-b5c1-91a4bf00de93",
+                                            "hasOwnStyle": false,
+                                            "children": []
+                                          },
+                                          {
+                                            "name": "Mycoplasma",
+                                            "length": "0.31768[100]",
+                                            "id": "6aa0822a-2844-486e-ac6a-454a8d94de5c",
+                                            "hasOwnStyle": false,
+                                            "children": [
+                                              {
+                                                "name": "Mycoplasma_pneumoniae",
+                                                "length": "0.10966",
+                                                "id": "c09de616-59bf-42cd-ac5b-b4c94737f49c",
+                                                "hasOwnStyle": false,
+                                                "children": []
+                                              },
+                                              {
+                                                "name": "Mycoplasma_genitalium",
+                                                "length": "0.11268",
+                                                "id": "6a583d7a-ffe9-45fb-b28a-a472bead31dc",
+                                                "hasOwnStyle": false,
+                                                "children": []
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Bacilli",
+                    "length": "0.08905[100]",
+                    "id": "cdbb673e-8479-4c9e-a124-702d03eecd17",
+                    "hasOwnStyle": false,
+                    "children": [
+                      {
+                        "name": "Lactobacillales",
+                        "length": "0.08989[100]",
+                        "id": "14985a02-e94b-4663-ae83-b5830b8dbbae",
+                        "hasOwnStyle": false,
+                        "children": [
+                          {
+                            "name": "Lactobacillus",
+                            "length": "0.06763[100]",
+                            "id": "8622d918-eeb2-4f48-a312-5d8dac77fb8b",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Lactobacillus_johnsonii",
+                                "length": "0.20999",
+                                "id": "9ec5637f-119f-4baa-97aa-cb087dbf749d",
+                                "hasOwnStyle": false,
+                                "children": []
+                              },
+                              {
+                                "name": "Lactobacillus_plantarum",
+                                "length": "0.14371",
+                                "id": "e58cdc50-d44f-445d-bc71-5f2f1674b2ad",
+                                "hasOwnStyle": false,
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "name": "Lactobacillales",
+                            "length": "0.03958[100]",
+                            "id": "02313d36-2d5c-4b20-9ae3-e8e9b1128f30",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Enterococcus_faecalis",
+                                "length": "0.07946",
+                                "id": "462a8738-e870-4cc4-b2e2-6222bf346f65",
+                                "hasOwnStyle": false,
+                                "children": []
+                              },
+                              {
+                                "name": "Streptococcaceae",
+                                "length": "0.08901[100]",
+                                "id": "7ebd7a3e-6ba3-4b6d-ab80-d74b6ad7e1f0",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Lactococcus_lactis",
+                                    "length": "0.11214",
+                                    "id": "c30c593b-3c5b-4466-b9a9-cfaf23709cd6",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  },
+                                  {
+                                    "name": "Streptococcus",
+                                    "length": "0.04983[100]",
+                                    "id": "ac00c67a-4e1f-462a-999c-a83268057587",
+                                    "hasOwnStyle": false,
+                                    "children": [
+                                      {
+                                        "name": "Streptococcus",
+                                        "length": "0.03607[100]",
+                                        "id": "c93a6367-21a4-42d7-ad9f-fec881c8db62",
+                                        "hasOwnStyle": false,
+                                        "children": [
+                                          {
+                                            "name": "Streptococcus_pneumoniae_R6",
+                                            "length": "0.00119",
+                                            "id": "be2772f7-79f3-4164-9097-8dec2ee97aa0",
+                                            "hasOwnStyle": false,
+                                            "children": []
+                                          },
+                                          {
+                                            "name": "Streptococcus_pneumoniae_TIGR4",
+                                            "length": "0.00124",
+                                            "id": "873ef225-932e-45aa-8759-042aafa3ec14",
+                                            "hasOwnStyle": false,
+                                            "children": []
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "name": "Streptococcus",
+                                        "length": "0.01920[99]",
+                                        "id": "9927b016-1b1c-4eed-b499-607eeae248e8",
+                                        "hasOwnStyle": false,
+                                        "children": [
+                                          {
+                                            "name": "Streptococcus_mutans",
+                                            "length": "0.04319",
+                                            "id": "191eb1ae-a8e2-4385-8a69-2909dc6dc2c3",
+                                            "hasOwnStyle": false,
+                                            "children": []
+                                          },
+                                          {
+                                            "name": "Streptococcus",
+                                            "length": "0.01360[100]",
+                                            "id": "ac54f904-e1b1-47f5-aad9-9f13c01a04a4",
+                                            "hasOwnStyle": false,
+                                            "children": [
+                                              {
+                                                "name": "Streptococcus",
+                                                "length": "0.01637[100]",
+                                                "id": "2c34c246-1f64-4e41-9d70-eddc7ed6c189",
+                                                "hasOwnStyle": false,
+                                                "children": [
+                                                  {
+                                                    "name": "Streptococcus_agalactiae_III",
+                                                    "length": "0.00110",
+                                                    "id": "38a92238-7560-4ada-98a3-10f31c7d077d",
+                                                    "hasOwnStyle": false,
+                                                    "children": []
+                                                  },
+                                                  {
+                                                    "name": "Streptococcus_agalactiae_V",
+                                                    "length": "0.00155",
+                                                    "id": "699c971f-d285-40bb-a18e-126e189b21ea",
+                                                    "hasOwnStyle": false,
+                                                    "children": []
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "name": "Streptococcus",
+                                                "length": "0.02250[100]",
+                                                "id": "d042bf87-61ca-4cc2-867d-b0b222397934",
+                                                "hasOwnStyle": false,
+                                                "children": [
+                                                  {
+                                                    "name": "Streptococcus_pyogenes_M1",
+                                                    "length": "0.00134",
+                                                    "id": "dc4f6663-bc54-418e-95d7-6bcc991f8d1b",
+                                                    "hasOwnStyle": false,
+                                                    "children": []
+                                                  },
+                                                  {
+                                                    "name": "Streptococcus",
+                                                    "length": "0.00066[87]",
+                                                    "id": "382e71f0-f89b-41fb-8a6c-a2e3baf16efd",
+                                                    "hasOwnStyle": false,
+                                                    "children": [
+                                                      {
+                                                        "name": "Streptococcus_pyogenes_MGAS8232",
+                                                        "length": "0.00045",
+                                                        "id": "a6187fdb-4217-4292-bd38-7cb1ecf72c66",
+                                                        "hasOwnStyle": false,
+                                                        "children": []
+                                                      },
+                                                      {
+                                                        "name": "Streptococcus",
+                                                        "length": "0.00110[100]",
+                                                        "id": "f9c46a85-4264-4288-9e78-afc50e2d62db",
+                                                        "hasOwnStyle": false,
+                                                        "children": [
+                                                          {
+                                                            "name": "Streptococcus_pyogenes_MGAS315",
+                                                            "length": "0.00000",
+                                                            "id": "a44836b8-ab5b-4eaa-b13d-0abfc348b428",
+                                                            "hasOwnStyle": false,
+                                                            "children": []
+                                                          },
+                                                          {
+                                                            "name": "Streptococcus_pyogenes_SSI-1",
+                                                            "length": "0.00022",
+                                                            "id": "57f8d1e8-e7c1-4d94-bc1c-0a4a60ac6711",
+                                                            "hasOwnStyle": false,
+                                                            "children": []
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Bacillales",
+                        "length": "0.02828[64]",
+                        "id": "93cb205d-0952-4693-93b9-0e913f91a130",
+                        "hasOwnStyle": false,
+                        "children": [
+                          {
+                            "name": "Staphylococcus",
+                            "length": "0.17366[100]",
+                            "id": "59886d32-e4bc-4c89-af0a-c917cf1ba8a7",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Staphylococcus_epidermidis",
+                                "length": "0.03246",
+                                "id": "b5370452-a4d9-41fd-8188-b9a13d649ce0",
+                                "hasOwnStyle": false,
+                                "children": []
+                              },
+                              {
+                                "name": "Staphylococcus",
+                                "length": "0.02479[100]",
+                                "id": "8f17e126-07a2-40ec-a6c3-1826840ff359",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Staphylococcus_aureus_MW2",
+                                    "length": "0.00000",
+                                    "id": "0918798c-77fe-4378-a010-1feb42d4818b",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  },
+                                  {
+                                    "name": "Staphylococcus",
+                                    "length": "0.00022[61]",
+                                    "id": "93ee7591-2170-4d4a-b74e-0d1a78fef4ad",
+                                    "hasOwnStyle": false,
+                                    "children": [
+                                      {
+                                        "name": "Staphylococcus_aureus_N315",
+                                        "length": "0.00022",
+                                        "id": "125186af-300e-4ce6-b9c2-46d494fb552e",
+                                        "hasOwnStyle": false,
+                                        "children": []
+                                      },
+                                      {
+                                        "name": "Staphylococcus_aureus_Mu50",
+                                        "length": "0.00022",
+                                        "id": "442e0cd4-c52b-4aed-8b72-81f1b4db0447",
+                                        "hasOwnStyle": false,
+                                        "children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "name": "Bacillales",
+                            "length": "0.02816[69]",
+                            "id": "32f49ad2-7b3f-44b3-a1d4-3470f9578121",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Listeria",
+                                "length": "0.13517[100]",
+                                "id": "3e918306-7373-47c7-8fd7-c29dbf6459b7",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Listeria_innocua",
+                                    "length": "0.00248",
+                                    "id": "6a7ea232-69d8-40bb-9858-8e7538131917",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  },
+                                  {
+                                    "name": "Listeria",
+                                    "length": "0.00235[90]",
+                                    "id": "b6988f42-8269-4697-b2bb-7153c284fdf3",
+                                    "hasOwnStyle": false,
+                                    "children": [
+                                      {
+                                        "name": "Listeria_monocytogenes_F2365",
+                                        "length": "0.00063",
+                                        "id": "07aa80c7-dbb7-44d9-ac53-790216558545",
+                                        "hasOwnStyle": false,
+                                        "children": []
+                                      },
+                                      {
+                                        "name": "Listeria_monocytogenes_EGD",
+                                        "length": "0.00144",
+                                        "id": "838de5a8-ca3e-412e-9c4f-bfaae0a621e3",
+                                        "hasOwnStyle": false,
+                                        "children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "Bacillaceae",
+                                "length": "0.03907[100]",
+                                "id": "7ec0ae1b-9802-4d7a-ab43-fe97a38d5969",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Bacillaceae",
+                                    "length": "0.02676[91]",
+                                    "id": "ad51c570-e861-47f9-8ab6-ad9fed507073",
+                                    "hasOwnStyle": false,
+                                    "children": [
+                                      {
+                                        "name": "Bacillus_halodurans",
+                                        "length": "0.09280",
+                                        "id": "6f9c3af8-2a29-4a92-9cf6-91ba1345dc1f",
+                                        "hasOwnStyle": false,
+                                        "children": []
+                                      },
+                                      {
+                                        "name": "Oceanobacillus_iheyensis",
+                                        "length": "0.13838",
+                                        "id": "1f4b8551-387f-4f19-a076-626fd448a1a6",
+                                        "hasOwnStyle": false,
+                                        "children": []
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Bacillus",
+                                    "length": "0.01984[96]",
+                                    "id": "a55e5d28-6279-41ba-9f35-6d75788397c8",
+                                    "hasOwnStyle": false,
+                                    "children": [
+                                      {
+                                        "name": "Bacillus_subtilis",
+                                        "length": "0.07876",
+                                        "id": "8dfcbb40-cbb9-47ba-888a-bb6b847d3ec7",
+                                        "hasOwnStyle": false,
+                                        "children": []
+                                      },
+                                      {
+                                        "name": "Bacillus",
+                                        "length": "0.08924[100]",
+                                        "id": "a9472e14-4bf4-4007-9363-957eb67c8d75",
+                                        "hasOwnStyle": false,
+                                        "children": [
+                                          {
+                                            "name": "Bacillus_anthracis",
+                                            "length": "0.00331",
+                                            "id": "6e8d0313-efe8-444a-83be-3a3c10d01bbc",
+                                            "hasOwnStyle": false,
+                                            "children": []
+                                          },
+                                          {
+                                            "name": "Bacillus",
+                                            "length": "0.00573[100]",
+                                            "id": "81191f78-173e-48b2-ace1-982a79023077",
+                                            "hasOwnStyle": false,
+                                            "children": [
+                                              {
+                                                "name": "Bacillus_cereus_ATCC_14579",
+                                                "length": "0.00342",
+                                                "id": "43b25734-6645-4b41-9d12-c6bb51abbf69",
+                                                "hasOwnStyle": false,
+                                                "children": []
+                                              },
+                                              {
+                                                "name": "Bacillus_cereus_ATCC_10987",
+                                                "length": "0.00123",
+                                                "id": "1908bc4c-a287-4a7f-8bd8-bbad8d6ca194",
+                                                "hasOwnStyle": false,
+                                                "children": []
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Bacteria",
+            "length": "0.02646[66]",
+            "id": "1c9f3048-f6dd-469c-a393-aa6975e4eaf2",
+            "hasOwnStyle": false,
+            "children": [
+              {
+                "name": "Bacteria",
+                "length": "0.04284[67]",
+                "id": "887f42e3-e95c-4747-996b-8e78d15f3337",
+                "hasOwnStyle": false,
+                "children": [
+                  {
+                    "name": "Bacteria",
+                    "length": "0.04443[32]",
+                    "id": "06d5b6c7-8234-4fcc-b65c-c2f9ff1744e2",
+                    "hasOwnStyle": false,
+                    "children": [
+                      {
+                        "name": "Bacteria",
+                        "length": "0.04841[62]",
+                        "id": "77ed1257-8c4b-4ccd-a25e-4330c600d3fb",
+                        "hasOwnStyle": false,
+                        "children": [
+                          {
+                            "name": "Fibrobacter_succinogenes",
+                            "length": "0.51984",
+                            "id": "2a23fc59-f967-40e4-91bf-8caa5ace67b0",
+                            "hasOwnStyle": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Bacteroidetes/Chlorobi_group",
+                            "length": "0.09237[100]",
+                            "id": "74227abc-d1e9-4719-b58c-3b748db3e691",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Chlorobium_tepidum",
+                                "length": "0.37204",
+                                "id": "2a7706eb-c4c7-4ed6-a5b0-9ac05cedff24",
+                                "hasOwnStyle": false,
+                                "children": []
+                              },
+                              {
+                                "name": "Bacteroidales",
+                                "length": "0.34694[100]",
+                                "id": "e58397c4-023d-46f5-a245-58a2dc216caa",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Porphyromonas_gingivalis",
+                                    "length": "0.11304",
+                                    "id": "943330fb-b435-4840-b876-1c246cb31667",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  },
+                                  {
+                                    "name": "Bacteroides_thetaiotaomicron",
+                                    "length": "0.13145",
+                                    "id": "099c68f6-300a-4b16-a660-bb0eb05adcc5",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Chlamydiaceae",
+                        "length": "0.60169[100]",
+                        "id": "82e016aa-de7d-4b31-b6c7-7d232ed38914",
+                        "hasOwnStyle": false,
+                        "children": [
+                          {
+                            "name": "Chlamydia",
+                            "length": "0.06809[100]",
+                            "id": "08d47468-6caa-4d67-8717-65d581efe160",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Chlamydia_muridarum",
+                                "length": "0.01938",
+                                "id": "85a712df-254b-461d-adb5-0e9be6614fde",
+                                "hasOwnStyle": false,
+                                "children": []
+                              },
+                              {
+                                "name": "Chlamydia_trachomatis",
+                                "length": "0.02643",
+                                "id": "541d61f8-9133-46bd-ad32-e60b475475ff",
+                                "hasOwnStyle": false,
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "name": "Chlamydophila",
+                            "length": "0.04170[98]",
+                            "id": "af136b65-46e5-40fa-945f-510a71ed375d",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Chlamydophila_caviae",
+                                "length": "0.05903",
+                                "id": "5ba6e443-eacc-410a-8275-b434a7a831e5",
+                                "hasOwnStyle": false,
+                                "children": []
+                              },
+                              {
+                                "name": "Chlamydophila",
+                                "length": "0.10482[100]",
+                                "id": "1b96c803-16a1-4eda-8454-80cbeb9560a2",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Chlamydophila_pneumoniae_TW183",
+                                    "length": "0.00000",
+                                    "id": "1ff84732-ec88-45cd-ab58-d7c6332355db",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  },
+                                  {
+                                    "name": "Chlamydophila",
+                                    "length": "0.00000[44]",
+                                    "id": "7091269c-dc4f-4a0f-a2e0-8b88f5798f0b",
+                                    "hasOwnStyle": false,
+                                    "children": [
+                                      {
+                                        "name": "Chlamydia_pneumoniae_J138",
+                                        "length": "0.00000",
+                                        "id": "d057586d-3e24-4c9b-81d1-f5665acbdb87",
+                                        "hasOwnStyle": false,
+                                        "children": []
+                                      },
+                                      {
+                                        "name": "Chlamydophila",
+                                        "length": "0.00000[37]",
+                                        "id": "1201cf57-d03d-44ed-a219-20535e41d2c2",
+                                        "hasOwnStyle": false,
+                                        "children": [
+                                          {
+                                            "name": "Chlamydia_pneumoniae_CWL029",
+                                            "length": "0.00000",
+                                            "id": "a3a4e7d1-231e-49c7-b0ad-20c9c818074a",
+                                            "hasOwnStyle": false,
+                                            "children": []
+                                          },
+                                          {
+                                            "name": "Chlamydia_pneumoniae_AR39",
+                                            "length": "0.00000",
+                                            "id": "ef84f81f-9e95-465e-8884-f3ec8bdf4af6",
+                                            "hasOwnStyle": false,
+                                            "children": []
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Bacteria",
+                    "length": "0.03480[23]",
+                    "id": "878351db-0ee4-4e3a-8d98-417f34ba4487",
+                    "hasOwnStyle": false,
+                    "children": [
+                      {
+                        "name": "Bacteria",
+                        "length": "0.04615[42]",
+                        "id": "8fa1c219-2844-4324-ac58-c5dbab876ee6",
+                        "hasOwnStyle": false,
+                        "children": [
+                          {
+                            "name": "Planctomycetaceae",
+                            "length": "0.24062[100]",
+                            "id": "bd2db85d-90bc-48e8-8013-c616a87d8764",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Gemmata_obscuriglobus",
+                                "length": "0.36751",
+                                "id": "3af712ed-579e-4a17-9b0f-64887f0d6c86",
+                                "hasOwnStyle": false,
+                                "children": []
+                              },
+                              {
+                                "name": "Rhodopirellula_baltica",
+                                "length": "0.38017",
+                                "id": "25bb52df-7fa5-4c3d-8238-d38b25708164",
+                                "hasOwnStyle": false,
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "name": "Spirochaetales",
+                            "length": "0.07248[95]",
+                            "id": "45f7c2a7-c766-4dcb-872f-cdde7e8af447",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Leptospira",
+                                "length": "0.47573[100]",
+                                "id": "7d20df87-50be-415d-81f8-1323ea0ce228",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Leptospira_interrogans_L1-130",
+                                    "length": "0.00000",
+                                    "id": "d9c9b951-ea6b-4992-a034-e833b6b011e6",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  },
+                                  {
+                                    "name": "Leptospira_interrogans_56601",
+                                    "length": "0.00027",
+                                    "id": "9dd8ae9c-cb30-4903-8262-df5a38c7d374",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "Spirochaetaceae",
+                                "length": "0.20278[100]",
+                                "id": "bdcb1273-e21a-4066-897a-db1473c60968",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Borrelia_burgdorferi",
+                                    "length": "0.42323",
+                                    "id": "0284a5a4-7576-4394-bf33-c6996eddd15b",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  },
+                                  {
+                                    "name": "Treponema",
+                                    "length": "0.19057[100]",
+                                    "id": "8a272f72-8fd0-44ae-99a0-dcc647fd844c",
+                                    "hasOwnStyle": false,
+                                    "children": [
+                                      {
+                                        "name": "Treponema_pallidum",
+                                        "length": "0.25544",
+                                        "id": "113308e4-b351-46fe-bed4-f5d8f000d43e",
+                                        "hasOwnStyle": false,
+                                        "children": []
+                                      },
+                                      {
+                                        "name": "Treponema_denticola",
+                                        "length": "0.16072",
+                                        "id": "a27501b3-1db5-4145-97c8-f44309dc1e12",
+                                        "hasOwnStyle": false,
+                                        "children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Actinobacteridae",
+                        "length": "0.26800[100]",
+                        "id": "d1c0295b-b30a-42c7-89e8-b4dda5754538",
+                        "hasOwnStyle": false,
+                        "children": [
+                          {
+                            "name": "Actinobacteridae",
+                            "length": "0.14429[100]",
+                            "id": "484e3ac8-8e74-4c12-b051-e081b29189bb",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Bifidobacterium_longum",
+                                "length": "0.29283",
+                                "id": "fe63f9bb-a6ce-41f4-a520-4c784f6532b2",
+                                "hasOwnStyle": false,
+                                "children": []
+                              },
+                              {
+                                "name": "Tropheryma",
+                                "length": "0.44723[100]",
+                                "id": "7b2223ea-a856-4fa1-911a-b6e2d4158db6",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Tropheryma_whipplei_TW08/27",
+                                    "length": "0.00009",
+                                    "id": "fe8c6e91-c5b8-49bd-a760-b597f460187b",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  },
+                                  {
+                                    "name": "Tropheryma_whipplei_Twist",
+                                    "length": "0.00081",
+                                    "id": "38a3740b-2562-41ce-8ecf-61fa0c116a54",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "name": "Actinomycetales",
+                            "length": "0.06110[91]",
+                            "id": "95687df8-46d1-443d-acb6-47067927b275",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Streptomyces",
+                                "length": "0.16707[100]",
+                                "id": "ed55babd-1458-47aa-9f20-9aaf47a8811c",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Streptomyces_avermitilis",
+                                    "length": "0.02680",
+                                    "id": "a0890787-ef3f-469c-baba-97fa53edefd7",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  },
+                                  {
+                                    "name": "Streptomyces_coelicolor",
+                                    "length": "0.02678",
+                                    "id": "12aa8474-986a-4d9c-9577-cc8fbfffbeed",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "Corynebacterineae",
+                                "length": "0.09883[100]",
+                                "id": "e5f1e280-ce36-4c6e-b00d-dad1f147bc81",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Corynebacterium",
+                                    "length": "0.13907[100]",
+                                    "id": "4e0af52e-811f-4d47-a249-7caf005b2803",
+                                    "hasOwnStyle": false,
+                                    "children": [
+                                      {
+                                        "name": "Corynebacterium_diphtheriae",
+                                        "length": "0.06479",
+                                        "id": "91c7540d-651c-4ef2-a484-53633deb2662",
+                                        "hasOwnStyle": false,
+                                        "children": []
+                                      },
+                                      {
+                                        "name": "Corynebacterium",
+                                        "length": "0.03682[100]",
+                                        "id": "de1deae0-3646-4c4d-923a-fe0be600af10",
+                                        "hasOwnStyle": false,
+                                        "children": [
+                                          {
+                                            "name": "Corynebacterium_efficiens",
+                                            "length": "0.02559",
+                                            "id": "248315a2-a2b6-4ebb-8626-16d57c62c50b",
+                                            "hasOwnStyle": false,
+                                            "children": []
+                                          },
+                                          {
+                                            "name": "Corynebacterium",
+                                            "length": "0.03415[100]",
+                                            "id": "10fee5c6-de62-45fb-a106-e4684580637c",
+                                            "hasOwnStyle": false,
+                                            "children": [
+                                              {
+                                                "name": "Corynebacterium_glutamicum_13032",
+                                                "length": "0.00022",
+                                                "id": "bfc87592-4182-4f60-9e7d-17d99467fc33",
+                                                "hasOwnStyle": false,
+                                                "children": []
+                                              },
+                                              {
+                                                "name": "Corynebacterium_glutamicum",
+                                                "length": "0.00000",
+                                                "id": "e558983b-5dca-4c94-9488-db9d0660bcba",
+                                                "hasOwnStyle": false,
+                                                "children": []
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Mycobacterium",
+                                    "length": "0.11523[100]",
+                                    "id": "17eae1a8-0f51-4c92-968f-7dc5eaa9c582",
+                                    "hasOwnStyle": false,
+                                    "children": [
+                                      {
+                                        "name": "Mycobacterium_paratuberculosis",
+                                        "length": "0.02091",
+                                        "id": "7e87cdca-540d-42f0-ab96-7e9371e2b70d",
+                                        "hasOwnStyle": false,
+                                        "children": []
+                                      },
+                                      {
+                                        "name": "Mycobacterium",
+                                        "length": "0.01514[97]",
+                                        "id": "9e48582e-3d0d-4ad4-b9d4-31053567ee54",
+                                        "hasOwnStyle": false,
+                                        "children": [
+                                          {
+                                            "name": "Mycobacterium_leprae",
+                                            "length": "0.05135",
+                                            "id": "8f0f61bc-51dd-4d00-986f-580064f123a8",
+                                            "hasOwnStyle": false,
+                                            "children": []
+                                          },
+                                          {
+                                            "name": "Mycobacterium",
+                                            "length": "0.03027[100]",
+                                            "id": "7ca9c6da-76ad-460c-b7af-dba66469e1e8",
+                                            "hasOwnStyle": false,
+                                            "children": [
+                                              {
+                                                "name": "Mycobacterium_bovis",
+                                                "length": "0.00067",
+                                                "id": "4868738c-46a2-450b-a3f4-cba3c0121857",
+                                                "hasOwnStyle": false,
+                                                "children": []
+                                              },
+                                              {
+                                                "name": "Mycobacterium",
+                                                "length": "0.00022[98]",
+                                                "id": "3be32cb1-150e-49ff-b38a-5ed5a6b1af6b",
+                                                "hasOwnStyle": false,
+                                                "children": [
+                                                  {
+                                                    "name": "Mycobacterium_tuberculosis_H37Rv",
+                                                    "length": "0.00000",
+                                                    "id": "fff482ec-1065-4229-9b81-1622e28fd653",
+                                                    "hasOwnStyle": false,
+                                                    "children": []
+                                                  },
+                                                  {
+                                                    "name": "Mycobacterium_tuberculosis_CDC1551",
+                                                    "length": "0.00000",
+                                                    "id": "d2e2e069-3b2c-4627-851c-4b790edc0be5",
+                                                    "hasOwnStyle": false,
+                                                    "children": []
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Bacteria",
+                "length": "0.03471[74]",
+                "id": "7fa9c95e-267b-480f-9fc2-869c83769e39",
+                "hasOwnStyle": false,
+                "children": [
+                  {
+                    "name": "Bacteria",
+                    "length": "0.02720[51]",
+                    "id": "22e1f7d8-6aa0-48da-878e-6be525054554",
+                    "hasOwnStyle": false,
+                    "children": [
+                      {
+                        "name": "Bacteria",
+                        "length": "0.03606[35]",
+                        "id": "3b227dda-7863-4cd5-b104-88f55e0d7919",
+                        "hasOwnStyle": false,
+                        "children": [
+                          {
+                            "name": "Fusobacterium_nucleatum",
+                            "length": "0.45615",
+                            "id": "8dca4c6d-8e51-43c7-aa81-7680fa0e8f46",
+                            "hasOwnStyle": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Bacteria",
+                            "length": "0.07696[100]",
+                            "id": "ee477528-308e-4ce4-8400-d57adccbc7a3",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Aquifex_aeolicus",
+                                "length": "0.40986",
+                                "id": "731fc1eb-bb71-4597-b5f1-1ed1be84d188",
+                                "hasOwnStyle": false,
+                                "children": []
+                              },
+                              {
+                                "name": "Thermotoga_maritima",
+                                "length": "0.34182",
+                                "id": "05d604f9-3a9c-40d9-840d-686cab55f3f0",
+                                "hasOwnStyle": false,
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Bacteria",
+                        "length": "0.04332[39]",
+                        "id": "a3091b3c-47f2-480a-9ebf-a7cb3a8e0219",
+                        "hasOwnStyle": false,
+                        "children": [
+                          {
+                            "name": "Bacteria",
+                            "length": "0.04370[35]",
+                            "id": "b2a09fe5-445e-4005-96e1-6729ec28c899",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Dehalococcoides_ethenogenes",
+                                "length": "0.53988",
+                                "id": "899e5b5d-b496-4f02-a81d-cc7581a523af",
+                                "hasOwnStyle": false,
+                                "children": []
+                              },
+                              {
+                                "name": "Deinococci",
+                                "length": "0.24776[100]",
+                                "id": "751f95a9-9729-43ec-b178-86f2b2485a00",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Thermus_thermophilus",
+                                    "length": "0.26583",
+                                    "id": "79ed17ce-63ff-4360-821b-9bd5aeb5c148",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  },
+                                  {
+                                    "name": "Deinococcus_radiodurans",
+                                    "length": "0.29763",
+                                    "id": "8fa8bd9a-9b9f-470d-b880-69f99b51a16a",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "name": "Cyanobacteria",
+                            "length": "0.24501[100]",
+                            "id": "0f8957fe-cb33-4c65-b833-fef99996ecd4",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Gloeobacter_violaceus",
+                                "length": "0.23764",
+                                "id": "6f769e85-bb63-4a55-beae-1e1735831ada",
+                                "hasOwnStyle": false,
+                                "children": []
+                              },
+                              {
+                                "name": "Cyanobacteria",
+                                "length": "0.07646[100]",
+                                "id": "942a5b8a-69f1-450d-868d-16ba5029b7e4",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Cyanobacteria",
+                                    "length": "0.05040[100]",
+                                    "id": "4d10cbd4-4c6d-4793-a7b0-d94c994e0ba0",
+                                    "hasOwnStyle": false,
+                                    "children": [
+                                      {
+                                        "name": "Synechococcus_elongatus",
+                                        "length": "0.13147",
+                                        "id": "2404100d-d065-4282-8e25-8d2899fabb03",
+                                        "hasOwnStyle": false,
+                                        "children": []
+                                      },
+                                      {
+                                        "name": "Cyanobacteria",
+                                        "length": "0.04331[98]",
+                                        "id": "1283661e-211d-47ff-b7da-c373f2e2b046",
+                                        "hasOwnStyle": false,
+                                        "children": [
+                                          {
+                                            "name": "Synechocystis_sp._PCC6803",
+                                            "length": "0.15652",
+                                            "id": "11422efb-4fd7-4f21-85f0-7fbb315e18f7",
+                                            "hasOwnStyle": false,
+                                            "children": []
+                                          },
+                                          {
+                                            "name": "Nostoc_sp._PCC_7120",
+                                            "length": "0.12014",
+                                            "id": "5f94be87-368d-4607-b331-f3c28ffb13ba",
+                                            "hasOwnStyle": false,
+                                            "children": []
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Cyanobacteria",
+                                    "length": "0.20442[100]",
+                                    "id": "2bf3afb2-d3ee-4bb9-baa7-b920b72cbced",
+                                    "hasOwnStyle": false,
+                                    "children": [
+                                      {
+                                        "name": "Prochlorococcus_marinus_CCMP1378",
+                                        "length": "0.16170",
+                                        "id": "72bcc876-1257-43ca-8f1b-de1ff1addc3f",
+                                        "hasOwnStyle": false,
+                                        "children": []
+                                      },
+                                      {
+                                        "name": "Cyanobacteria",
+                                        "length": "0.04238[74]",
+                                        "id": "e037076a-14c6-462e-8c32-e449112d35f3",
+                                        "hasOwnStyle": false,
+                                        "children": [
+                                          {
+                                            "name": "Prochlorococcus_marinus_SS120",
+                                            "length": "0.10211",
+                                            "id": "2176f7d9-a742-48d6-84a5-f8b397249a38",
+                                            "hasOwnStyle": false,
+                                            "children": []
+                                          },
+                                          {
+                                            "name": "Cyanobacteria",
+                                            "length": "0.04879[100]",
+                                            "id": "31d532d4-f6f7-42f7-8369-4bd0738bb1a7",
+                                            "hasOwnStyle": false,
+                                            "children": [
+                                              {
+                                                "name": "Synechococcus_sp._WH8102",
+                                                "length": "0.06780",
+                                                "id": "b2793fe4-e1ef-47a9-901c-83663cd73f70",
+                                                "hasOwnStyle": false,
+                                                "children": []
+                                              },
+                                              {
+                                                "name": "Prochlorococcus_marinus_MIT9313",
+                                                "length": "0.05434",
+                                                "id": "e0996e75-3ed0-4b0e-9dab-311217f0a14c",
+                                                "hasOwnStyle": false,
+                                                "children": []
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Bacteria",
+                    "length": "0.05551[98]",
+                    "id": "4d34bff1-99d3-4091-ae0f-8e29bd9aae0e",
+                    "hasOwnStyle": false,
+                    "children": [
+                      {
+                        "name": "Bacteria",
+                        "length": "0.04214[64]",
+                        "id": "af7615c0-ed5b-4245-9a8e-d7b73bf310cb",
+                        "hasOwnStyle": false,
+                        "children": [
+                          {
+                            "name": "Acidobacteria",
+                            "length": "0.20514[100]",
+                            "id": "f8f7d1ad-28c8-4d4a-9270-e4c2e72726f1",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Acidobacterium_capsulatum",
+                                "length": "0.24572",
+                                "id": "17d40e79-5c4a-424b-bb02-242ed78593ab",
+                                "hasOwnStyle": false,
+                                "children": []
+                              },
+                              {
+                                "name": "Solibacter_usitatus",
+                                "length": "0.29086",
+                                "id": "c951e8ef-52bf-4dba-a29e-80ecc6d900b2",
+                                "hasOwnStyle": false,
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "name": "Deltaproteobacteria",
+                            "length": "0.04100[69]",
+                            "id": "5e6c939f-df1c-4ed5-b803-7cb60ed206cf",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Desulfovibrio_vulgaris",
+                                "length": "0.38320",
+                                "id": "cd8e9ff7-edae-4f0b-a1b5-aab77b225871",
+                                "hasOwnStyle": false,
+                                "children": []
+                              },
+                              {
+                                "name": "Deltaproteobacteria",
+                                "length": "0.04870[43]",
+                                "id": "24d0a986-f054-43bb-9a9c-9dc009ff8228",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Bdellovibrio_bacteriovorus",
+                                    "length": "0.45934",
+                                    "id": "73e7d47e-e93e-40f6-adf4-df58847b116d",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  },
+                                  {
+                                    "name": "Geobacter_sulfurreducens",
+                                    "length": "0.22491",
+                                    "id": "b1020efd-5db7-4148-906a-ccdee9d66cd4",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Proteobacteria",
+                        "length": "0.04428[82]",
+                        "id": "211573b2-b982-4ad6-bf1a-33e24f28976b",
+                        "hasOwnStyle": false,
+                        "children": [
+                          {
+                            "name": "Campylobacterales",
+                            "length": "0.41390[100]",
+                            "id": "4ec24e91-17cd-46a8-8cdd-34b769fabee0",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Campylobacter_jejuni",
+                                "length": "0.20399",
+                                "id": "227eea40-fd6d-419c-855a-4e3cfdf61715",
+                                "hasOwnStyle": false,
+                                "children": []
+                              },
+                              {
+                                "name": "Helicobacteraceae",
+                                "length": "0.09105[100]",
+                                "id": "7e6062c8-382c-48a1-9428-632ab205b37d",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Wolinella_succinogenes",
+                                    "length": "0.11644",
+                                    "id": "05839ecd-dc48-41d9-bfbd-d6205a0e3657",
+                                    "hasOwnStyle": false,
+                                    "children": []
+                                  },
+                                  {
+                                    "name": "Helicobacter",
+                                    "length": "0.05330[100]",
+                                    "id": "e4a277e1-8729-47a3-81e3-1bf28137bf8b",
+                                    "hasOwnStyle": false,
+                                    "children": [
+                                      {
+                                        "name": "Helicobacter_hepaticus",
+                                        "length": "0.12643",
+                                        "id": "260af7ed-c457-4b11-814a-0d6074cd1d9a",
+                                        "hasOwnStyle": false,
+                                        "children": []
+                                      },
+                                      {
+                                        "name": "Helicobacter",
+                                        "length": "0.19055[100]",
+                                        "id": "b8d32f83-7acf-43c1-9b36-29ccb914e498",
+                                        "hasOwnStyle": false,
+                                        "children": [
+                                          {
+                                            "name": "Helicobacter_pylori_J99",
+                                            "length": "0.00897",
+                                            "id": "4f90be6a-a95e-4e07-8afa-bc16ad01f1d0",
+                                            "hasOwnStyle": false,
+                                            "children": []
+                                          },
+                                          {
+                                            "name": "Helicobacter_pylori_26695",
+                                            "length": "0.00637",
+                                            "id": "046ea742-14ce-4d7c-aae9-8be54b5abb16",
+                                            "hasOwnStyle": false,
+                                            "children": []
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "name": "Proteobacteria",
+                            "length": "0.06301[100]",
+                            "id": "95fce3fb-c9ba-4a00-a81c-2ec9036493e0",
+                            "hasOwnStyle": false,
+                            "children": [
+                              {
+                                "name": "Alphaproteobacteria",
+                                "length": "0.12365[100]",
+                                "id": "9aa4ad20-a15a-47d9-9146-7e08b6b00d25",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Rickettsiaceae",
+                                    "length": "0.12058[100]",
+                                    "id": "4cc2d4e6-ceba-46a3-99e7-d2a9845dd7a5",
+                                    "hasOwnStyle": false,
+                                    "children": [
+                                      {
+                                        "name": "Wolbachia_sp._wMel",
+                                        "length": "0.51596",
+                                        "id": "5afe57d0-3d3e-4cc3-9d91-73d13853d79a",
+                                        "hasOwnStyle": false,
+                                        "children": []
+                                      },
+                                      {
+                                        "name": "Rickettsia",
+                                        "length": "0.38019[100]",
+                                        "id": "2148bd30-849c-4050-a177-5c6610b26c7f",
+                                        "hasOwnStyle": false,
+                                        "children": [
+                                          {
+                                            "name": "Rickettsia_prowazekii",
+                                            "length": "0.04245",
+                                            "id": "31da1165-18d8-46f4-b00a-a5de0d12beb4",
+                                            "hasOwnStyle": false,
+                                            "children": []
+                                          },
+                                          {
+                                            "name": "Rickettsia_conorii",
+                                            "length": "0.02487",
+                                            "id": "fac32f12-c05c-43a1-991a-19a55a354671",
+                                            "hasOwnStyle": false,
+                                            "children": []
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Alphaproteobacteria",
+                                    "length": "0.11257[100]",
+                                    "id": "d520047e-c523-4c59-84e7-fffcbfc33af1",
+                                    "hasOwnStyle": false,
+                                    "children": [
+                                      {
+                                        "name": "Caulobacter_crescentus",
+                                        "length": "0.23943",
+                                        "id": "39fe3eac-833f-4e37-abfe-4d70ccbadb39",
+                                        "hasOwnStyle": false,
+                                        "children": []
+                                      },
+                                      {
+                                        "name": "Rhizobiales",
+                                        "length": "0.05767[100]",
+                                        "id": "2f4dec34-385e-4f06-86e4-3a26c5f472bf",
+                                        "hasOwnStyle": false,
+                                        "children": [
+                                          {
+                                            "name": "Bradyrhizobiaceae",
+                                            "length": "0.14122[100]",
+                                            "id": "b7fa1df6-2c75-4ef3-91a9-9d12b6a5ed18",
+                                            "hasOwnStyle": false,
+                                            "children": [
+                                              {
+                                                "name": "Bradyrhizobium_japonicum",
+                                                "length": "0.06346",
+                                                "id": "ffc0f0e1-d997-4d21-aa31-fbfd219e17fc",
+                                                "hasOwnStyle": false,
+                                                "children": []
+                                              },
+                                              {
+                                                "name": "Rhodopseudomonas_palustris",
+                                                "length": "0.04182",
+                                                "id": "a3d1cbf0-c6d9-4ca5-a343-cf821b4ee68d",
+                                                "hasOwnStyle": false,
+                                                "children": []
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "name": "Rhizobiales",
+                                            "length": "0.08637[100]",
+                                            "id": "ecd9677c-d8d1-48fb-b600-7037cda2d8eb",
+                                            "hasOwnStyle": false,
+                                            "children": [
+                                              {
+                                                "name": "Rhizobiales",
+                                                "length": "0.02384[51]",
+                                                "id": "9da99cbe-a4ef-4e07-9fbd-3a243888d274",
+                                                "hasOwnStyle": false,
+                                                "children": [
+                                                  {
+                                                    "name": "Rhizobium_loti",
+                                                    "length": "0.09308",
+                                                    "id": "7bbd4f93-11f5-4ea0-a55d-a4ab7c422ac2",
+                                                    "hasOwnStyle": false,
+                                                    "children": []
+                                                  },
+                                                  {
+                                                    "name": "Brucella",
+                                                    "length": "0.08660[100]",
+                                                    "id": "770ff3e6-c251-4d04-bc7d-ca1f88ececb7",
+                                                    "hasOwnStyle": false,
+                                                    "children": [
+                                                      {
+                                                        "name": "Brucella_suis",
+                                                        "length": "0.00102",
+                                                        "id": "7d51c4f3-c403-4e71-bcda-f62c2ad6cac8",
+                                                        "hasOwnStyle": false,
+                                                        "children": []
+                                                      },
+                                                      {
+                                                        "name": "Brucella_melitensis",
+                                                        "length": "0.00184",
+                                                        "id": "d436af00-ca4f-4c2c-8fa2-f641948ec8e5",
+                                                        "hasOwnStyle": false,
+                                                        "children": []
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "name": "Sinorhizobium",
+                                                "length": "0.05575[100]",
+                                                "id": "d5462e26-71e5-405f-97cc-ffbd917297f1",
+                                                "hasOwnStyle": false,
+                                                "children": [
+                                                  {
+                                                    "name": "Rhizobium_meliloti",
+                                                    "length": "0.05114",
+                                                    "id": "9f870efb-c387-4576-87fd-4978682ee3a0",
+                                                    "hasOwnStyle": false,
+                                                    "children": []
+                                                  },
+                                                  {
+                                                    "name": "",
+                                                    "length": "0.05735[100]",
+                                                    "id": "8c317a07-5699-4c34-bbe2-5a9a42b5575d",
+                                                    "hasOwnStyle": false,
+                                                    "children": [
+                                                      {
+                                                        "name": "Agrobacterium_tumefaciens_Cereon",
+                                                        "length": "0.00000",
+                                                        "id": "84c187a9-0dcf-4566-bf24-ce39483437d2",
+                                                        "hasOwnStyle": false,
+                                                        "children": []
+                                                      },
+                                                      {
+                                                        "name": "Agrobacterium_tumefaciens_WashU",
+                                                        "length": "0.00000",
+                                                        "id": "e3b49476-f07a-40cb-880e-701092d896be",
+                                                        "hasOwnStyle": false,
+                                                        "children": []
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "Proteobacteria",
+                                "length": "0.16913[100]",
+                                "id": "3fb11793-7c52-45a6-afd9-7bda2beca327",
+                                "hasOwnStyle": false,
+                                "children": [
+                                  {
+                                    "name": "Betaproteobacteria",
+                                    "length": "0.08761[100]",
+                                    "id": "9aa6bbb7-a891-40a9-9a0b-62a4ee9ca18f",
+                                    "hasOwnStyle": false,
+                                    "children": [
+                                      {
+                                        "name": "Nitrosomonas_europaea",
+                                        "length": "0.22059",
+                                        "id": "2e819c2d-b24a-462a-8453-69b57070d1d6",
+                                        "hasOwnStyle": false,
+                                        "children": []
+                                      },
+                                      {
+                                        "name": "Betaproteobacteria",
+                                        "length": "0.03840[75]",
+                                        "id": "64b2e48b-016c-46f5-94c6-e331a79f3b66",
+                                        "hasOwnStyle": false,
+                                        "children": [
+                                          {
+                                            "name": "Neisseriaceae",
+                                            "length": "0.07131[100]",
+                                            "id": "4ac465dc-477b-47a1-8905-e7ba1e222f15",
+                                            "hasOwnStyle": false,
+                                            "children": [
+                                              {
+                                                "name": "Chromobacterium_violaceum",
+                                                "length": "0.09623",
+                                                "id": "074dbf50-d954-41f1-aedf-a461e13e4b9b",
+                                                "hasOwnStyle": false,
+                                                "children": []
+                                              },
+                                              {
+                                                "name": "Neisseria",
+                                                "length": "0.12615[100]",
+                                                "id": "8d307036-f405-4976-9122-31bed45f353e",
+                                                "hasOwnStyle": false,
+                                                "children": [
+                                                  {
+                                                    "name": "Neisseria_meningitidis_A",
+                                                    "length": "0.00400",
+                                                    "id": "12ae6c74-99b3-4bab-a2b2-fc83303c973f",
+                                                    "hasOwnStyle": false,
+                                                    "children": []
+                                                  },
+                                                  {
+                                                    "name": "Neisseria_meningitidis_B",
+                                                    "length": "0.00134",
+                                                    "id": "4f2677ed-b4be-49e5-b2db-c8b1be55c33a",
+                                                    "hasOwnStyle": false,
+                                                    "children": []
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "name": "Burkholderiales",
+                                            "length": "0.08478[100]",
+                                            "id": "10b500f1-c29d-4736-bb1c-6bee95fb9c3e",
+                                            "hasOwnStyle": false,
+                                            "children": [
+                                              {
+                                                "name": "Ralstonia_solanacearum",
+                                                "length": "0.11464",
+                                                "id": "1caaaa0c-4a64-48d0-91cb-bb7385d1bfa1",
+                                                "hasOwnStyle": false,
+                                                "children": []
+                                              },
+                                              {
+                                                "name": "Bordetella",
+                                                "length": "0.14218[100]",
+                                                "id": "1d213c5a-bfb0-4ebc-bbac-b9bfbd5b028e",
+                                                "hasOwnStyle": false,
+                                                "children": [
+                                                  {
+                                                    "name": "Bordetella_pertussis",
+                                                    "length": "0.00127",
+                                                    "id": "9516c4fb-a4ab-4a59-9107-20fbfd549541",
+                                                    "hasOwnStyle": false,
+                                                    "children": []
+                                                  },
+                                                  {
+                                                    "name": "Bordetella",
+                                                    "length": "0.00006[67]",
+                                                    "id": "c0856ccf-2190-4cf4-949f-d6853af312c7",
+                                                    "hasOwnStyle": false,
+                                                    "children": [
+                                                      {
+                                                        "name": "Bordetella_parapertussis",
+                                                        "length": "0.00199",
+                                                        "id": "0eb3cc1d-7130-4542-8454-b15fa5d54c58",
+                                                        "hasOwnStyle": false,
+                                                        "children": []
+                                                      },
+                                                      {
+                                                        "name": "Bordetella_bronchiseptica",
+                                                        "length": "0.00022",
+                                                        "id": "707f34a9-7f87-43f1-9be5-da73d659dbb3",
+                                                        "hasOwnStyle": false,
+                                                        "children": []
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Gammaproteobacteria",
+                                    "length": "0.03328[54]",
+                                    "id": "c75f5708-d83e-4082-a6ef-87ba30629ad4",
+                                    "hasOwnStyle": false,
+                                    "children": [
+                                      {
+                                        "name": "Coxiella_burnetii",
+                                        "length": "0.33185",
+                                        "id": "dd356b24-fada-455f-9aab-cd9d420b04a7",
+                                        "hasOwnStyle": false,
+                                        "children": []
+                                      },
+                                      {
+                                        "name": "Gammaproteobacteria",
+                                        "length": "0.02475[49]",
+                                        "id": "9047c06c-1554-4dea-a350-cd20336b69f5",
+                                        "hasOwnStyle": false,
+                                        "children": [
+                                          {
+                                            "name": "Xanthomonadaceae",
+                                            "length": "0.24151[100]",
+                                            "id": "6261b737-95cd-42c9-a9fa-5165721566b9",
+                                            "hasOwnStyle": false,
+                                            "children": [
+                                              {
+                                                "name": "Xanthomonas",
+                                                "length": "0.05037[100]",
+                                                "id": "9b5183fa-66a1-43ef-8f29-b9ae557a471c",
+                                                "hasOwnStyle": false,
+                                                "children": [
+                                                  {
+                                                    "name": "Xanthomonas_axonopodis",
+                                                    "length": "0.01069",
+                                                    "id": "9b53b54b-e1c7-417a-9a8c-a49f310e7bb6",
+                                                    "hasOwnStyle": false,
+                                                    "children": []
+                                                  },
+                                                  {
+                                                    "name": "Xanthomonas_campestris",
+                                                    "length": "0.00934",
+                                                    "id": "bab40c6b-0048-4aac-b993-6fb826876d5c",
+                                                    "hasOwnStyle": false,
+                                                    "children": []
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "name": "Xylella",
+                                                "length": "0.10192[100]",
+                                                "id": "f0f41c15-16c8-4167-98e2-079a70c3b663",
+                                                "hasOwnStyle": false,
+                                                "children": [
+                                                  {
+                                                    "name": "Xylella_fastidiosa_9a5c",
+                                                    "length": "0.00802",
+                                                    "id": "1ae24ded-12dc-4e34-b64a-1521e7a1f0f5",
+                                                    "hasOwnStyle": false,
+                                                    "children": []
+                                                  },
+                                                  {
+                                                    "name": "Xylella_fastidiosa_700964",
+                                                    "length": "0.01324",
+                                                    "id": "93d60c05-3061-44d7-97cb-9ac5c9a0ca5c",
+                                                    "hasOwnStyle": false,
+                                                    "children": []
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "name": "Gammaproteobacteria",
+                                            "length": "0.04492[98]",
+                                            "id": "e4cdb089-f300-4e15-8a03-5ba7fe0d9f1d",
+                                            "hasOwnStyle": false,
+                                            "children": [
+                                              {
+                                                "name": "Pseudomonas",
+                                                "length": "0.14456[100]",
+                                                "id": "c92dd8c5-1fe2-4d0a-81c6-1d2e7fc32fba",
+                                                "hasOwnStyle": false,
+                                                "children": [
+                                                  {
+                                                    "name": "Pseudomonas_aeruginosa",
+                                                    "length": "0.03202",
+                                                    "id": "2fcb3886-096d-4c8f-9d19-8cd5e8a8f771",
+                                                    "hasOwnStyle": false,
+                                                    "children": []
+                                                  },
+                                                  {
+                                                    "name": "Pseudomonas",
+                                                    "length": "0.02904[100]",
+                                                    "id": "627ee9b4-4d6a-4a58-8930-20d33a8d83b7",
+                                                    "hasOwnStyle": false,
+                                                    "children": [
+                                                      {
+                                                        "name": "Pseudomonas_syringae",
+                                                        "length": "0.03162",
+                                                        "id": "a73e3bd0-b8ac-406d-b237-ea32a901c9e6",
+                                                        "hasOwnStyle": false,
+                                                        "children": []
+                                                      },
+                                                      {
+                                                        "name": "Pseudomonas_putida",
+                                                        "length": "0.02741",
+                                                        "id": "c1d69017-dec6-4c33-adba-5278ebfca3b5",
+                                                        "hasOwnStyle": false,
+                                                        "children": []
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "name": "Gammaproteobacteria",
+                                                "length": "0.12234[100]",
+                                                "id": "99b47561-4fd4-4f8b-a967-08e0792587be",
+                                                "hasOwnStyle": false,
+                                                "children": [
+                                                  {
+                                                    "name": "Shewanella_oneidensis",
+                                                    "length": "0.10577",
+                                                    "id": "842f9b67-8de1-40c8-9d00-89f2989e5dce",
+                                                    "hasOwnStyle": false,
+                                                    "children": []
+                                                  },
+                                                  {
+                                                    "name": "Gammaproteobacteria",
+                                                    "length": "0.03492[81]",
+                                                    "id": "007c1a3c-382e-4e4d-894c-70532d2f8064",
+                                                    "hasOwnStyle": false,
+                                                    "children": [
+                                                      {
+                                                        "name": "Vibrionaceae",
+                                                        "length": "0.05597[100]",
+                                                        "id": "ccb27699-f66a-48d8-aaef-de727a208dde",
+                                                        "hasOwnStyle": false,
+                                                        "children": [
+                                                          {
+                                                            "name": "Photobacterium_profundum",
+                                                            "length": "0.06131",
+                                                            "id": "c353a91b-de68-43c2-abca-999f6c16e85b",
+                                                            "hasOwnStyle": false,
+                                                            "children": []
+                                                          },
+                                                          {
+                                                            "name": "Vibrio",
+                                                            "length": "0.02661[100]",
+                                                            "id": "2968a6db-79fe-4e25-9402-48f4c24251c7",
+                                                            "hasOwnStyle": false,
+                                                            "children": [
+                                                              {
+                                                                "name": "Vibrio_cholerae",
+                                                                "length": "0.02995",
+                                                                "id": "c3cb804d-d2e9-4fc6-8fe9-62322fc9ba66",
+                                                                "hasOwnStyle": false,
+                                                                "children": []
+                                                              },
+                                                              {
+                                                                "name": "Vibrio",
+                                                                "length": "0.01536[100]",
+                                                                "id": "536db8a0-2bd6-4394-a800-5fd1be5f8031",
+                                                                "hasOwnStyle": false,
+                                                                "children": [
+                                                                  {
+                                                                    "name": "Vibrio_parahaemolyticus",
+                                                                    "length": "0.01985",
+                                                                    "id": "a7f40c19-1285-472a-89cc-7d5df4ea6745",
+                                                                    "hasOwnStyle": false,
+                                                                    "children": []
+                                                                  },
+                                                                  {
+                                                                    "name": "Vibrio",
+                                                                    "length": "0.01212[100]",
+                                                                    "id": "c0a1871b-e1c1-4830-b4fe-e74cf9905777",
+                                                                    "hasOwnStyle": false,
+                                                                    "children": [
+                                                                      {
+                                                                        "name": "Vibrio_vulnificus_CMCP6",
+                                                                        "length": "0.00291",
+                                                                        "id": "bb81165e-42ba-433a-9b6b-e1b4ab598299",
+                                                                        "hasOwnStyle": false,
+                                                                        "children": []
+                                                                      },
+                                                                      {
+                                                                        "name": "Vibrio_vulnificus_YJ016",
+                                                                        "length": "0.00021",
+                                                                        "id": "f265b57e-4940-44ce-8c70-bc0bd0ca1ede",
+                                                                        "hasOwnStyle": false,
+                                                                        "children": []
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "name": "Gammaproteobacteria",
+                                                        "length": "0.03759[100]",
+                                                        "id": "4e451f45-f356-4f41-a1d1-e6c1c2c1f6ea",
+                                                        "hasOwnStyle": false,
+                                                        "children": [
+                                                          {
+                                                            "name": "Pasteurellaceae",
+                                                            "length": "0.07365[100]",
+                                                            "id": "e5c17662-2b37-457d-afb0-9f43035cdbcc",
+                                                            "hasOwnStyle": false,
+                                                            "children": [
+                                                              {
+                                                                "name": "Haemophilus_ducreyi",
+                                                                "length": "0.05333",
+                                                                "id": "89e336e2-1a7c-4cff-a867-df1cd6003bc3",
+                                                                "hasOwnStyle": false,
+                                                                "children": []
+                                                              },
+                                                              {
+                                                                "name": "Pasteurellaceae",
+                                                                "length": "0.01571[94]",
+                                                                "id": "5d68adb9-45df-46d1-a62e-21ac90b6bfbc",
+                                                                "hasOwnStyle": false,
+                                                                "children": [
+                                                                  {
+                                                                    "name": "Pasteurella_multocida",
+                                                                    "length": "0.03441",
+                                                                    "id": "e11948ce-88ee-494c-ac9b-5411b627aa0a",
+                                                                    "hasOwnStyle": false,
+                                                                    "children": []
+                                                                  },
+                                                                  {
+                                                                    "name": "Haemophilus_influenzae",
+                                                                    "length": "0.03754",
+                                                                    "id": "3e2ccc04-8f47-4d2b-8a13-2c2f7f0a5b1a",
+                                                                    "hasOwnStyle": false,
+                                                                    "children": []
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "name": "Enterobacteriaceae",
+                                                            "length": "0.02808[100]",
+                                                            "id": "938106d1-d750-4df8-99e0-5a757586927c",
+                                                            "hasOwnStyle": false,
+                                                            "children": [
+                                                              {
+                                                                "name": "Enterobacteriaceae",
+                                                                "length": "0.15030[100]",
+                                                                "id": "8bdc5449-b99f-49fc-b47a-e72fd7c216e7",
+                                                                "hasOwnStyle": false,
+                                                                "children": [
+                                                                  {
+                                                                    "name": "Enterobacteriaceae",
+                                                                    "length": "0.08332[100]",
+                                                                    "id": "aca28da5-bad7-48cc-8fe2-785626fdaa44",
+                                                                    "hasOwnStyle": false,
+                                                                    "children": [
+                                                                      {
+                                                                        "name": "Wigglesworthia_brevipalpis",
+                                                                        "length": "0.35452",
+                                                                        "id": "3e8218bc-c613-42fb-a4fb-691393d21e86",
+                                                                        "hasOwnStyle": false,
+                                                                        "children": []
+                                                                      },
+                                                                      {
+                                                                        "name": "Blochmannia_floridanus",
+                                                                        "length": "0.32481",
+                                                                        "id": "ae250559-7bbc-4d65-9eb2-4d53728e608a",
+                                                                        "hasOwnStyle": false,
+                                                                        "children": []
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  {
+                                                                    "name": "Buchnera",
+                                                                    "length": "0.06497[100]",
+                                                                    "id": "7634f6ba-f5f0-4a44-9df8-00ef07e4cc6d",
+                                                                    "hasOwnStyle": false,
+                                                                    "children": [
+                                                                      {
+                                                                        "name": "Buchnera_aphidicola_Bp",
+                                                                        "length": "0.27492",
+                                                                        "id": "b9f92787-2368-4dda-96bf-f1b4067466f1",
+                                                                        "hasOwnStyle": false,
+                                                                        "children": []
+                                                                      },
+                                                                      {
+                                                                        "name": "Buchnera",
+                                                                        "length": "0.10140[100]",
+                                                                        "id": "b32a9c83-2fa7-4a6c-b0ca-e69a485c2087",
+                                                                        "hasOwnStyle": false,
+                                                                        "children": [
+                                                                          {
+                                                                            "name": "Buchnera_aphidicola_Sg",
+                                                                            "length": "0.10235",
+                                                                            "id": "14d2475a-2f13-4bd4-b6a6-e5e9a39ee4e0",
+                                                                            "hasOwnStyle": false,
+                                                                            "children": []
+                                                                          },
+                                                                          {
+                                                                            "name": "Buchnera_aphidicola_APS",
+                                                                            "length": "0.09535",
+                                                                            "id": "1600bc19-ffe0-4b40-acef-cbb1943bda44",
+                                                                            "hasOwnStyle": false,
+                                                                            "children": []
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "name": "Enterobacteriaceae",
+                                                                "length": "0.02183[98]",
+                                                                "id": "fbadf2c3-2c61-4b0e-beee-7ad2e7991493",
+                                                                "hasOwnStyle": false,
+                                                                "children": [
+                                                                  {
+                                                                    "name": "Enterobacteriaceae",
+                                                                    "length": "0.01182[61]",
+                                                                    "id": "e2b3164d-70ec-4031-8691-81069d26d076",
+                                                                    "hasOwnStyle": false,
+                                                                    "children": [
+                                                                      {
+                                                                        "name": "Photorhabdus_luminescens",
+                                                                        "length": "0.05076",
+                                                                        "id": "8020baf4-0e51-452c-9ace-18b51b7e32d0",
+                                                                        "hasOwnStyle": false,
+                                                                        "children": []
+                                                                      },
+                                                                      {
+                                                                        "name": "Yersinia",
+                                                                        "length": "0.03398[100]",
+                                                                        "id": "ef532a01-b629-4fed-812f-a890785a5043",
+                                                                        "hasOwnStyle": false,
+                                                                        "children": [
+                                                                          {
+                                                                            "name": "Yersinia_pestis_Medievalis",
+                                                                            "length": "0.00000",
+                                                                            "id": "c8b8913f-fea2-42a5-a01a-701095d411d3",
+                                                                            "hasOwnStyle": false,
+                                                                            "children": []
+                                                                          },
+                                                                          {
+                                                                            "name": "Yersinia",
+                                                                            "length": "0.00000[31]",
+                                                                            "id": "eaedca24-acd8-491b-9fbc-0b7a612a086f",
+                                                                            "hasOwnStyle": false,
+                                                                            "children": [
+                                                                              {
+                                                                                "name": "Yersinia_pestis_CO92",
+                                                                                "length": "0.00000",
+                                                                                "id": "3f751d0e-da6e-4b42-9cad-282b4e2b9dc9",
+                                                                                "hasOwnStyle": false,
+                                                                                "children": []
+                                                                              },
+                                                                              {
+                                                                                "name": "Yersinia_pestis_KIM",
+                                                                                "length": "0.00000",
+                                                                                "id": "58af0e07-0d56-4d1e-97be-f7db882731e7",
+                                                                                "hasOwnStyle": false,
+                                                                                "children": []
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  {
+                                                                    "name": "Enterobacteriaceae",
+                                                                    "length": "0.03131[100]",
+                                                                    "id": "d1541551-7b5f-48d0-b3d3-7539f06a243a",
+                                                                    "hasOwnStyle": false,
+                                                                    "children": [
+                                                                      {
+                                                                        "name": "Salmonella",
+                                                                        "length": "0.00702[100]",
+                                                                        "id": "e373a61b-9f32-48bb-9fce-5fe5fd58df2a",
+                                                                        "hasOwnStyle": false,
+                                                                        "children": [
+                                                                          {
+                                                                            "name": "Salmonella_typhimurium",
+                                                                            "length": "0.00075",
+                                                                            "id": "0ab9e1d9-0467-429b-bdbb-97740f4596d0",
+                                                                            "hasOwnStyle": false,
+                                                                            "children": []
+                                                                          },
+                                                                          {
+                                                                            "name": "Salmonella",
+                                                                            "length": "0.00146[100]",
+                                                                            "id": "a617aca2-a266-44fb-a3fa-4b7913e474c5",
+                                                                            "hasOwnStyle": false,
+                                                                            "children": [
+                                                                              {
+                                                                                "name": "Salmonella_typhi",
+                                                                                "length": "0.00000",
+                                                                                "id": "bc5b7b72-e188-42a3-ad52-460f9618697c",
+                                                                                "hasOwnStyle": false,
+                                                                                "children": []
+                                                                              },
+                                                                              {
+                                                                                "name": "Salmonella_enterica",
+                                                                                "length": "0.00000",
+                                                                                "id": "f13918d3-06e0-4271-a711-621396922504",
+                                                                                "hasOwnStyle": false,
+                                                                                "children": []
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        ]
+                                                                      },
+                                                                      {
+                                                                        "name": "Enterobacteriaceae",
+                                                                        "length": "0.00813[100]",
+                                                                        "id": "faab1bde-b86b-4a9f-96c0-4ec7bbc671f8",
+                                                                        "hasOwnStyle": false,
+                                                                        "children": [
+                                                                          {
+                                                                            "name": "Escherichia",
+                                                                            "length": "0.00044[96]",
+                                                                            "id": "00ec52a0-0cd4-4a08-aa61-594b0de644cd",
+                                                                            "hasOwnStyle": false,
+                                                                            "children": [
+                                                                              {
+                                                                                "name": "Escherichia_coli_O157_H7",
+                                                                                "length": "0.00000",
+                                                                                "id": "e3dc2733-d471-494c-87da-053b71fdfa4c",
+                                                                                "hasOwnStyle": false,
+                                                                                "children": []
+                                                                              },
+                                                                              {
+                                                                                "name": "Escherichia_coli_EDL933",
+                                                                                "length": "0.00000",
+                                                                                "id": "63f243f4-1fbc-4d70-9e57-8c84f5bc72d1",
+                                                                                "hasOwnStyle": false,
+                                                                                "children": []
+                                                                              }
+                                                                            ]
+                                                                          },
+                                                                          {
+                                                                            "name": "Enterobacteriaceae",
+                                                                            "length": "0.00000[75]",
+                                                                            "id": "b5ab80a8-1f2f-4f7e-812b-e3866fc6389f",
+                                                                            "hasOwnStyle": false,
+                                                                            "children": [
+                                                                              {
+                                                                                "name": "Shigella",
+                                                                                "length": "0.00266[100]",
+                                                                                "id": "16e62edb-0c33-4f2b-b5bf-72d07f6542b4",
+                                                                                "hasOwnStyle": false,
+                                                                                "children": [
+                                                                                  {
+                                                                                    "name": "Shigella_flexneri_2a_301",
+                                                                                    "length": "0.00000",
+                                                                                    "id": "867a88b9-e290-4262-882f-348ba73ea9cb",
+                                                                                    "hasOwnStyle": false,
+                                                                                    "children": []
+                                                                                  },
+                                                                                  {
+                                                                                    "name": "Shigella_flexneri_2a_2457T",
+                                                                                    "length": "0.00000",
+                                                                                    "id": "f5a25621-3d02-4f17-803e-6975885ba32d",
+                                                                                    "hasOwnStyle": false,
+                                                                                    "children": []
+                                                                                  }
+                                                                                ]
+                                                                              },
+                                                                              {
+                                                                                "name": "Escherichia",
+                                                                                "length": "0.00022[76]",
+                                                                                "id": "3923184a-8cd4-4248-9f4a-137cccc4291c",
+                                                                                "hasOwnStyle": false,
+                                                                                "children": [
+                                                                                  {
+                                                                                    "name": "Escherichia_coli_K12",
+                                                                                    "length": "0.00022",
+                                                                                    "id": "1348e5c3-590e-4e67-b59a-8714d034cc81",
+                                                                                    "hasOwnStyle": false,
+                                                                                    "children": []
+                                                                                  },
+                                                                                  {
+                                                                                    "name": "Escherichia_coli_O6",
+                                                                                    "length": "0.00000",
+                                                                                    "id": "272faafc-b6a4-4888-b69f-71be24e70202",
+                                                                                    "hasOwnStyle": false,
+                                                                                    "children": []
+                                                                                  }
+                                                                                ]
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

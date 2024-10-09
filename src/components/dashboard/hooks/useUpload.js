@@ -10,7 +10,6 @@ const useUpload = () => {
   const dispatch = useDispatch();
   const file = useSelector(getFile);
   const tree = useSelector(getTree);
-
   const handleFileRead = () => {
     const extension = fileReader.name.split('.').pop();
     dispatch(
@@ -75,17 +74,26 @@ const useUpload = () => {
           return;
         }
         const { content } = file;
-        const { name, globalStyles, normalize, curveType, angle, width, height, tree: treeDoc } = JSON.parse(content);
+        const {
+          name,
+          globalStyles,
+          normalize,
+          curveType,
+          angle,
+          width,
+          height,
+          tree: treeDoc,
+        } = JSON.parse(content);
         dispatch(
           set({
             ...tree,
             name: name,
             globalStyles: globalStyles,
-            normalize : normalize,
-            curveType : curveType,
-            angle : angle,
-            width : width,
-            height : height,
+            normalize: normalize,
+            curveType: curveType,
+            angle: angle,
+            width: width,
+            height: height,
             tree: treeDoc,
           })
         );
@@ -95,6 +103,7 @@ const useUpload = () => {
         try {
           parsedTree = parseStringToTree(file.content);
         } catch (error) {
+          console.log(error);
           dispatch(
             setError({
               message: 'El archivo no tiene el formato correcto',
@@ -114,9 +123,92 @@ const useUpload = () => {
       }
     }
   };
+
+  const handleParamLoad = async (dendrogram) => {
+    if (dendrogram === null) return;
+    let parsedTree;
+    try {
+      parsedTree = parseStringToTree(dendrogram);
+      dispatch(
+        setFile({
+          name: 'my-dendrogram',
+          content: dendrogram,
+          extension: 'nwk',
+        })
+      );
+      dispatch(
+        set({
+          ...tree,
+          tree: parsedTree,
+          name: 'dendrogram',
+          globalStyles: createBaseGlobalStyles({}),
+        })
+      );
+    } catch (error) {
+      // fallar por cualquier cosa
+      console.log(error);
+      dispatch(
+        setError({
+          message: 'El archivo no tiene el formato correcto',
+          open: true,
+        })
+      );
+      return;
+    }
+  };
+
+  const handleJsonParamLoad = async (json) => {
+    if (json === null) return;
+
+    try {
+      const {
+        name,
+        globalStyles,
+        normalize,
+        curveType,
+        angle,
+        width,
+        height,
+        tree: treeDoc,
+      } = JSON.parse(json);
+      dispatch(
+        setFile({
+          name: 'my-dendrogram',
+          content: json,
+          extension: 'json',
+        })
+      );
+      dispatch(
+        set({
+          ...tree,
+          name: name,
+          globalStyles: globalStyles,
+          normalize: normalize,
+          curveType: curveType,
+          angle: angle,
+          width: width,
+          height: height,
+          tree: treeDoc,
+        })
+      );
+    } catch (error) {
+      // fallar por cualquier cosa
+      console.log(error);
+      dispatch(
+        setError({
+          message: 'El archivo no tiene el formato correcto',
+          open: true,
+        })
+      );
+      return;
+    }
+  };
+
   return {
     handleFileOnChange,
     handleLoadClick,
+    handleParamLoad,
+    handleJsonParamLoad,
   };
 };
 

@@ -1,6 +1,6 @@
-import Canvas from '@/components/canvas/canvas'
-import Dashboard from '@/components/dashboard/dashboard'
-import Head from 'next/head'
+import Canvas from '@/components/canvas/canvas';
+import Dashboard from '@/components/dashboard/dashboard';
+import Head from 'next/head';
 
 export async function getStaticProps() {
   return {
@@ -9,7 +9,6 @@ export async function getStaticProps() {
 }
 
 export default function Home() {
-
   return (
     <>
       <Head>
@@ -17,21 +16,34 @@ export default function Home() {
         <meta name="description" content="Phily - Philogenetic tree viewer" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-        <meta property='og:title' content="Phily - Philogenetic tree viewer"/>
-        <meta property='og:description' content="Phily - open source philogenetic tree viewer for the comunity"/>
-        <meta property='og:type' content="website"/>
-        <meta property='og:image' content="/treeIcon.jpg"/>
-        <meta property='twitter:tile' content="Phily - Philogenetic tree viewer"/>
-        <meta property='twitter:description' content="Phily - open source philogenetic tree viewer for the comunity"/>
-        <meta property='twitter:image' content="/treeIcon.jpg"/>
-        <meta property='twitter:card' content="summary"/>
+        <meta property="og:title" content="Phily - Philogenetic tree viewer" />
+        <meta
+          property="og:description"
+          content="Phily - open source philogenetic tree viewer for the comunity"
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/treeIcon.jpg" />
+        <meta
+          property="twitter:tile"
+          content="Phily - Philogenetic tree viewer"
+        />
+        <meta
+          property="twitter:description"
+          content="Phily - open source philogenetic tree viewer for the comunity"
+        />
+        <meta property="twitter:image" content="/treeIcon.jpg" />
+        <meta property="twitter:card" content="summary" />
       </Head>
       <main>
-        <div className="flex h-screen bg-gray-400" id='app' onContextMenu={(e) => e.preventDefault()}>
-          <Dashboard/>
-          <Canvas/>
+        <div
+          className="flex h-screen bg-gray-400"
+          id="app"
+          onContextMenu={(e) => e.preventDefault()}
+        >
+          <Dashboard />
+          <Canvas />
         </div>
       </main>
     </>
-  )
+  );
 }

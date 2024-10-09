@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { Button, Card } from 'react-daisyui';
@@ -10,6 +10,7 @@ import { getTree } from '../store/tree/slice';
 import { getFile } from '../store/file/slice';
 import { getError } from '../store/error/slice';
 import Footer from '../footer/footer';
+
 import {
   useUpload,
   useDownload,
@@ -58,6 +59,9 @@ const Dashboard = () => {
     },
     [handleCurveChange]
   );
+
+  
+
   if (isOpen) {
     return (
       <>
