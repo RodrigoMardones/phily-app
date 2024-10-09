@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import LZString from 'lz-string';
 import Canvas from '../../components/canvas/canvas';
 import Dashboard from '../../components/dashboard/dashboard';
@@ -10,7 +9,7 @@ export default function page() {
   const searchParams = useSearchParams();
   const compressedTree = searchParams.get('tree');
   const { handleParamLoad } = useUpload();
-
+  
   useEffect(() => {
     const tree = LZString.decompressFromEncodedURIComponent(compressedTree);
     handleParamLoad(tree);

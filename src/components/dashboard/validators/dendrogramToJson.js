@@ -3,7 +3,6 @@ import { z } from 'zod';
 export const childrenSchema = z.object({
     name: z.string(),
     length: z.string(),
-    hasOwnStyle: z.boolean(),
     nodeStyle: z.object({
         radius: z.number(),
         stroke: z.string(),
@@ -27,7 +26,6 @@ export const childrenSchema = z.object({
 export const schema = z.object({
   name: z.string(),
   length: z.string(),
-  hasOwnStyle: z.boolean(),
   nodeStyle: z.object({
     radius: z.number(),
     stroke: z.string(),

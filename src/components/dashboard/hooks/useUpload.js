@@ -10,7 +10,6 @@ const useUpload = () => {
   const dispatch = useDispatch();
   const file = useSelector(getFile);
   const tree = useSelector(getTree);
-
   const handleFileRead = () => {
     const extension = fileReader.name.split('.').pop();
     dispatch(
@@ -126,16 +125,17 @@ const useUpload = () => {
   };
 
   const handleParamLoad = async (dendrogram) => {
-    if(dendrogram === null) return;
+    if (dendrogram === null) return;
     let parsedTree;
     try {
-      console.log('dendrogram => ', String(dendrogram));
       parsedTree = parseStringToTree(dendrogram);
-      dispatch(setFile({
-        name: 'my-dendrogram',
-        content: dendrogram,
-        extension: 'nwk',
-      }));
+      dispatch(
+        setFile({
+          name: 'my-dendrogram',
+          content: dendrogram,
+          extension: 'nwk',
+        })
+      );
       dispatch(
         set({
           ...tree,
@@ -146,7 +146,7 @@ const useUpload = () => {
       );
     } catch (error) {
       // fallar por cualquier cosa
-      console.log(error)
+      console.log(error);
       dispatch(
         setError({
           message: 'El archivo no tiene el formato correcto',
@@ -154,12 +154,61 @@ const useUpload = () => {
         })
       );
       return;
-    }    
+    }
   };
+
+  const handleJsonParamLoad = async (json) => {
+    if (json === null) return;
+
+    try {
+      const {
+        name,
+        globalStyles,
+        normalize,
+        curveType,
+        angle,
+        width,
+        height,
+        tree: treeDoc,
+      } = JSON.parse(json);
+      dispatch(
+        setFile({
+          name: 'my-dendrogram',
+          content: json,
+          extension: 'json',
+        })
+      );
+      dispatch(
+        set({
+          ...tree,
+          name: name,
+          globalStyles: globalStyles,
+          normalize: normalize,
+          curveType: curveType,
+          angle: angle,
+          width: width,
+          height: height,
+          tree: treeDoc,
+        })
+      );
+    } catch (error) {
+      // fallar por cualquier cosa
+      console.log(error);
+      dispatch(
+        setError({
+          message: 'El archivo no tiene el formato correcto',
+          open: true,
+        })
+      );
+      return;
+    }
+  };
+
   return {
     handleFileOnChange,
     handleLoadClick,
     handleParamLoad,
+    handleJsonParamLoad,
   };
 };
 

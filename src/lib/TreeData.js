@@ -91,7 +91,6 @@ export const createBaseTree = () => {
     name: '',
     length: '',
     id: uuidv4(),
-    hasOwnStyle: false,
     children: [],
   };
 };
