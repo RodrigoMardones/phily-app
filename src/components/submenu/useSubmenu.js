@@ -23,21 +23,17 @@ const useSubMenu = () => {
 
   const handleContextMenu = (event, component, index, typeElement) => {
     event.preventDefault();
-    console.log({ event, component, index, typeElement });
     const element = document.getElementById(`${typeElement}-${index}`);
-    console.log('element', element);
     const contextMenu = document.getElementById('contextMenuObject');
     const canvas = document.getElementById('canvas');
     const sizeCanvas = canvas.getBoundingClientRect();
     const elementSize = element.getBoundingClientRect();
     const contextMenuSize = contextMenu.getBoundingClientRect();
-    console.log({ sizeCanvas, elementSize, contextMenuSize });
     // se deja un offsetRelativo al tamaño creado
     const offsetX = contextMenuSize.width ? contextMenuSize.width - 5 : 145;
     const offsetY = contextMenuSize.height ? contextMenuSize.height - 5 : 100;
     const isRight = elementSize.left - sizeCanvas.x > sizeCanvas.width / 2;
     const isBottom = elementSize.y + sizeCanvas.y > sizeCanvas.height / 2;
-    console.log({ isRight, isBottom });
     // posiciones a guardar para el menu de contexto
     let newPositionX = isRight
       ? elementSize.left - sizeCanvas.x - offsetX
@@ -209,7 +205,6 @@ const useSubMenu = () => {
    */
   const modifyWidthPath = (event) => {
     const width = event.target.value;
-    console.logWidth;
     let componentStyle = component.data?.pathStyle;
     let clonedTree = structuredClone(treeData);
     const overrideStyle = createBasePathStyle({
