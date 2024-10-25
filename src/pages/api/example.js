@@ -3,6 +3,8 @@ import { promises as fs } from 'fs';
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
+    const params = req.params;
+    console.log(params);
     console.log(process.cwd());
     const tree = await fs.readFile(process.cwd() + '/examples/newExample3.json', 'utf8');
     const treeObj = JSON.parse(tree);

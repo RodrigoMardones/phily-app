@@ -25,21 +25,22 @@ const useSubMenu = () => {
     event.preventDefault();
     console.log({ event, component, index, typeElement });
     const element = document.getElementById(`${typeElement}-${index}`);
-    console.log('element', element);
     const contextMenu = document.getElementById('contextMenuObject');
     const canvas = document.getElementById('canvas');
     const sizeCanvas = canvas.getBoundingClientRect();
     const elementSize = element.getBoundingClientRect();
     const contextMenuSize = contextMenu.getBoundingClientRect();
-    console.log({ sizeCanvas, elementSize, contextMenuSize });
+    // console.log({ sizeCanvas, elementSize, contextMenuSize });
     // se deja un offsetRelativo al tamaño creado
+    const realXMouse = event.pageX;
+    const realYmouse = event.pageY;
     const offsetX = contextMenuSize.width ? contextMenuSize.width - 5 : 145;
     const offsetY = contextMenuSize.height ? contextMenuSize.height - 5 : 100;
     const isRight = elementSize.left - sizeCanvas.x > sizeCanvas.width / 2;
     const isBottom = elementSize.y + sizeCanvas.y > sizeCanvas.height / 2;
-    const realXMouse = event.pageX;
-    const realYmouse = event.pageY;
+    
     console.log({ isRight, isBottom });
+    console.log({realXMouse, realYmouse})
     // posiciones a guardar para el menu de contexto
     let newPositionX = isRight
       ? realXMouse - sizeCanvas.x - offsetX
@@ -49,7 +50,6 @@ const useSubMenu = () => {
       : realYmouse + sizeCanvas.y;
     
       
-      console.log({realXMouse, realYmouse})
     // se obtiene el componente correcto dependiendo del tipo de elemento
     const newComponent = typeElement === 'link' ? component.source : component;
     
