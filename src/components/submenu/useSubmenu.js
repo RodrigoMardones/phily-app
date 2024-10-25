@@ -37,15 +37,19 @@ const useSubMenu = () => {
     const offsetY = contextMenuSize.height ? contextMenuSize.height - 5 : 100;
     const isRight = elementSize.left - sizeCanvas.x > sizeCanvas.width / 2;
     const isBottom = elementSize.y + sizeCanvas.y > sizeCanvas.height / 2;
+    const realXMouse = event.pageX;
+    const realYmouse = event.pageY;
     console.log({ isRight, isBottom });
     // posiciones a guardar para el menu de contexto
     let newPositionX = isRight
-      ? elementSize.left - sizeCanvas.x - offsetX
-      : elementSize.left - sizeCanvas.x;
+      ? realXMouse - sizeCanvas.x - offsetX
+      : realXMouse - sizeCanvas.x;
     let newPositionY = isBottom
-      ? elementSize.y + sizeCanvas.y - offsetY
-      : elementSize.y + sizeCanvas.y;
-
+      ? realYmouse + sizeCanvas.y - offsetY
+      : realYmouse + sizeCanvas.y;
+    
+      
+      console.log({realXMouse, realYmouse})
     // se obtiene el componente correcto dependiendo del tipo de elemento
     const newComponent = typeElement === 'link' ? component.source : component;
     
