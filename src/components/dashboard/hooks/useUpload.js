@@ -103,7 +103,6 @@ const useUpload = () => {
         try {
           parsedTree = parseStringToTree(file.content);
         } catch (error) {
-          console.log(error);
           dispatch(
             setError({
               message: 'El archivo no tiene el formato correcto',
@@ -146,7 +145,6 @@ const useUpload = () => {
       );
     } catch (error) {
       // fallar por cualquier cosa
-      console.log(error);
       dispatch(
         setError({
           message: 'El archivo no tiene el formato correcto',
@@ -193,7 +191,6 @@ const useUpload = () => {
       );
     } catch (error) {
       // fallar por cualquier cosa
-      console.log(error);
       dispatch(
         setError({
           message: 'El archivo no tiene el formato correcto',
