@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     const params = req.params;
     console.log(params);
     console.log(process.cwd());
-    const tree = await fs.readFile(process.cwd() + '/examples/newExample9.json', 'utf8');
+    const tree = await fs.readFile(process.cwd() + '/examples/ejemplo9.json', 'utf8');
     const treeObj = JSON.parse(tree);
     res.status(200).json(treeObj);
   } else {

@@ -3,16 +3,14 @@ import Dashboard from '../../../components/dashboard/dashboard';
 import { useSearchParams } from 'next/navigation';
 import useUpload from '../../../components/dashboard/hooks/useUpload';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { getTree } from '@/components/store/tree/slice';
 import useSWR from 'swr';
 
 export default function page() {
   const searchParams = useSearchParams();
   const jsonFileLink = searchParams.get('link');
+  const decoded = atob(jsonFileLink);
   const { handleJsonParamLoad } = useUpload();
-  const { tree } = useSelector(getTree);
-  const { data, error, isLoading } = useSWR(jsonFileLink, fetch, {
+  const { data, error, isLoading } = useSWR(decoded, fetch, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
