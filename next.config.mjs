@@ -11,6 +11,7 @@ const styleSrc = ['self', 'unsafe-inline'];
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   swcMinify: true,
+  compress: true,
   transpilePackages: ['react-daisyui'],
   reactStrictMode: true,
   images: {
