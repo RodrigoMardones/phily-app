@@ -139,13 +139,13 @@ const Dendrogram = ({
       );
     },
     [
-      normalize,
       curveType,
       globalNodeRadius,
       globalNodeStroke,
       globalNodeFill,
       globalLabelFontSize,
       globalLabelFill,
+      handleContextMenu
     ]
   );
 
@@ -221,13 +221,13 @@ const Dendrogram = ({
       }
     },
     [
-      normalize,
       curveType,
-      globalStyles,
       globalPathStroke,
       globalPathFill,
       globalStrokeWidth,
       globalStrokeOpacity,
+      curve,
+      handleContextMenu
     ]
   );
 

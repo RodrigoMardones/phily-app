@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { Button, Card } from 'react-daisyui';
