@@ -1,5 +1,5 @@
 import { createSecureHeaders } from 'next-secure-headers';
-
+import Analyzer from '@next/bundle-analyzer';
 const isProd = process.env.ENVIRONMENT === 'production';
 
 const scriptSrc = ['self', 'unsafe-inline'];
@@ -9,7 +9,7 @@ const connectSrc = ['self', 'unsafe-inline'];
 const styleSrc = ['self', 'unsafe-inline'];
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+let nextConfig = {
   swcMinify: true,
   compress: true,
   transpilePackages: ['react-daisyui'],
@@ -41,5 +41,11 @@ const nextConfig = {
     ];
   },
 };
+
+const withBundleAnalyzer = Analyzer({
+  enabled: process.env.ANALYZE === 'true',
+})
+
+nextConfig = withBundleAnalyzer(nextConfig);
 
 export default nextConfig;
