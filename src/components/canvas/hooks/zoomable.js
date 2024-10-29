@@ -1,4 +1,4 @@
-import * as d3 from 'd3';
+import { zoom, select } from 'd3';
 import { useRef } from 'react';
 import { useState, useEffect } from 'react';
 import useSubMenu from '../../submenu/useSubmenu';
@@ -11,13 +11,13 @@ export default function ZoomableSVG({ children, width, height }) {
   const { handleClose } = useSubMenu();
 
   useEffect(() => {
-    const zoom = d3.zoom().on('zoom', (event) => {
+    const zoomed = zoom().on('zoom', (event) => {
       const { x, y, k } = event.transform;
       setX(x);
       setY(y);
       setK(k);
     });
-    d3.select(svgRef.current).call(zoom);
+    select(svgRef.current).call(zoomed);
   }, []);
   return (
     <svg ref={svgRef} width={'100%'} height={'100%'} onClick={handleClose}>

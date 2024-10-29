@@ -5,26 +5,25 @@ import useUpload from '../../../components/dashboard/hooks/useUpload';
 import { useEffect } from 'react';
 import useSWR from 'swr';
 
+const fetcher = (url) => fetch(url).then((res) => res.json());
+
 export default function Page() {
   const searchParams = useSearchParams();
   const jsonFileLink = searchParams.get('link');
   const decoded = atob(jsonFileLink);
   const { handleJsonParamLoad } = useUpload();
-  const { data, error, isLoading } = useSWR(decoded, fetch, {
+  const { data, error, isLoading } = useSWR(decoded, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
     refreshInterval: 0,
   });
-
   useEffect(() => {
     if (!data || error || isLoading) return;
-    const proccess = async () => {
-      const tree = await data.json();
-      handleJsonParamLoad(JSON.stringify(tree));
-    };
-    proccess();
-  }, [data, error, isLoading, handleJsonParamLoad]);
+    if(data){
+      handleJsonParamLoad(JSON.stringify(data));
+    }
+  }, [data, error, isLoading ])
   return (
     <div
       className="flex h-screen bg-gray-400"

@@ -155,9 +155,8 @@ const useUpload = () => {
     }
   };
 
-  const handleJsonParamLoad = async (json) => {
+  const handleJsonParamLoad = (json) => {
     if (json === null) return;
-
     try {
       const {
         name,
