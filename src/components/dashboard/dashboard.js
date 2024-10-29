@@ -71,6 +71,7 @@ const Dashboard = () => {
               height={82}
               className="invert"
               alt="logo"
+              priority={true}
             />
           </button>
         </Card>
