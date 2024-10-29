@@ -18,13 +18,10 @@ module.exports = {
           success: '#87c900',
           warning: '#cb5200',
           error: '#DE6F81',
-          "primary-light": "6DA2D4"
+          'primary-light': '6DA2D4',
         },
       },
     ],
   },
-  plugins: [
-    require('daisyui'),
-    require('tailwind-scrollbar')
-  ],
-}
+  plugins: [require('daisyui'), require('tailwind-scrollbar')],
+};
