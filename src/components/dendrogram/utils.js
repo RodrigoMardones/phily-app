@@ -1,4 +1,4 @@
-import * as d3 from 'd3';
+import { link, cluster, tree, curveStep, curveBumpX, curveLinear } from 'd3';
 const MARGIN = 70;
 
 function linkStep(startAngle, startRadius, endAngle, endRadius) {
@@ -41,23 +41,23 @@ const degToRad = (deg) => {
 const dendrogramGenerator = (width, height, normalize, curveType, angle) => {
   if (curveType === 'circular' || curveType === 'circular-step') {
     return normalize
-      ? d3.cluster().size([angle, width])
-      : d3.tree().size([angle, width]);
+      ? cluster().size([angle, width])
+      : tree().size([angle, width]);
   } else {
     return normalize
-      ? d3.cluster().size([height, width])
-      : d3.tree().size([height, width]);
+      ? cluster().size([height, width])
+      : tree().size([height, width]);
   }
 };
 
 const drawCurve = (curveType) => {
   switch (curveType) {
     case 'step':
-      return d3.link(d3.curveStep);
+      return link(curveStep);
     case 'curve':
-      return d3.link(d3.curveBumpX);
+      return link(curveBumpX);
     case 'slanted':
-      return d3.link(d3.curveLinear);
+      return link(curveLinear);
     case 'circular':
       return d3
         .linkRadial()
@@ -70,9 +70,7 @@ const drawCurve = (curveType) => {
 
 const transformSVG = (curveType, radius) => {
   if (curveType === 'circular' || curveType === 'circular-step') {
-    return (
-      'translate(' + (radius / 2) + ',' + (radius / 2) + ')'
-    );
+    return 'translate(' + radius / 2 + ',' + radius / 2 + ')';
   }
   return `translate(${[0, 0].join(',')})`;
 };

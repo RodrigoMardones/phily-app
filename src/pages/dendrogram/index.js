@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import useUpload from '../../components/dashboard/hooks/useUpload';
 import { useEffect } from 'react';
 
-export default function page() {
+export default function Page() {
   const searchParams = useSearchParams();
   const compressedTree = searchParams.get('tree');
   const { handleParamLoad } = useUpload();
@@ -13,7 +13,7 @@ export default function page() {
   useEffect(() => {
     const tree = LZString.decompressFromEncodedURIComponent(compressedTree);
     handleParamLoad(tree);
-  }, [compressedTree]);
+  }, [compressedTree, handleParamLoad]);
   return (
     <div
       className="flex h-screen bg-gray-400"

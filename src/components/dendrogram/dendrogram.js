@@ -1,7 +1,6 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { dendrogramGenerator, drawCurve, transformSVG } from './utils';
-import SubMenu from '../submenu/submenu';
-import * as d3 from 'd3';
+import { hierarchy, ascending } from 'd3';
 import useSubMenu from '../submenu/useSubmenu';
 const Dendrogram = ({
   data,
@@ -13,9 +12,9 @@ const Dendrogram = ({
   globalStyles,
 }) => {
   const { handleContextMenu } = useSubMenu();
-  const hierarchy = useMemo(() => {
-    const HierarchyCreated = d3.hierarchy(data);
-    HierarchyCreated.sort((a, b) => d3.ascending(a.data.name, b.data.name));
+  const hierarchycreated = useMemo(() => {
+    const HierarchyCreated = hierarchy(data);
+    HierarchyCreated.sort((a, b) => ascending(a.data.name, b.data.name));
     return HierarchyCreated;
   }, [data]);
 
@@ -35,8 +34,8 @@ const Dendrogram = ({
       curveType,
       angle
     );
-    return dendogramCreated(hierarchy);
-  }, [hierarchy, width, height, normalize, curveType, angle]);
+    return dendogramCreated(hierarchycreated);
+  }, [hierarchycreated, width, height, normalize, curveType, angle]);
   const {
     nodeStyle: {
       radius: globalNodeRadius,
@@ -139,13 +138,13 @@ const Dendrogram = ({
       );
     },
     [
-      normalize,
       curveType,
       globalNodeRadius,
       globalNodeStroke,
       globalNodeFill,
       globalLabelFontSize,
       globalLabelFill,
+      handleContextMenu
     ]
   );
 
@@ -221,13 +220,13 @@ const Dendrogram = ({
       }
     },
     [
-      normalize,
       curveType,
-      globalStyles,
       globalPathStroke,
       globalPathFill,
       globalStrokeWidth,
       globalStrokeOpacity,
+      curve,
+      handleContextMenu
     ]
   );
 

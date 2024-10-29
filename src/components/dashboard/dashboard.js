@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { Button, Card } from 'react-daisyui';
@@ -60,13 +60,11 @@ const Dashboard = () => {
     [handleCurveChange]
   );
 
-  
-
   if (isOpen) {
     return (
       <>
         <Card className="bg-primary w-20 p-4 rounded-none border-none overflow-y-auto scrollbar scrollbar-none ml-1/5">
-          <button onClick={handleOpen}>
+          <button onClick={handleOpen} id="deleteFile">
             <Image
               src="/treeIcon.svg"
               width={86}
@@ -182,10 +180,9 @@ const Dashboard = () => {
               </div>
             </div>
             <span className="label-text text-white text-lg text-left mt-2">
-                Circular
-              </span>
+              Circular
+            </span>
             <div className="flex justify-evenly md:flex-row sm:flex-col mt-2">
-              
               <button
                 className={`btn h-8 min-h-8 min-w-36 border-none text-white rounded-md ${deferredCurveType === 'circular' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
                 value={'circular'}
@@ -227,7 +224,7 @@ const Dashboard = () => {
                 defaultValue={360}
                 disabled={
                   (deferredCurveType !== 'circular' &&
-                  deferredCurveType !== 'circular-step') || 
+                    deferredCurveType !== 'circular-step') ||
                   !fileName
                 }
                 className="range range-secondary disabled:opacity-50 disabled:bg-gray-300 disabled:cursor-not-allowed"
@@ -245,8 +242,9 @@ const Dashboard = () => {
                 Enlaces
               </Card.Title>
               <div className="flex justify-evenly md:flex-row sm:flex-col ">
-                <div className="md:flex-row sm:flex-col">
-                  <label className="label text-white text-sm">ancho</label>
+                <div className="md:flex-row sm:flex-col relative">
+                  <label className="label text-white text-sm"> ancho</label>
+
                   <input
                     type="number"
                     className="input w-40 h-6 min-h-6 rounded-md mr-2 bg-[#FAEECC]"

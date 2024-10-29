@@ -5,7 +5,7 @@ import useUpload from '../../../components/dashboard/hooks/useUpload';
 import { useEffect } from 'react';
 import useSWR from 'swr';
 
-export default function page() {
+export default function Page() {
   const searchParams = useSearchParams();
   const jsonFileLink = searchParams.get('link');
   const decoded = atob(jsonFileLink);
@@ -24,7 +24,7 @@ export default function page() {
       handleJsonParamLoad(JSON.stringify(tree));
     };
     proccess();
-  }, [data, error, isLoading]);
+  }, [data, error, isLoading, handleJsonParamLoad]);
   return (
     <div
       className="flex h-screen bg-gray-400"

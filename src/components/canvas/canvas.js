@@ -44,6 +44,7 @@ const Canvas = () => {
       <div className="flex justify-center h-full">
         <button
           className=" bg-transparent absolute top-0 right-0 m-2"
+          id='zoomIn'
           onClick={handleAddZoomClick}
           disabled={!name}
         >
@@ -51,6 +52,7 @@ const Canvas = () => {
         </button>
         <button
           className=" bg-transparent absolute top-6 right-0 m-2"
+          id='zoomOut'
           onClick={handleSubstractZoomClick}
           disabled={!name}
         >
