@@ -1,5 +1,7 @@
 import { createSecureHeaders } from 'next-secure-headers';
 import Analyzer from '@next/bundle-analyzer';
+import TerserPlugin from 'terser-webpack-plugin';
+
 const isProd = process.env.ENVIRONMENT === 'production';
 
 const scriptSrc = ['self', 'unsafe-inline'];
@@ -39,6 +41,21 @@ let nextConfig = {
         }),
       },
     ];
+  },
+  webpack(config, { isServer }) {
+    if (!isServer) {
+      config.optimization.minimizer.push(
+        new TerserPlugin({
+          terserOptions: {
+            compress: {
+              drop_console: true, // Eliminar console.log
+            },
+            mangle: true, // Ofuscar nombres de variables
+          },
+        })
+      );
+    }
+    return config;
   },
 };
 
