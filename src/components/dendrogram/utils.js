@@ -1,4 +1,4 @@
-import { link, cluster, tree, curveStep, curveBumpX, curveLinear } from 'd3';
+import { link, cluster, tree, curveStep, curveBumpX, curveLinear, linkRadial } from 'd3';
 const MARGIN = 70;
 
 function linkStep(startAngle, startRadius, endAngle, endRadius) {
