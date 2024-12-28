@@ -59,8 +59,7 @@ const drawCurve = (curveType) => {
     case 'slanted':
       return link(curveLinear);
     case 'circular':
-      return d3
-        .linkRadial()
+      return linkRadial()
         .angle((node) => degToRad(node.x))
         .radius((node) => node.y);
     case 'circular-step':
