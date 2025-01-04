@@ -22,7 +22,7 @@ import {
 import { useCallback } from 'react';
 const accepts = ['.nwk', '.json'];
 
-const Dashboard = () => {
+export default function Dashboard() {
   const { curveType, angle, normalize } = useSelector(getTree);
   const { name: fileName } = useSelector(getFile);
   const { message, open } = useSelector(getError);
@@ -85,7 +85,7 @@ const Dashboard = () => {
         className="bg-primary w-auto p-4 rounded-none border-none overflow-y-auto scrollbar scrollbar-none"
         onContextMenu={(e) => e.preventDefault()}
       >
-        <Error message={message} open={open} />
+        {message && <Error message={message} open={open} />}
         <div className="grid grid-cols-1">
           <div className="flex flex-row items-center">
             <button onClick={handleOpen}>
@@ -355,6 +355,4 @@ const Dashboard = () => {
       </Card>
     </>
   );
-};
-
-export default Dashboard;
+}

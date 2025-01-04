@@ -3,7 +3,11 @@ import { useDispatch } from 'react-redux';
 import { setError } from '../../store/error/slice';
 import { getFile, setFile } from '../../store/file/slice';
 import { set, getTree } from '../../store/tree/slice';
-import { parseStringToTree, createBaseGlobalStyles } from '@/lib/TreeData';
+import {
+  parseStringToTree,
+  createBaseGlobalStyles,
+  countAllNodes,
+} from '@/lib/TreeData';
 
 const useUpload = () => {
   let fileReader;

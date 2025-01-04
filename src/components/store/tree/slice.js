@@ -1,19 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-  createBaseGlobalStyles,
-  createBaseTree,
+  createTreeState
 } from '@/lib/TreeData';
 
-const initialState = {
-  name: '',
-  normalize: false,
-  curveType: 'step',
-  angle: 360,
-  width: 600,
-  height: 600,
-  globalStyles: createBaseGlobalStyles({}),
-  tree: createBaseTree(),
-};
+const initialState = createTreeState({name: ''})
 
 const treeSlice = createSlice({
   name: 'tree',

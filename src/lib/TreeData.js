@@ -16,7 +16,7 @@ export const createBaseNodeStyle = ({
 }) => {
   return {
     radius: radius,
-    stroke: stroke, 
+    stroke: stroke,
     fill: fill,
   };
 };
@@ -153,22 +153,20 @@ export const parseStringToTree = (inputString) => {
   return currentTree;
 };
 
-export const getDepth = function (obj) {
-  var depth = 0;
-  if (!obj?.children) {
-    return 1;
-  }
-  if (obj.children) {
-    obj.children.forEach(function (d) {
-      var tmpDepth = getDepth(d);
-      if (tmpDepth > depth) {
-        depth = tmpDepth;
-      }
-    });
-  }
-  return 1 + depth;
+/**
+ * Count all nodes in a tree object
+ * @param {object} obj - the tree object
+ * @returns {number} - the total number of nodes
+ */
+export const countAllNodes = function (obj) {
+  let count = 1; // Count the current node
+  if (obj?.children?.length === 0) return count;
+  if (!obj.children) return count;
+  obj.children.forEach(function (child) {
+    count += countAllNodes(child); // Recursively count the children nodes
+  });
+  return count;
 };
-
 
 /**
  * Modify the node style of a specific node in a tree object
@@ -221,4 +219,26 @@ export const modifyEspecificLabelStyle = function (obj, labelStyle, id) {
       modifyEspecificLabelStyle(d, labelStyle, id);
     });
   }
+};
+
+export const createTreeState = ({
+  name = 'my-dendrogram',
+  normalize = false,
+  curveType = 'step',
+  angle = 360,
+  width = 600,
+  height = 600,
+  globalStyles = createBaseGlobalStyles({}),
+  tree = createBaseTree(),
+}) => {
+  return {
+    name,
+    normalize,
+    curveType,
+    angle,
+    width,
+    height,
+    globalStyles,
+    tree,
+  };
 };
