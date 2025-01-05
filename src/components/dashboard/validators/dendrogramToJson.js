@@ -1,28 +1,5 @@
 import { z } from 'zod';
 
-export const childrenSchema = z.object({
-    name: z.string(),
-    length: z.string(),
-    nodeStyle: z.object({
-        radius: z.number(),
-        stroke: z.string(),
-        fill: z.string(),
-    }),
-    pathStyle: z.object({
-        fill: z.string(),
-        stroke: z.string(),
-        strokeOpacity: z.number(),
-        strokeWidth: z.number(),
-    }),
-    labelStyle: z.object({
-        hidden: z.boolean(),
-        fontSize: z.number(),
-        fill: z.string(),
-    }),
-    children: z.array(z.object({})),
-});
-
-
 export const schema = z.object({
   name: z.string(),
   length: z.string(),
@@ -30,17 +7,35 @@ export const schema = z.object({
     radius: z.number(),
     stroke: z.string(),
     fill: z.string(),
-  }),
+  }).optional(),
   pathStyle: z.object({
     fill: z.string(),
     stroke: z.string(),
     strokeOpacity: z.number(),
     strokeWidth: z.number(),
-  }),
+  }).optional(),
   labelStyle: z.object({
     hidden: z.boolean(),
     fontSize: z.number(),
     fill: z.string(),
-  }),
-  children: z.array(z.object(childrenSchema)),
+  }).optional(),
+  children: z.array(z.object({})).default([])
 });
+
+export const validateTotalSchema = async (data) => {
+  try {
+    console.log(data)
+    let firstCase = await schema.parseAsync(data);
+    console.log("validado");
+    if(data.children?.length === 0) return firstCase;
+    if(!data.children) return firstCase;
+    for (const child of data.children) {
+      let res = await validateTotalSchema(child);
+      firstCase = firstCase && res
+    }
+    return firstCase;
+  } catch (error) {
+    console.log(error);
+    throw new Error('error parseando el archivo');
+  }
+}
