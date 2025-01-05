@@ -74,7 +74,7 @@ const useSubMenu = () => {
     let clonedTree = structuredClone(treeData);
     const overrideStyle = createBaseNodeStyle({
       ...componentStyle,
-      radius: radius,
+      radius: Number(radius),
     });
     dispatch(
       setContextMenu({
@@ -130,7 +130,7 @@ const useSubMenu = () => {
     let clonedTree = structuredClone(treeData);
     const overrideStyle = createBaseLabelStyle({
       ...componentStyle,
-      fontSize: size,
+      fontSize: Number(size),
     });
     modifyEspecificLabelStyle(clonedTree, overrideStyle, component.data.id);
     dispatch(
@@ -213,7 +213,7 @@ const useSubMenu = () => {
     let clonedTree = structuredClone(treeData);
     const overrideStyle = createBasePathStyle({
       ...componentStyle,
-      strokeWidth: width,
+      strokeWidth: Number(width),
     });
     modifyEspecificPathStyle(clonedTree, overrideStyle, component.data.id);
     dispatch(

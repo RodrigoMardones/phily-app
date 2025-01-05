@@ -34,7 +34,7 @@ export const createBasePathStyle = ({
   fill = 'none',
   stroke = '#000000',
   strokeOpacity = 1,
-  strokeWidth = 2,
+  strokeWidth = "2",
 }) => {
   return {
     fill: fill,

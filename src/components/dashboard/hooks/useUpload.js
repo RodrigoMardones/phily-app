@@ -8,6 +8,7 @@ import {
   createBaseGlobalStyles,
   countAllNodes,
 } from '@/lib/TreeData';
+import {validateTotalSchema} from '../validators/dendrogramToJson';
 
 const useUpload = () => {
   let fileReader;
@@ -68,6 +69,9 @@ const useUpload = () => {
       if (file.extension == 'json') {
         // validar schema
         try {
+          const { tree: treeDoc } = JSON.parse(file.content);
+          await validateTotalSchema(treeDoc);
+    
         } catch (error) {
           dispatch(
             setError({
