@@ -5,8 +5,10 @@ import useUpload from '../../../components/dashboard/hooks/useUpload';
 import { useEffect } from 'react';
 import useSWR from 'swr';
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
-
+const fetcher = (url) =>
+  fetch(url)
+    .then((res) => res.json())
+    
 export default function Page() {
   const searchParams = useSearchParams();
   const jsonFileLink = searchParams.get('link');
@@ -18,12 +20,14 @@ export default function Page() {
     revalidateOnReconnect: false,
     refreshInterval: 0,
   });
+
   useEffect(() => {
-    if (!data || error || isLoading) return;
-    if(data){
+    if (!data|| error || isLoading) return;
+
+    if (data) {
       handleJsonParamLoad(JSON.stringify(data));
     }
-  }, [data, error, isLoading ])
+  }, [data, error, isLoading]);
   return (
     <div
       className="flex h-screen bg-gray-400"

@@ -5,7 +5,6 @@ export default async function handler(req, res) {
   try {
     if (req.method === 'POST') {
       const newickFile = req.body;
-      console.log(newickFile);
       const pasedTree = createTreeState({
         name: 'DendrogramToJsonApi',
         tree: parseStringToTree(newickFile),
