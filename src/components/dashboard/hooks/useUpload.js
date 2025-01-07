@@ -163,9 +163,9 @@ const useUpload = () => {
     }
   };
 
-  const handleJsonParamLoad = (json) => {
-    if (json === null) return;
+  const handleJsonParamLoad = async (json) => {  
     try {
+      if (json === null) return;
       const {
         name,
         globalStyles,
@@ -176,6 +176,8 @@ const useUpload = () => {
         height,
         tree: treeDoc,
       } = JSON.parse(json);
+      await validateTotalSchema(treeDoc);
+
       dispatch(
         setFile({
           name: 'my-dendrogram',
