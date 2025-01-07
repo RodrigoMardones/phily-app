@@ -4,14 +4,15 @@ import { useSearchParams } from 'next/navigation';
 import useUpload from '../../../components/dashboard/hooks/useUpload';
 import { useEffect } from 'react';
 import useSWR from 'swr';
-
-const fetcher = (url) => fetch(url).then((res) => res.json());
+import { useDispatch } from 'react-redux';
+const fetcher = (url) => fetch(url).then((res) => res.json()).catch((err) => err);
 
 export default function Page() {
   const searchParams = useSearchParams();
+  const dispatch = useDispatch();
   const jsonFileLink = searchParams.get('link');
   const decoded = atob(jsonFileLink);
-  const { handleJsonParamLoad } = useUpload();
+  const { handleJsonParamLoad, handleError } = useUpload();
   const { data, error, isLoading } = useSWR(decoded, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
@@ -19,11 +20,14 @@ export default function Page() {
     refreshInterval: 0,
   });
   useEffect(() => {
-    if (!data || error || isLoading) return;
-    if(data){
+    if (!data || isLoading) return;
+    if (error) {
+      handleError('El archivo no tiene el formato correcto');
+    }
+    if (data) {
       handleJsonParamLoad(JSON.stringify(data));
     }
-  }, [data, error, isLoading ])
+  }, [data, error, isLoading]);
   return (
     <div
       className="flex h-screen bg-gray-400"

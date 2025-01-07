@@ -1,5 +1,4 @@
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { setError } from '../../store/error/slice';
 import { getFile, setFile } from '../../store/file/slice';
 import { set, getTree } from '../../store/tree/slice';
@@ -210,11 +209,20 @@ const useUpload = () => {
     }
   };
 
+  const handleError = (error) => {
+    dispatch(
+      setError({
+        message: error,
+        open: true,
+      })
+    );
+  }
   return {
     handleFileOnChange,
     handleLoadClick,
     handleParamLoad,
     handleJsonParamLoad,
+    handleError,
   };
 };
 

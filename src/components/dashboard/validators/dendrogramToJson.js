@@ -24,9 +24,7 @@ export const schema = z.object({
 
 export const validateTotalSchema = async (data) => {
   try {
-    console.log(data)
     let firstCase = await schema.parseAsync(data);
-    console.log("validado");
     if(data.children?.length === 0) return firstCase;
     if(!data.children) return firstCase;
     for (const child of data.children) {
@@ -35,7 +33,6 @@ export const validateTotalSchema = async (data) => {
     }
     return firstCase;
   } catch (error) {
-    console.log(error);
     throw new Error('error parseando el archivo');
   }
 }
