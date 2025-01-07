@@ -12,6 +12,7 @@ const styleSrc = ['self', 'unsafe-inline'];
 
 /** @type {import('next').NextConfig} */
 let nextConfig = {
+  output: 'standalone',
   swcMinify: true,
   compress: true,
   transpilePackages: ['react-daisyui'],
