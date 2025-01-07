@@ -2,18 +2,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setError } from '../../store/error/slice';
 import { getFile, setFile } from '../../store/file/slice';
 import { set, getTree } from '../../store/tree/slice';
-import {
-  parseStringToTree,
-  createBaseGlobalStyles,
-  countAllNodes,
-} from '@/lib/TreeData';
-import {validateTotalSchema} from '../validators/dendrogramToJson';
+import { parseStringToTree, createBaseGlobalStyles } from '@/lib/TreeData';
+import { validateTotalSchema } from '../validators/dendrogramToJson';
+import useError from '@/components/error/hooks/useError';
 
 const useUpload = () => {
   let fileReader;
   const dispatch = useDispatch();
   const file = useSelector(getFile);
   const tree = useSelector(getTree);
+  const { handleError } = useError();
   const handleFileRead = () => {
     const extension = fileReader.name.split('.').pop();
     dispatch(
@@ -70,14 +68,8 @@ const useUpload = () => {
         try {
           const { tree: treeDoc } = JSON.parse(file.content);
           await validateTotalSchema(treeDoc);
-    
         } catch (error) {
-          dispatch(
-            setError({
-              message: 'El archivo no tiene el formato correcto',
-              open: true,
-            })
-          );
+          handleError('El archivo no tiene el formato correcto');
           return;
         }
         const { content } = file;
@@ -110,12 +102,7 @@ const useUpload = () => {
         try {
           parsedTree = parseStringToTree(file.content);
         } catch (error) {
-          dispatch(
-            setError({
-              message: 'El archivo no tiene el formato correcto',
-              open: true,
-            })
-          );
+          handleError('El archivo no tiene el formato correcto');
           return;
         }
         dispatch(
@@ -151,20 +138,14 @@ const useUpload = () => {
         })
       );
     } catch (error) {
-      // fallar por cualquier cosa
-      dispatch(
-        setError({
-          message: 'El archivo no tiene el formato correcto',
-          open: true,
-        })
-      );
+      handleError('El archivo no tiene el formato correcto');
       return;
     }
   };
 
-  const handleJsonParamLoad = async (json) => {  
+  const handleJsonParamLoad = async (json) => {
     try {
-      if (json === null) return;
+      if (json === null) throw new Error('No se ha seleccionado un archivo');
       const {
         name,
         globalStyles,
@@ -176,7 +157,6 @@ const useUpload = () => {
         tree: treeDoc,
       } = JSON.parse(json);
       await validateTotalSchema(treeDoc);
-
       dispatch(
         setFile({
           name: 'my-dendrogram',
@@ -198,31 +178,15 @@ const useUpload = () => {
         })
       );
     } catch (error) {
-      // fallar por cualquier cosa
-      dispatch(
-        setError({
-          message: 'El archivo no tiene el formato correcto',
-          open: true,
-        })
-      );
+      handleError(error.message);
       return;
     }
   };
-
-  const handleError = (error) => {
-    dispatch(
-      setError({
-        message: error,
-        open: true,
-      })
-    );
-  }
   return {
     handleFileOnChange,
     handleLoadClick,
     handleParamLoad,
     handleJsonParamLoad,
-    handleError,
   };
 };
 

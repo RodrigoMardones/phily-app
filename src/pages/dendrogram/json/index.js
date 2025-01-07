@@ -4,26 +4,26 @@ import { useSearchParams } from 'next/navigation';
 import useUpload from '../../../components/dashboard/hooks/useUpload';
 import { useEffect } from 'react';
 import useSWR from 'swr';
-import { useDispatch } from 'react-redux';
-const fetcher = (url) => fetch(url).then((res) => res.json()).catch((err) => err);
 
+const fetcher = (url) =>
+  fetch(url)
+    .then((res) => res.json())
+    
 export default function Page() {
   const searchParams = useSearchParams();
-  const dispatch = useDispatch();
   const jsonFileLink = searchParams.get('link');
   const decoded = atob(jsonFileLink);
-  const { handleJsonParamLoad, handleError } = useUpload();
+  const { handleJsonParamLoad } = useUpload();
   const { data, error, isLoading } = useSWR(decoded, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
     refreshInterval: 0,
   });
+
   useEffect(() => {
-    if (!data || isLoading) return;
-    if (error) {
-      handleError('El archivo no tiene el formato correcto');
-    }
+    if (!data|| error || isLoading) return;
+
     if (data) {
       handleJsonParamLoad(JSON.stringify(data));
     }

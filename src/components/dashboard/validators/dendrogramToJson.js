@@ -33,6 +33,6 @@ export const validateTotalSchema = async (data) => {
     }
     return firstCase;
   } catch (error) {
-    throw new Error('error parseando el archivo');
+    throw new Error('El archivo no tiene el formato correcto');
   }
 }
