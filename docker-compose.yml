@@ -11,8 +11,6 @@ services:
       PORT: ${PORT}
     ports:
       - ${PORT}:${PORT}
-#    networks:
-#      - phily-network
   nginx:
     image: nginx:alpine
     container_name: nginx
@@ -21,34 +19,5 @@ services:
     restart: always
     volumes:
       - ./nginx/http.conf:/etc/nginx/nginx.conf
-#      - certbot-etc:/etc/letsencrypt
-#      - certbot-var:/var/lib/letsencrypt
-#      - web-root:/var/www/html
     depends_on:
       - phily-web
-#    networks:
-#      - phily-network
-#  certbot:
-#    image: certbot/certbot
-#    container_name: certbot
-#    volumes:
-#      - certbot-etc:/etc/letsencrypt
-#      - certbot-var:/var/lib/letsencrypt
-#      - web-root:/var/www/html
-#    depends_on:
-#      - nginx
-#    command: certonly --webroot --webroot-path=/var/www/html --email rodrigo.mardones.a@usach.cl --agree-tos --no-eff-email --staging -d phily.cl -d www.phily.cl
-
-#volumes:
-#  certbot-etc:
-#  certbot-var:
-#  web-root:
-#    driver: local
-#    driver_opts:
-#      type: none
-#      device: /home/volumes/phily-app
-#      o: bind
-
-#networks:
-#  phily-network:
-#    driver: bridge  
