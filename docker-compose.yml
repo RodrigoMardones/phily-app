@@ -46,7 +46,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/memoristas/phily/web
+      device: /home/volumes/phily-app
       o: bind
 
 networks:
