@@ -50,5 +50,5 @@ volumes:
       o: bind
 
 networks:
-  app-network:
+  phily-network:
     driver: bridge  
