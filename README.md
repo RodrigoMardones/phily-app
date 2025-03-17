@@ -1,5 +1,9 @@
 # Phily - Visualizador de arboles filogenéticos
 
+![](docs/portada.png)
+
+Phily es un visualizador de dendrogramas filogenénticos, el cual permite la interaccion y modificación visual de los datos utilizados dentro de la plataforma.
+
 
 ## Primeros pasos
 
