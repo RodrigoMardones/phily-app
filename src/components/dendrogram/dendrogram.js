@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useEffect } from 'react';
 import { dendrogramGenerator, drawCurve, transformSVG } from './utils';
 import { hierarchy, ascending } from 'd3';
 import useSubMenu from '../submenu/useSubmenu';
