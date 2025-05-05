@@ -50,6 +50,8 @@ let nextConfig = {
             },
           },  
           referrerPolicy: 'no-referrer',
+          xssProtection: 'sanitize',
+          frameGuard: 'DENY',
         }),
       },
     ];
