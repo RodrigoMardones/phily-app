@@ -10,6 +10,10 @@ const connectSrc = ['self', 'unsafe-inline'];
 
 const styleSrc = ['self', 'unsafe-inline'];
 
+const frameSrc = ['self', 'unsafe-inline'];
+const fontSrc = ['self', 'unsafe-inline'];
+
+
 /** @type {import('next').NextConfig} */
 let nextConfig = {
   output: 'standalone',
@@ -21,7 +25,7 @@ let nextConfig = {
     domains: ['localhost', 'phily.vercel.app'],
   },
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: true, 
   },
   experimental: {
     serverActions: {
@@ -38,6 +42,9 @@ let nextConfig = {
             styleSrc: isProd ? styleSrc : [...styleSrc, 'localhost:*'],
             connectSrc: isProd ? connectSrc : [...connectSrc, 'localhost:*'],
             scriptSrc: isProd ? scriptSrc : [...scriptSrc, 'localhost:*'],
+            frameSrc: isProd ? frameSrc : [...frameSrc, 'localhost:*'],
+            fontSrc: isProd ? fontSrc : [...fontSrc, 'localhost:*'],
+            imgSrc: isProd ? ['self', 'data:', 'blob:'] : ['self', 'data:', 'blob:', 'localhost:*'],
           },
         }),
       },
