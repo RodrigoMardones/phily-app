@@ -37,15 +37,21 @@ let nextConfig = {
       {
         source: '/(.*)',
         headers: createSecureHeaders({
-          directive: {
-            defaultSrc: ['self'],
-            styleSrc: isProd ? styleSrc : [...styleSrc, 'localhost:*'],
-            connectSrc: isProd ? connectSrc : [...connectSrc, 'localhost:*'],
-            scriptSrc: isProd ? scriptSrc : [...scriptSrc, 'localhost:*'],
-            frameSrc: isProd ? frameSrc : [...frameSrc, 'localhost:*'],
-            fontSrc: isProd ? fontSrc : [...fontSrc, 'localhost:*'],
-            imgSrc: isProd ? ['self', 'data:', 'blob:'] : ['self', 'data:', 'blob:', 'localhost:*'],
+          contentSecurityPolicy: {
+            directives: {
+              defaultSrc: ['self'],
+              styleSrc: isProd ? styleSrc : [...styleSrc, 'localhost:*'],
+              connectSrc: isProd ? connectSrc : [...connectSrc, 'localhost:*'],
+              scriptSrc: isProd ? scriptSrc : [...scriptSrc, 'localhost:*'],
+              frameSrc: isProd ? frameSrc : [...frameSrc, 'localhost:*'],
+              fontSrc: isProd ? fontSrc : [...fontSrc, 'localhost:*'],
+              imgSrc: isProd ? ['self', 'data:', 'blob:'] : ['self', 'data:', 'blob:', 'localhost:*'],  
+            },
           },
+          referrerPolicy: 'no-referrer',
+          contentSecurityPolicy: {
+
+          }
         }),
       },
     ];
