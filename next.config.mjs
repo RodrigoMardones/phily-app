@@ -10,7 +10,7 @@ const connectSrc = isProd ? ["'self'", "https://phily.cl/"] : ["'self'", "'unsaf
 const styleSrc = isProd ? ["'self'", "https://phily.cl/"] : ["'self'", "'unsafe-inline'", "https://phily.cl/"];
 const frameSrc = isProd ? ["'self'", "https://phily.cl/"] : ["'self'", "'unsafe-inline'", "https://phily.cl/"];
 const fontSrc = isProd ? ["'self'", "phily", "https://phily.cl/"] : ["'self'", "'unsafe-inline'", "https://phily.cl/"];
-
+const imgSrc = isProd ? ["'self'", 'data:', 'blob:', "https://phily.cl/"] : ["'self'",'data:', 'blob:', "'unsafe-inline'", "https://phily.cl/"];
 
 
 /** @type {import('next').NextConfig} */
@@ -45,7 +45,7 @@ let nextConfig = {
               scriptSrc: isProd ? scriptSrc : [...scriptSrc, 'localhost:*'],
               frameSrc: isProd ? frameSrc : [...frameSrc, 'localhost:*'],
               fontSrc: isProd ? fontSrc : [...fontSrc, 'localhost:*'],
-              imgSrc: isProd ? ['self', 'data:', 'blob:'] : ['self', 'data:', 'blob:', 'localhost:*'],  
+              imgSrc: isProd ? imgSrc : [...imgSrc, 'localhost:*'],
             },
           },  
           referrerPolicy: 'no-referrer',
