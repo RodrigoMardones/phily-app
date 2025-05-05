@@ -4,14 +4,13 @@ import TerserPlugin from 'terser-webpack-plugin';
 
 const isProd = process.env.ENVIRONMENT === 'production';
 
-const scriptSrc =  ["'self'", "'unsafe-inline'", "'unsafe-eval'"];
+// add the https://phily.cl/onfig to the CSP
+const scriptSrc = isProd ? ["'self'", "https://phily.cl/"] : ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://phily.cl/"];
+const connectSrc = isProd ? ["'self'", "https://phily.cl/"] : ["'self'", "'unsafe-inline'", "https://phily.cl/"];
+const styleSrc = isProd ? ["'self'", "https://phily.cl/"] : ["'self'", "'unsafe-inline'", "https://phily.cl/"];
+const frameSrc = isProd ? ["'self'", "https://phily.cl/"] : ["'self'", "'unsafe-inline'", "https://phily.cl/"];
+const fontSrc = isProd ? ["'self'", "phily", "https://phily.cl/"] : ["'self'", "'unsafe-inline'", "https://phily.cl/"];
 
-const connectSrc =  ["'self'", "'unsafe-inline'"];
-
-const styleSrc = ["'self'", "'unsafe-inline'"];
-
-const frameSrc = ["'self'", "'unsafe-inline'"];
-const fontSrc = ["'self'", "'unsafe-inline'"];
 
 
 /** @type {import('next').NextConfig} */
@@ -38,6 +37,7 @@ let nextConfig = {
         source: '/(.*)',
         headers: createSecureHeaders({
           contentSecurityPolicy: {
+            // if is prod quit the ubsafe-inline and unsafe-eval
             directives: {
               defaultSrc: ['self', 'unsafe-inline'],
               styleSrc: isProd ? styleSrc : [...styleSrc ,'localhost:*'],
