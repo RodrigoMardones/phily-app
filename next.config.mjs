@@ -3,7 +3,6 @@ import Analyzer from '@next/bundle-analyzer';
 import TerserPlugin from 'terser-webpack-plugin';
 
 const isProd = process.env.ENVIRONMENT === 'production';
-console.log('isProd', isProd);
 
 const scriptSrc =  ["'self'", "'unsafe-inline'", "'unsafe-eval'"];
 
@@ -51,7 +50,7 @@ let nextConfig = {
           },  
           referrerPolicy: 'no-referrer',
           xssProtection: 'sanitize',
-          frameGuard: 'DENY',
+          frameGuard: "deny"
         }),
       },
     ];
