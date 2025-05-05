@@ -3,15 +3,16 @@ import Analyzer from '@next/bundle-analyzer';
 import TerserPlugin from 'terser-webpack-plugin';
 
 const isProd = process.env.ENVIRONMENT === 'production';
+console.log('isProd', isProd);
 
-const scriptSrc = ['self', 'unsafe-inline'];
+const scriptSrc =  ["'self'", "'unsafe-inline'", "'unsafe-eval'"];
 
-const connectSrc = ['self', 'unsafe-inline'];
+const connectSrc =  ["'self'", "'unsafe-inline'"];
 
-const styleSrc = ['self', 'unsafe-inline'];
+const styleSrc = ["'self'", "'unsafe-inline'"];
 
-const frameSrc = ['self', 'unsafe-inline'];
-const fontSrc = ['self', 'unsafe-inline'];
+const frameSrc = ["'self'", "'unsafe-inline'"];
+const fontSrc = ["'self'", "'unsafe-inline'"];
 
 
 /** @type {import('next').NextConfig} */
@@ -39,19 +40,16 @@ let nextConfig = {
         headers: createSecureHeaders({
           contentSecurityPolicy: {
             directives: {
-              defaultSrc: ['self'],
-              styleSrc: isProd ? styleSrc : [...styleSrc, 'localhost:*'],
-              connectSrc: isProd ? connectSrc : [...connectSrc, 'localhost:*'],
+              defaultSrc: ['self', 'unsafe-inline'],
+              styleSrc: isProd ? styleSrc : [...styleSrc ,'localhost:*'],
+              connectSrc: isProd ? connectSrc : [...connectSrc ,'localhost:*'],
               scriptSrc: isProd ? scriptSrc : [...scriptSrc, 'localhost:*'],
               frameSrc: isProd ? frameSrc : [...frameSrc, 'localhost:*'],
               fontSrc: isProd ? fontSrc : [...fontSrc, 'localhost:*'],
               imgSrc: isProd ? ['self', 'data:', 'blob:'] : ['self', 'data:', 'blob:', 'localhost:*'],  
             },
-          },
+          },  
           referrerPolicy: 'no-referrer',
-          contentSecurityPolicy: {
-
-          }
         }),
       },
     ];
