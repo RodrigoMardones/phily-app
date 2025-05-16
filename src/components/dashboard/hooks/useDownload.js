@@ -73,7 +73,11 @@ const useDownload = () => {
     setDownload(e.target.value);
   };
   const handleDownload = useCallback(() => {
-    const fileName = 'my-dendrogram';
+
+    let fileName = window.prompt('Ingrese el nombre del archivo:', 'my-dendrogram');
+    if (!fileName) {
+      return;
+    }
     if (download === 'json') {
       const json = JSON.stringify({ ...tree }, null, 2);
       const blob = new Blob([json], { type: 'application/json' });
