@@ -1,6 +1,7 @@
-import { useCallback, useState } from 'react';
+import { use, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getTree } from '../../store/tree/slice';
+import { getFile } from '@/components/store/file/slice';
 
 const dendrogramToFile = (fileName, fileType) => {
   const gTree = document.querySelector('#dendrogram-g');
@@ -67,14 +68,16 @@ const dendrogramToFile = (fileName, fileType) => {
 
 const useDownload = () => {
   const tree = useSelector(getTree);
+  let {name} = useSelector(getFile);
+  name = name ? name.split('.')[0] : 'my-dendrogram';
+
   const [download, setDownload] = useState('png');
   const handleChangeSelectDownload = (e) => {
     e.preventDefault();
     setDownload(e.target.value);
   };
   const handleDownload = useCallback(() => {
-
-    let fileName = window.prompt('Ingrese el nombre del archivo:', 'my-dendrogram');
+    let fileName = window.prompt('Ingrese el nombre del archivo:', name);
     if (!fileName) {
       return;
     }
