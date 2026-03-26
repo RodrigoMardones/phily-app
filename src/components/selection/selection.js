@@ -1,4 +1,5 @@
 import useSelectionEdit from './hooks/useSelectionEdit';
+import { Card } from 'react-daisyui';
 
 const SelectionPanel = () => {
   const {
@@ -18,9 +19,9 @@ const SelectionPanel = () => {
   return (
     <div className="flex flex-col mt-4 mb-4">
       <div className="flex items-center justify-between">
-        <span className="text-white text-md font-semibold">
-          Selección ({count})
-        </span>
+        <Card.Title className="text-white items-end text-md">
+          Selección multiple ({count})
+        </Card.Title>
         <button
           className="btn btn-xs btn-error text-white"
           onClick={handleClearSelection}
