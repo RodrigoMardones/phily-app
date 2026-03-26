@@ -217,9 +217,8 @@ export default function Dashboard() {
                 className="toggle checked:toggle-secondary active:toggle-secondary"
                 id="normalize"
                 disabled={!fileName}
-                value={normalize}
-                defaultChecked={normalize}
-                onClick={handleNormalizationChange}
+                checked={normalize}
+                onChange={handleNormalizationChange}
               />
             </label>
             <label className="flex gap-2 cursor-pointer label">
