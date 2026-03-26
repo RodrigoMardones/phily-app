@@ -4,6 +4,7 @@ import FileReducer from './file/slice'
 import ErrorReducer from './error/slice'
 import SubMenuReducer from './submenu/slice'
 import DashboardReducer from './dashboard/slice'
+import SelectionReducer from './selection/slice'
 
 const store = configureStore({
   reducer: {
@@ -11,7 +12,8 @@ const store = configureStore({
     file: FileReducer,
     error: ErrorReducer,
     submenu: SubMenuReducer,
-    dashboard: DashboardReducer
+    dashboard: DashboardReducer,
+    selection: SelectionReducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     immutableCheck: false,

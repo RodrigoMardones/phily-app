@@ -2,6 +2,10 @@ import { useCallback, useMemo } from 'react';
 import { dendrogramGenerator, drawCurve, transformSVG } from './utils';
 import { hierarchy, ascending } from 'd3';
 import useSubMenu from '../submenu/useSubmenu';
+import { useSelector, useDispatch } from 'react-redux';
+import { getSelectedIds, toggleId, addIds } from '../store/selection/slice';
+import { getHighlightedNodeName } from '../store/dashboard/slice';
+import { collectSubtreeIds } from '@/lib/TreeData';
 const Dendrogram = ({
   data,
   width,
@@ -12,6 +16,10 @@ const Dendrogram = ({
   globalStyles,
 }) => {
   const { handleContextMenu } = useSubMenu();
+  const selectedIds = useSelector(getSelectedIds);
+  const selectedSet = useMemo(() => new Set(selectedIds), [selectedIds]);
+  const highlightedNodeName = useSelector(getHighlightedNodeName);
+  const dispatch = useDispatch();
 
   const radius = useMemo(() => {
     return Math.min(width, height) / 2;
@@ -57,14 +65,34 @@ const Dendrogram = ({
     handleContextMenu(e, element, index, type);
   }, [nodes, links, handleContextMenu]);
 
+  const handleElementClick = useCallback((e) => {
+    if (!e.ctrlKey && !e.metaKey) return;
+    e.stopPropagation();
+    const id = e.target.id;
+    if (!id) return;
+    const match = id.match(/^(node|label|link)-(\d+)$/);
+    if (!match) return;
+    const [, type, indexStr] = match;
+    const index = parseInt(indexStr, 10);
+    const element = type === 'link' ? links[index] : nodes[index];
+    const nodeData = type === 'link' ? element.source.data : element.data;
+    if (e.shiftKey) {
+      const subtreeIds = collectSubtreeIds(nodeData);
+      dispatch(addIds(subtreeIds));
+    } else {
+      dispatch(toggleId(nodeData.id));
+    }
+  }, [nodes, links, dispatch]);
+
   const renderNode = useCallback(
     (node, nodeIndex) => {
       const {
         children = [],
-        data: { name },
+        data: { name, id: nodeId },
         x,
         y,
       } = node;
+      const isSelected = selectedSet.has(nodeId);
       const nodeStyle = node.data?.nodeStyle;
       const labelStyle = node.data?.labelStyle;
       const fontSize = labelStyle?.fontSize || globalLabelFontSize;
@@ -72,6 +100,7 @@ const Dendrogram = ({
       const radius = nodeStyle?.radius || globalNodeRadius;
       const stroke = nodeStyle?.stroke || globalNodeStroke;
       const fill = nodeStyle?.fill || globalNodeFill;
+      const isHighlighted = name === highlightedNodeName;
       if (curveType === 'circular' || curveType === 'circular-step') {
         const turnLabelUpsideDown = x > 180;
         return (
@@ -79,6 +108,15 @@ const Dendrogram = ({
             key={`node-${nodeIndex}`}
             transform={`rotate(${x - 90})translate(${y})`}
           >
+            {isSelected && (
+              <circle cx={0} cy={0} r={radius + 6} fill="none" stroke="#498BCA" strokeWidth={3} strokeDasharray="4 2" />
+            )}
+            {isHighlighted && (
+              <circle cx={0} cy={0} r={radius + 10} fill="none" stroke="#E6A817" strokeWidth={2.5}>
+                <animate attributeName="r" from={radius + 8} to={radius + 14} dur="1s" repeatCount="indefinite" />
+                <animate attributeName="opacity" from="1" to="0.3" dur="1s" repeatCount="indefinite" />
+              </circle>
+            )}
             <circle
               cx={0}
               cy={0}
@@ -87,6 +125,7 @@ const Dendrogram = ({
               fill={fill}
               className="hover:cursor-pointer"
               id={`node-${nodeIndex}`}
+              data-node-id={nodeId}
             />
             {
               <text
@@ -97,6 +136,7 @@ const Dendrogram = ({
                 fill={labelFill}
                 textAnchor={turnLabelUpsideDown ? 'end' : 'start'}
                 transform={turnLabelUpsideDown ? 'rotate(180)' : 'rotate(0)'}
+                textDecoration={isSelected ? 'underline' : 'none'}
                 alignmentBaseline="auto"
                 id={`label-${nodeIndex}`}
               >
@@ -109,6 +149,15 @@ const Dendrogram = ({
 
       return (
         <g key={`node-${nodeIndex}`}>
+          {isSelected && (
+            <circle cx={y} cy={x} r={radius + 6} fill="none" stroke="#498BCA" strokeWidth={3} strokeDasharray="4 2" />
+          )}
+          {isHighlighted && (
+            <circle cx={y} cy={x} r={radius + 10} fill="none" stroke="#E6A817" strokeWidth={2.5}>
+              <animate attributeName="r" from={radius + 8} to={radius + 14} dur="1s" repeatCount="indefinite" />
+              <animate attributeName="opacity" from="1" to="0.3" dur="1s" repeatCount="indefinite" />
+            </circle>
+          )}
           <circle
             cx={y}
             cy={x}
@@ -117,6 +166,7 @@ const Dendrogram = ({
             fill={fill}
             id={`node-${nodeIndex}`}
             className="hover:cursor-pointer"
+            data-node-id={nodeId}
           />
           <text
             x={y + 30}
@@ -124,6 +174,7 @@ const Dendrogram = ({
             fontSize={fontSize}
             fill={labelFill}
             textAnchor={children.length ? 'end' : 'start'}
+            textDecoration={isSelected ? 'underline' : 'none'}
             alignmentBaseline="central"
             id={`label-${nodeIndex}`}
             className="label hover:cursor-pointer"
@@ -135,6 +186,8 @@ const Dendrogram = ({
     },
     [
       curveType,
+      selectedSet,
+      highlightedNodeName,
       globalNodeRadius,
       globalNodeStroke,
       globalNodeFill,
@@ -230,7 +283,7 @@ const Dendrogram = ({
   );
 
   return (
-    <g transform={transform} id="dendrogram-g" onContextMenu={handleElementContextMenu}>
+    <g transform={transform} id="dendrogram-g" onContextMenu={handleElementContextMenu} onClick={handleElementClick}>
       {allEdges}
       {allNodes}
     </g>
