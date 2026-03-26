@@ -4,6 +4,7 @@ import { hierarchy, ascending } from 'd3';
 import useSubMenu from '../submenu/useSubmenu';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSelectedIds, toggleId, addIds } from '../store/selection/slice';
+import { getHighlightedNodeName } from '../store/dashboard/slice';
 import { collectSubtreeIds } from '@/lib/TreeData';
 const Dendrogram = ({
   data,
@@ -17,6 +18,7 @@ const Dendrogram = ({
   const { handleContextMenu } = useSubMenu();
   const selectedIds = useSelector(getSelectedIds);
   const selectedSet = useMemo(() => new Set(selectedIds), [selectedIds]);
+  const highlightedNodeName = useSelector(getHighlightedNodeName);
   const dispatch = useDispatch();
 
   const radius = useMemo(() => {
@@ -98,6 +100,7 @@ const Dendrogram = ({
       const radius = nodeStyle?.radius || globalNodeRadius;
       const stroke = nodeStyle?.stroke || globalNodeStroke;
       const fill = nodeStyle?.fill || globalNodeFill;
+      const isHighlighted = name === highlightedNodeName;
       if (curveType === 'circular' || curveType === 'circular-step') {
         const turnLabelUpsideDown = x > 180;
         return (
@@ -108,6 +111,12 @@ const Dendrogram = ({
             {isSelected && (
               <circle cx={0} cy={0} r={radius + 6} fill="none" stroke="#498BCA" strokeWidth={3} strokeDasharray="4 2" />
             )}
+            {isHighlighted && (
+              <circle cx={0} cy={0} r={radius + 10} fill="none" stroke="#E6A817" strokeWidth={2.5}>
+                <animate attributeName="r" from={radius + 8} to={radius + 14} dur="1s" repeatCount="indefinite" />
+                <animate attributeName="opacity" from="1" to="0.3" dur="1s" repeatCount="indefinite" />
+              </circle>
+            )}
             <circle
               cx={0}
               cy={0}
@@ -116,6 +125,7 @@ const Dendrogram = ({
               fill={fill}
               className="hover:cursor-pointer"
               id={`node-${nodeIndex}`}
+              data-node-id={nodeId}
             />
             {
               <text
@@ -142,6 +152,12 @@ const Dendrogram = ({
           {isSelected && (
             <circle cx={y} cy={x} r={radius + 6} fill="none" stroke="#498BCA" strokeWidth={3} strokeDasharray="4 2" />
           )}
+          {isHighlighted && (
+            <circle cx={y} cy={x} r={radius + 10} fill="none" stroke="#E6A817" strokeWidth={2.5}>
+              <animate attributeName="r" from={radius + 8} to={radius + 14} dur="1s" repeatCount="indefinite" />
+              <animate attributeName="opacity" from="1" to="0.3" dur="1s" repeatCount="indefinite" />
+            </circle>
+          )}
           <circle
             cx={y}
             cy={x}
@@ -150,6 +166,7 @@ const Dendrogram = ({
             fill={fill}
             id={`node-${nodeIndex}`}
             className="hover:cursor-pointer"
+            data-node-id={nodeId}
           />
           <text
             x={y + 30}
@@ -170,6 +187,7 @@ const Dendrogram = ({
     [
       curveType,
       selectedSet,
+      highlightedNodeName,
       globalNodeRadius,
       globalNodeStroke,
       globalNodeFill,
