@@ -11,6 +11,7 @@ import { getFile } from '../store/file/slice';
 import { getError } from '../store/error/slice';
 import Footer from '../footer/footer';
 import NodeFinder from '../nodefinder/nodefinder';
+import SelectionPanel from '../selection/selection';
 
 import {
   useUpload,
@@ -327,6 +328,8 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
+            <div className="divider mt-2 mb-2"></div>
+            <SelectionPanel />
             <div className="divider mt-2 mb-2"></div>
             <div id="export">
               <Card.Title className="text-white items-end text-md">

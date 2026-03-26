@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import useSubMenu from '../../submenu/useSubmenu';
 import { getFindNodeName, clearFindNodeName } from '../../store/dashboard/slice';
 import { getZoom, setZoom } from '../../store/tree/slice';
+import { clearSelection } from '../../store/selection/slice';
 
 export default function ZoomableSVG({ children, width, height, treeName }) {
   const svgRef = useRef();
@@ -86,8 +87,15 @@ export default function ZoomableSVG({ children, width, height, treeName }) {
     dispatch(clearFindNodeName());
   }, [findNodeName, dispatch, x, y, k]);
 
+  const handleCanvasClick = useCallback((e) => {
+    handleClose();
+    if (!e.ctrlKey && !e.metaKey) {
+      dispatch(clearSelection());
+    }
+  }, [handleClose, dispatch]);
+
   return (
-    <svg ref={svgRef} width={'100%'} height={'100%'} onClick={handleClose}>
+    <svg ref={svgRef} width={'100%'} height={'100%'} onClick={handleCanvasClick}>
       <g transform={`translate(${x},${y})scale(${k})`}>{children}</g>
     </svg>
   );

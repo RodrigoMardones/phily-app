@@ -222,6 +222,27 @@ export const modifyEspecificLabelStyle = function (obj, labelStyle, id) {
   }
 };
 
+export const modifyStyleByIds = function (obj, ids, styleProp, style) {
+  const idSet = ids instanceof Set ? ids : new Set(ids);
+  (function walk(node) {
+    if (idSet.has(node.id)) {
+      node[styleProp] = { ...node[styleProp], ...style };
+    }
+    if (node.children) {
+      node.children.forEach(walk);
+    }
+  })(obj);
+};
+
+export const collectSubtreeIds = function (node) {
+  const ids = [];
+  (function walk(n) {
+    if (n.id) ids.push(n.id);
+    if (n.children) n.children.forEach(walk);
+  })(node);
+  return ids;
+};
+
 export const createTreeState = ({
   name = 'my-dendrogram',
   normalize = false,

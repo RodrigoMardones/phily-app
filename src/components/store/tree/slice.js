@@ -4,6 +4,7 @@ import {
   modifyEspecificNodeStyle,
   modifyEspecificLabelStyle,
   modifyEspecificPathStyle,
+  modifyStyleByIds,
 } from '@/lib/TreeData';
 
 const initialState = createTreeState({name: ''})
@@ -39,6 +40,18 @@ const treeSlice = createSlice({
       const { id, pathStyle } = action.payload;
       modifyEspecificPathStyle(state.tree, pathStyle, id);
     },
+    setNodeStyleByIds: (state, action) => {
+      const { ids, nodeStyle } = action.payload;
+      modifyStyleByIds(state.tree, ids, 'nodeStyle', nodeStyle);
+    },
+    setLabelStyleByIds: (state, action) => {
+      const { ids, labelStyle } = action.payload;
+      modifyStyleByIds(state.tree, ids, 'labelStyle', labelStyle);
+    },
+    setPathStyleByIds: (state, action) => {
+      const { ids, pathStyle } = action.payload;
+      modifyStyleByIds(state.tree, ids, 'pathStyle', pathStyle);
+    },
     setZoom: (state, action) => {
       state.zoom = action.payload;
     },
@@ -47,7 +60,7 @@ const treeSlice = createSlice({
 
 export const getTree = (state) => state.tree;
 
-export const { set, setStyle, setNodeStyleById, setLabelStyleById, setPathStyleById, setZoom, RESET } = treeSlice.actions;
+export const { set, setStyle, setNodeStyleById, setLabelStyleById, setPathStyleById, setNodeStyleByIds, setLabelStyleByIds, setPathStyleByIds, setZoom, RESET } = treeSlice.actions;
 
 export const getZoom = (state) => state.tree.zoom;
 

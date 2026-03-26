@@ -1,7 +1,9 @@
 import React from 'react';
 import useSubMenu from './useSubmenu';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getTree } from '../store/tree/slice';
+import { addIds } from '../store/selection/slice';
+import { collectSubtreeIds } from '@/lib/TreeData';
 
 const SubMenu = () => {
   const {
@@ -12,8 +14,10 @@ const SubMenu = () => {
     modifyLabelColor,
     modifyWidthPath,
     modifyColorPath,
+    handleClose,
   } = useSubMenu();
   const { globalStyles } = useSelector(getTree);
+  const dispatch = useDispatch();
   const { pointerX, pointerY, typeElement, toggled, component } = contextMenu;
   const componentId = component.data?.id;
 
@@ -126,6 +130,19 @@ const SubMenu = () => {
             </li>
           </>
         )}
+        <li>
+          <button
+            className="btn btn-sm btn-primary text-white w-full mt-2"
+            onClick={() => {
+              if (!component.data) return;
+              const ids = collectSubtreeIds(component.data);
+              dispatch(addIds(ids));
+              handleClose();
+            }}
+          >
+            Seleccionar subárbol
+          </button>
+        </li>
       </ul>
     </div>
   );
