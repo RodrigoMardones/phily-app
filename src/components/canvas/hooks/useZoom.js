@@ -7,10 +7,10 @@ const useZoom = () => {
     const tree = useSelector(getTree);
     const { width, height } = tree
     const handleAddZoomClick = useCallback(() => {
-        dispatch(set({...tree, width: (width * 2), height: (height * 2)}))
+        dispatch(set({...tree, width: (width * 2), height: (height * 2), zoom: null}))
     }, [dispatch, tree, width, height])
     const handleSubstractZoomClick = useCallback(() => {
-        dispatch(set({...tree, width: (width / 2), height: (height / 2)}))
+        dispatch(set({...tree, width: (width / 2), height: (height / 2), zoom: null}))
     }, [dispatch, tree, width, height]);
     return {
         handleAddZoomClick,

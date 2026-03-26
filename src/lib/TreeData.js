@@ -231,6 +231,7 @@ export const createTreeState = ({
   height = 600,
   globalStyles = createBaseGlobalStyles({}),
   tree = createBaseTree(),
+  zoom = null,
 }) => {
   return {
     name,
@@ -241,5 +242,6 @@ export const createTreeState = ({
     height,
     globalStyles,
     tree,
+    zoom,
   };
 };

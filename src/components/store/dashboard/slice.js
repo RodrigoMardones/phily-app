@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     isHamburgerMenuActive: false,
+    findNodeName: null,
 };
 
 const dashboardSlice = createSlice({
@@ -14,10 +15,17 @@ const dashboardSlice = createSlice({
         setHamburgerMenuActive: (state, action) => {
             state.isHamburgerMenuActive = action.payload;
         },
+        setFindNodeName: (state, action) => {
+            state.findNodeName = action.payload;
+        },
+        clearFindNodeName: (state) => {
+            state.findNodeName = null;
+        },
     },
 });
 
 export const getHamburgerMenuActive = (state) => state.dashboard.isHamburgerMenuActive;
-export const { toggleHamburgerMenu, setHamburgerMenuActive } = dashboardSlice.actions;
+export const getFindNodeName = (state) => state.dashboard.findNodeName;
+export const { toggleHamburgerMenu, setHamburgerMenuActive, setFindNodeName, clearFindNodeName } = dashboardSlice.actions;
 
 export default dashboardSlice.reducer;

@@ -49,7 +49,7 @@ const Canvas = () => {
 
         <div className="item h-full w-full" ref={contextRef} id="canvas">
           <SubMenu />
-          <ZoomableSVG width={width} height={height}>
+          <ZoomableSVG width={width} height={height} treeName={name}>
             {name && (
               <Dendrogram
                 data={tree}

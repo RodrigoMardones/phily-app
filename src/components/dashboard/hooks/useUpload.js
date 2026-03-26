@@ -82,6 +82,7 @@ const useUpload = () => {
           width,
           height,
           tree: treeDoc,
+          zoom,
         } = JSON.parse(content);
         dispatch(
           set({
@@ -94,6 +95,7 @@ const useUpload = () => {
             width: width,
             height: height,
             tree: treeDoc,
+            zoom: zoom,
           })
         );
         dispatch(clearContent());
