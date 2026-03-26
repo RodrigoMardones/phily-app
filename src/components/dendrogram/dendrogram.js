@@ -12,11 +12,6 @@ const Dendrogram = ({
   globalStyles,
 }) => {
   const { handleContextMenu } = useSubMenu();
-  const hierarchycreated = useMemo(() => {
-    const HierarchyCreated = hierarchy(data);
-    HierarchyCreated.sort((a, b) => ascending(a.data.name, b.data.name));
-    return HierarchyCreated;
-  }, [data]);
 
   const radius = useMemo(() => {
     return Math.min(width, height) / 2;
@@ -27,15 +22,15 @@ const Dendrogram = ({
   }, [curveType, radius]);
 
   const dendrogram = useMemo(() => {
-    const dendogramCreated = dendrogramGenerator(
-      width,
-      height,
-      normalize,
-      curveType,
-      angle
-    );
-    return dendogramCreated(hierarchycreated);
-  }, [hierarchycreated, width, height, normalize, curveType, angle]);
+    const h = hierarchy(data);
+    h.sort((a, b) => ascending(a.data.name, b.data.name));
+    const layout = dendrogramGenerator(width, height, normalize, curveType, angle);
+    return layout(h);
+  }, [data, width, height, normalize, curveType, angle]);
+
+  const nodes = useMemo(() => dendrogram.descendants(), [dendrogram]);
+  const links = useMemo(() => dendrogram.links(), [dendrogram]);
+
   const {
     nodeStyle: {
       radius: globalNodeRadius,
@@ -50,7 +45,18 @@ const Dendrogram = ({
       strokeOpacity: globalStrokeOpacity,
     },
   } = globalStyles;
-  // podria separar esto en otros componentes
+
+  const handleElementContextMenu = useCallback((e) => {
+    const id = e.target.id;
+    if (!id) return;
+    const match = id.match(/^(node|label|link)-(\d+)$/);
+    if (!match) return;
+    const [, type, indexStr] = match;
+    const index = parseInt(indexStr, 10);
+    const element = type === 'link' ? links[index] : nodes[index];
+    handleContextMenu(e, element, index, type);
+  }, [nodes, links, handleContextMenu]);
+
   const renderNode = useCallback(
     (node, nodeIndex) => {
       const {
@@ -81,9 +87,6 @@ const Dendrogram = ({
               fill={fill}
               className="hover:cursor-pointer"
               id={`node-${nodeIndex}`}
-              onContextMenu={(e) =>
-                handleContextMenu(e, node, nodeIndex, 'node')
-              }
             />
             {
               <text
@@ -96,9 +99,6 @@ const Dendrogram = ({
                 transform={turnLabelUpsideDown ? 'rotate(180)' : 'rotate(0)'}
                 alignmentBaseline="auto"
                 id={`label-${nodeIndex}`}
-                onContextMenu={(e) =>
-                  handleContextMenu(e, node, nodeIndex, 'label')
-                }
               >
                 {name}
               </text>
@@ -117,7 +117,6 @@ const Dendrogram = ({
             fill={fill}
             id={`node-${nodeIndex}`}
             className="hover:cursor-pointer"
-            onContextMenu={(e) => handleContextMenu(e, node, nodeIndex, 'node')}
           />
           <text
             x={y + 30}
@@ -128,9 +127,6 @@ const Dendrogram = ({
             alignmentBaseline="central"
             id={`label-${nodeIndex}`}
             className="label hover:cursor-pointer"
-            onContextMenu={(e) =>
-              handleContextMenu(e, node, nodeIndex, 'label')
-            }
           >
             {name}
           </text>
@@ -144,7 +140,6 @@ const Dendrogram = ({
       globalNodeFill,
       globalLabelFontSize,
       globalLabelFill,
-      handleContextMenu
     ]
   );
 
@@ -177,9 +172,6 @@ const Dendrogram = ({
                 strokeOpacity={strokeOpacity}
                 id={`link-${indexLink}`}
                 className="hover:cursor-pointer"
-                onContextMenu={(e) =>
-                  handleContextMenu(e, link, indexLink, 'link')
-                }
               />
               ;
             </g>
@@ -195,7 +187,6 @@ const Dendrogram = ({
             d={curve(link) || undefined}
             className="hover:cursor-pointer"
             id={`link-${indexLink}`}
-            onContextMenu={(e) => handleContextMenu(e, link, indexLink, 'link')}
           />
         );
       } else {
@@ -226,23 +217,22 @@ const Dendrogram = ({
       globalStrokeWidth,
       globalStrokeOpacity,
       curve,
-      handleContextMenu
     ]
   );
 
-  const allNodes = useCallback(
-    () => dendrogram.descendants().map(renderNode),
-    [dendrogram, renderNode]
+  const allNodes = useMemo(
+    () => nodes.map(renderNode),
+    [nodes, renderNode]
   );
-  const allEdges = useCallback(
-    () => dendrogram.links().map(renderEdges),
-    [dendrogram, renderEdges]
+  const allEdges = useMemo(
+    () => links.map(renderEdges),
+    [links, renderEdges]
   );
 
   return (
-    <g transform={transform} id="dendrogram-g">
-      {allEdges()}
-      {allNodes()}
+    <g transform={transform} id="dendrogram-g" onContextMenu={handleElementContextMenu}>
+      {allEdges}
+      {allNodes}
     </g>
   );
 };

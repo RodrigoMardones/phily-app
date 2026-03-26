@@ -3,7 +3,7 @@ import { getTree } from '../store/tree/slice';
 import { Card } from 'react-daisyui';
 import Dendrogram from '../dendrogram/dendrogram';
 import ZoomableSVG from './hooks/zoomable';
-import { useState, useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import useZoom from './hooks/useZoom';
 import ZoomAddIcon from '../icons/zoomAdd';
 import ZoomSubsIcon from '../icons/zoomSubs';
@@ -14,24 +14,12 @@ import { useBurgerMenu } from '../dashboard/hooks';
 
 const Canvas = () => {
   const contextRef = useRef(null);
-  const [key, setKey] = useState(0);
   const { deferredAngle, deferredCurveType, deferredNormalize } =
     useDendrogramForm();
   const { deferredGlobalStyle } = useStyle();
   const { tree, name, width, height } = useSelector(getTree);
   const { handleAddZoomClick, handleSubstractZoomClick } = useZoom();
   const { isOpen } = useBurgerMenu();
-  useEffect(() => {
-    setKey((key) => key + 1);
-  }, [
-    deferredNormalize,
-    deferredCurveType,
-    deferredAngle,
-    name,
-    width,
-    height,
-    deferredGlobalStyle,
-  ]);
 
   return (
     <Card
@@ -64,7 +52,6 @@ const Canvas = () => {
           <ZoomableSVG width={width} height={height}>
             {name && (
               <Dendrogram
-                key={key}
                 data={tree}
                 width={width}
                 height={height}

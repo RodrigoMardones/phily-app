@@ -17,10 +17,13 @@ const fileSlice = createSlice({
             state.name = action.payload.name;
             state.content = action.payload.content;
             state.extension = action.payload.extension;
+        },
+        clearContent: (state) => {
+            state.content = '';
         }
     }
 });
 
 export const getFile = (state) => state.file;
-export const { setFile, RESET } = fileSlice.actions;
+export const { setFile, clearContent, RESET } = fileSlice.actions;
 export default fileSlice.reducer;

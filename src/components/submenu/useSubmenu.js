@@ -1,12 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { getTree, set as setTree } from '../store/tree/slice';
+import { setNodeStyleById, setLabelStyleById, setPathStyleById } from '../store/tree/slice';
 import {
-  modifyEspecificNodeStyle,
   createBaseNodeStyle,
   createBaseLabelStyle,
-  modifyEspecificLabelStyle,
   createBasePathStyle,
-  modifyEspecificPathStyle
 } from '@/lib/TreeData';
 import {
   set as setContextMenu,
@@ -15,10 +12,8 @@ import {
 } from '../store/submenu/slice';
 
 const useSubMenu = () => {
-  const tree = useSelector(getTree);
   const contextMenu = useSelector(getContextMenu);
   const dispatch = useDispatch();
-  const { tree: treeData, ...treeRest } = tree;
   const { component } = contextMenu;
 
   const handleContextMenu = (event, component, index, typeElement) => {
@@ -68,10 +63,7 @@ const useSubMenu = () => {
    */
   const modifyNodeRadius = (event) => {
     const radius = event.target.value;
-    // caso base el estilo no existe
-    let componentStyle = component.data?.nodeStyle;
-
-    let clonedTree = structuredClone(treeData);
+    const componentStyle = component.data?.nodeStyle;
     const overrideStyle = createBaseNodeStyle({
       ...componentStyle,
       radius: Number(radius),
@@ -88,8 +80,7 @@ const useSubMenu = () => {
         },
       })
     );
-    modifyEspecificNodeStyle(clonedTree, overrideStyle, component.data.id);
-    dispatch(setTree({ ...treeRest, tree: clonedTree }));
+    dispatch(setNodeStyleById({ id: component.data.id, nodeStyle: overrideStyle }));
   };
 
   /**
@@ -98,13 +89,11 @@ const useSubMenu = () => {
    */
   const modifyNodeColor = (event) => {
     const color = event.target.value;
-    let componentStyle = component.data.nodeStyle;
-    let clonedTree = structuredClone(treeData);
+    const componentStyle = component.data.nodeStyle;
     const overrideStyle = createBaseNodeStyle({
       ...componentStyle,
       fill: color,
     });
-    modifyEspecificNodeStyle(clonedTree, overrideStyle, component.data.id);
     dispatch(
       setContextMenu({
         ...contextMenu,
@@ -117,7 +106,7 @@ const useSubMenu = () => {
         },
       })
     );
-    dispatch(setTree({ ...treeRest, tree: clonedTree }));
+    dispatch(setNodeStyleById({ id: component.data.id, nodeStyle: overrideStyle }));
   };
 
   /**
@@ -126,13 +115,11 @@ const useSubMenu = () => {
    */
   const modifyLabelSize = (event) => {
     const size = event.target.value;
-    let componentStyle = component.data.labelStyle;
-    let clonedTree = structuredClone(treeData);
+    const componentStyle = component.data.labelStyle;
     const overrideStyle = createBaseLabelStyle({
       ...componentStyle,
       fontSize: Number(size),
     });
-    modifyEspecificLabelStyle(clonedTree, overrideStyle, component.data.id);
     dispatch(
       setContextMenu({
         ...contextMenu,
@@ -145,7 +132,7 @@ const useSubMenu = () => {
         },
       })
     );
-    dispatch(setTree({ ...treeRest, tree: clonedTree }));
+    dispatch(setLabelStyleById({ id: component.data.id, labelStyle: overrideStyle }));
   };
   /**
    * @description modify the color of the label of the node selected
@@ -153,13 +140,11 @@ const useSubMenu = () => {
    */
   const modifyLabelColor = (event) => {
     const color = event.target.value;
-    let componentStyle = component.data.labelStyle;
-    let clonedTree = structuredClone(treeData);
+    const componentStyle = component.data.labelStyle;
     const overrideStyle = createBaseLabelStyle({
       ...componentStyle,
       fill: color,
     });
-    modifyEspecificLabelStyle(clonedTree, overrideStyle, component.data.id);
     dispatch(
       setContextMenu({
         ...contextMenu,
@@ -172,7 +157,7 @@ const useSubMenu = () => {
         },
       })
     );
-    dispatch(setTree({ ...treeRest, tree: clonedTree }));
+    dispatch(setLabelStyleById({ id: component.data.id, labelStyle: overrideStyle }));
   };
 
   /**
@@ -181,13 +166,11 @@ const useSubMenu = () => {
    */
   const modifyColorPath = (event) => {
     const color = event.target.value;
-    let componentStyle = component.data?.pathStyle;
-    let clonedTree = structuredClone(treeData);
+    const componentStyle = component.data?.pathStyle;
     const overrideStyle = createBasePathStyle({
       ...componentStyle,
       stroke: color,
     });
-    modifyEspecificPathStyle(clonedTree, overrideStyle, component.data.id);
     dispatch(
       setContextMenu({
         ...contextMenu,
@@ -200,7 +183,7 @@ const useSubMenu = () => {
         },
       })
     );
-    dispatch(setTree({ ...treeRest, tree: clonedTree }));
+    dispatch(setPathStyleById({ id: component.data.id, pathStyle: overrideStyle }));
   };
 
   /**
@@ -209,13 +192,11 @@ const useSubMenu = () => {
    */
   const modifyWidthPath = (event) => {
     const width = event.target.value;
-    let componentStyle = component.data?.pathStyle;
-    let clonedTree = structuredClone(treeData);
+    const componentStyle = component.data?.pathStyle;
     const overrideStyle = createBasePathStyle({
       ...componentStyle,
       strokeWidth: Number(width),
     });
-    modifyEspecificPathStyle(clonedTree, overrideStyle, component.data.id);
     dispatch(
       setContextMenu({
         ...contextMenu,
@@ -228,7 +209,7 @@ const useSubMenu = () => {
         },
       })
     );
-    dispatch(setTree({ ...treeRest, tree: clonedTree }));
+    dispatch(setPathStyleById({ id: component.data.id, pathStyle: overrideStyle }));
   };
 
   return {

@@ -1,6 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-  createTreeState
+  createTreeState,
+  modifyEspecificNodeStyle,
+  modifyEspecificLabelStyle,
+  modifyEspecificPathStyle,
 } from '@/lib/TreeData';
 
 const initialState = createTreeState({name: ''})
@@ -23,11 +26,23 @@ const treeSlice = createSlice({
     setStyle: (state, action) => {
       state.globalStyles = action.payload.globalStyles;
     },
+    setNodeStyleById: (state, action) => {
+      const { id, nodeStyle } = action.payload;
+      modifyEspecificNodeStyle(state.tree, nodeStyle, id);
+    },
+    setLabelStyleById: (state, action) => {
+      const { id, labelStyle } = action.payload;
+      modifyEspecificLabelStyle(state.tree, labelStyle, id);
+    },
+    setPathStyleById: (state, action) => {
+      const { id, pathStyle } = action.payload;
+      modifyEspecificPathStyle(state.tree, pathStyle, id);
+    },
   },
 });
 
 export const getTree = (state) => state.tree;
 
-export const { set, setStyle, RESET } = treeSlice.actions;
+export const { set, setStyle, setNodeStyleById, setLabelStyleById, setPathStyleById, RESET } = treeSlice.actions;
 
 export default treeSlice.reducer;
