@@ -6,7 +6,7 @@ import { RESET as resetError } from '../../store/error/slice';
 
 export default function useCleanDashboard() {
   const dispatch = useDispatch();
-  const handleCleanClick = useCallback((e) => {
+  const handleCleanClick = useCallback(() => {
     dispatch(resetFile());
     dispatch(resetTree());
     dispatch(resetError());

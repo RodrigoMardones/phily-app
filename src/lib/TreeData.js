@@ -133,7 +133,7 @@ export const parseStringToTree = (inputString) => {
         break;
       case ':': // optional length next
         break;
-      default:
+      default: {
         const previousToken = tokens[i - 1];
         if (
           previousToken === ')' ||
@@ -144,6 +144,7 @@ export const parseStringToTree = (inputString) => {
         } else if (previousToken === ':') {
           currentTree.length = String(token);
         }
+      }
     }
   }
 
