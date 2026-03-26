@@ -22,6 +22,7 @@ const treeSlice = createSlice({
       state.width = action.payload.width;
       state.height = action.payload.height;
       state.globalStyles = action.payload.globalStyles;
+      state.zoom = action.payload.zoom ?? null;
     },
     setStyle: (state, action) => {
       state.globalStyles = action.payload.globalStyles;
@@ -38,11 +39,16 @@ const treeSlice = createSlice({
       const { id, pathStyle } = action.payload;
       modifyEspecificPathStyle(state.tree, pathStyle, id);
     },
+    setZoom: (state, action) => {
+      state.zoom = action.payload;
+    },
   },
 });
 
 export const getTree = (state) => state.tree;
 
-export const { set, setStyle, setNodeStyleById, setLabelStyleById, setPathStyleById, RESET } = treeSlice.actions;
+export const { set, setStyle, setNodeStyleById, setLabelStyleById, setPathStyleById, setZoom, RESET } = treeSlice.actions;
+
+export const getZoom = (state) => state.tree.zoom;
 
 export default treeSlice.reducer;
