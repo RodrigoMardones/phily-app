@@ -1,11 +1,11 @@
 import React from 'react';
 import useSubMenu from './useSubmenu';
+import { useSelector } from 'react-redux';
+import { getTree } from '../store/tree/slice';
 
 const SubMenu = () => {
   const {
-    contextMenu,
-    handleClose,
-    
+    contextMenu,    
     modifyNodeRadius,
     modifyNodeColor,
     modifyLabelSize,
@@ -13,7 +13,16 @@ const SubMenu = () => {
     modifyWidthPath,
     modifyColorPath,
   } = useSubMenu();
+  const { globalStyles } = useSelector(getTree);
   const { pointerX, pointerY, typeElement, toggled, component } = contextMenu;
+  const componentId = component.data?.id;
+
+  const nodeRadius = component.data?.nodeStyle?.radius ?? globalStyles.nodeStyle.radius;
+  const nodeFill = component.data?.nodeStyle?.fill ?? globalStyles.nodeStyle.fill;
+  const labelFontSize = component.data?.labelStyle?.fontSize ?? globalStyles.labelStyle.fontSize;
+  const labelFill = component.data?.labelStyle?.fill ?? globalStyles.labelStyle.fill;
+  const pathStrokeWidth = component.data?.pathStyle?.strokeWidth ?? globalStyles.pathStyle.strokeWidth;
+  const pathStroke = component.data?.pathStyle?.stroke ?? globalStyles.pathStyle.stroke;
   const getTitle = () => {
     switch (typeElement) {
       case 'node':
@@ -44,20 +53,22 @@ const SubMenu = () => {
             <li className="flex items-center space-x-2">
               <label className="text-black text-sm">Radio</label>
               <input
+                key={`node-radius-${componentId}`}
                 type="number"
                 className="w-40 h-8 rounded-md bg-[#FAEECC] p-1 ml-auto"
                 placeholder="10px"
                 min={0}
-                defaultValue={component.data?.nodeStyle?.radius}
+                defaultValue={nodeRadius}
                 onChange={modifyNodeRadius}
               />
             </li>
             <li className="flex items-center space-x-2">
               <label className="text-black text-sm">Color</label>
               <input
+                key={`node-color-${componentId}`}
                 type="color"
                 className="w-40 h-8 rounded-md p-1 ml-auto"
-                defaultValue={component.data?.nodeStyle?.fill}
+                defaultValue={nodeFill}
                 onChange={modifyNodeColor}
               />
             </li>
@@ -68,20 +79,22 @@ const SubMenu = () => {
             <li className="flex items-center space-x-2">
               <label className="text-black text-sm">Tamaño</label>
               <input
+                key={`label-size-${componentId}`}
                 type="number"
                 className="w-40 h-8 rounded-md bg-[#FAEECC] p-1 ml-auto"
                 placeholder="10px"
                 min={0}
-                defaultValue={component.data?.labelStyle?.fontSize}
+                defaultValue={labelFontSize}
                 onChange={modifyLabelSize}
               />
             </li>
             <li className="flex items-center">
               <label className="text-black text-sm">Color</label>
               <input
+                key={`label-color-${componentId}`}
                 type="color"
                 className="w-40 h-8 rounded-md p-1 ml-auto"
-                defaultValue={component.data?.labelStyle?.fill}
+                defaultValue={labelFill}
                 onChange={modifyLabelColor}
               />
             </li>
@@ -92,32 +105,28 @@ const SubMenu = () => {
             <li className="flex items-center space-x-2">
               <label className="text-black text-sm">Tamaño</label>
               <input
+                key={`path-width-${componentId}`}
                 type="number"
                 className="w-40 h-8 rounded-md bg-[#FAEECC] p-1 ml-auto"
                 placeholder="10px"
                 min={0}
-                defaultValue={component.data?.pathStyle?.strokeWidth}
+                defaultValue={pathStrokeWidth}
                 onChange={modifyWidthPath}
               />
             </li>
             <li className="flex items-center space-x-2">
               <label className="text-black text-sm">Color</label>
               <input
+                key={`path-color-${componentId}`}
                 type="color"
                 className="w-40 h-8 rounded-md bg-[#FAEECC] p-1 ml-auto"
-                defaultValue={component.data?.pathStyle?.stroke}
+                defaultValue={pathStroke}
                 onChange={modifyColorPath}
               />
             </li>
           </>
         )}
       </ul>
-      <button
-        className="btn btn-secondary text-white min-h-6 mt-4 px-2 py-1 text-sm"
-        onClick={handleClose}
-      >
-        cerrar
-      </button>
     </div>
   );
 };

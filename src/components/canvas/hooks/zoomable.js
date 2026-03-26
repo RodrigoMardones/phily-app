@@ -11,13 +11,17 @@ export default function ZoomableSVG({ children, width, height }) {
   const { handleClose } = useSubMenu();
 
   useEffect(() => {
+    const svg = select(svgRef.current);
     const zoomed = zoom().on('zoom', (event) => {
       const { x, y, k } = event.transform;
       setX(x);
       setY(y);
       setK(k);
     });
-    select(svgRef.current).call(zoomed);
+    svg.call(zoomed);
+    return () => {
+      svg.on('.zoom', null);
+    };
   }, []);
   return (
     <svg ref={svgRef} width={'100%'} height={'100%'} onClick={handleClose}>

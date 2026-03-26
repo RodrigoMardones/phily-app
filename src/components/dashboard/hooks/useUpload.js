@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { setError } from '../../store/error/slice';
-import { getFile, setFile } from '../../store/file/slice';
+import { getFile, setFile, clearContent } from '../../store/file/slice';
 import { set, getTree } from '../../store/tree/slice';
 import { parseStringToTree, createBaseGlobalStyles } from '@/lib/TreeData';
 import { validateTotalSchema } from '../validators/dendrogramToJson';
@@ -96,6 +96,7 @@ const useUpload = () => {
             tree: treeDoc,
           })
         );
+        dispatch(clearContent());
       }
       if (file.extension == 'nwk') {
         let parsedTree;
@@ -113,6 +114,7 @@ const useUpload = () => {
             globalStyles: createBaseGlobalStyles({}),
           })
         );
+        dispatch(clearContent());
       }
     }
   };
@@ -137,6 +139,7 @@ const useUpload = () => {
           globalStyles: createBaseGlobalStyles({}),
         })
       );
+      dispatch(clearContent());
     } catch (error) {
       handleError('El archivo no tiene el formato correcto');
       return;
@@ -177,6 +180,7 @@ const useUpload = () => {
           tree: treeDoc,
         })
       );
+      dispatch(clearContent());
     } catch (error) {
       handleError(error.message);
       return;
