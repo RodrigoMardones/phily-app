@@ -21,12 +21,14 @@
     "react-daisyui": "^5.0.0",
     "react-dom": "^18",
     "react-redux": "^9.1.2",
-    "react-use": "^17.5.1",
     "swr": "^2.2.5",
     "tailwind-scrollbar": "^3.1.0",
     "tailwindcss": "^3.4.3",
-    "uuid": "^9.0.1",
+    "uuid": "^11.1.1",
     "zod": "^3.23.8"
+  },
+  "overrides": {
+    "postcss": "$postcss"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
