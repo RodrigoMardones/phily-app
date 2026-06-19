@@ -3,6 +3,20 @@ import Store from '@/components/store/store';
 import { Provider } from 'react-redux';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Phily',
+  url: 'https://phily.cl',
+  description:
+    'Phily es un visor y editor web de dendrogramas filogenéticos. Sube un archivo Newick o JSON y explora, personaliza y exporta tu árbol filogenético.',
+  applicationCategory: 'EducationalApplication',
+  operatingSystem: 'Any',
+  inLanguage: 'es',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+};
+
 export default function App({ Component, pageProps }) {
   const router = useRouter();
   const canonical = `https://phily.cl${(router.asPath || '/').split('?')[0]}`;
@@ -34,6 +48,12 @@ export default function App({ Component, pageProps }) {
         />
         <meta property="twitter:image" content="/treeIcon.jpg" />
         <meta property="twitter:card" content="summary" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#498BCA" />
       </Head>
       <Component {...pageProps} />
     </Provider>

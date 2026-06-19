@@ -38,7 +38,7 @@ let nextConfig = {
           contentSecurityPolicy: {
             // if is prod quit the ubsafe-inline and unsafe-eval
             directives: {
-              defaultSrc: ['self'],
+              defaultSrc: ["'self'", isProd ? "https://phily.cl/" : "'unsafe-inline'", isProd ? "https://phily.cl/" : "'unsafe-eval'"],
               styleSrc: isProd ? styleSrc : [...styleSrc ,'localhost:*'],
               connectSrc: isProd ? connectSrc : [...connectSrc ,'localhost:*'],
               scriptSrc: isProd ? scriptSrc : [...scriptSrc, 'localhost:*'],

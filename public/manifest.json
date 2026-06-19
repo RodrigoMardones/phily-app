@@ -1,0 +1,13 @@
+{
+  "name": "Phily — Visor y editor de dendrogramas filogenéticos",
+  "short_name": "Phily",
+  "description": "Visor y editor web de dendrogramas filogenéticos. Sube Newick o JSON y explora, personaliza y exporta tu árbol.",
+  "lang": "es",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffe3",
+  "theme_color": "#498BCA",
+  "icons": [
+    { "src": "/treeIcon.svg", "type": "image/svg+xml", "sizes": "any", "purpose": "any" }
+  ]
+}
