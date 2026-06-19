@@ -37,7 +37,7 @@ const SelectionPanel = () => {
           <input
             id="sel-node-radius"
             type="number"
-            className="input w-full h-8 min-h-8 rounded-md bg-[#FAEECC] text-sm"
+            className="input w-full h-8 min-h-8 rounded-md bg-parchment text-ink font-mono text-sm"
             placeholder="10"
             min={0}
             defaultValue={globalStyles.nodeStyle.radius}
@@ -61,7 +61,7 @@ const SelectionPanel = () => {
           <input
             id="sel-label-size"
             type="number"
-            className="input w-full h-8 min-h-8 rounded-md bg-[#FAEECC] text-sm"
+            className="input w-full h-8 min-h-8 rounded-md bg-parchment text-ink font-mono text-sm"
             placeholder="12"
             min={0}
             defaultValue={globalStyles.labelStyle.fontSize}
@@ -85,7 +85,7 @@ const SelectionPanel = () => {
           <input
             id="sel-path-width"
             type="number"
-            className="input w-full h-8 min-h-8 rounded-md bg-[#FAEECC] text-sm"
+            className="input w-full h-8 min-h-8 rounded-md bg-parchment text-ink font-mono text-sm"
             placeholder="2"
             min={0}
             defaultValue={globalStyles.pathStyle.strokeWidth}

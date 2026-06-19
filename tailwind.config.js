@@ -1,3 +1,5 @@
+const palette = require('./src/styles/palette');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -5,20 +7,42 @@ module.exports = {
     'node_modules/react-daisyui/dist/**/*.js',
     './src/**/*.js',
   ],
+  theme: {
+    extend: {
+      colors: {
+        ink: palette.ink,
+        herbarium: palette.herbarium,
+        lichen: palette.lichen,
+        parchment: palette.parchment,
+        oxide: palette.oxide,
+        signal: palette.signal,
+      },
+      fontFamily: {
+        sans: ['var(--font-sans)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['var(--font-display)', 'ui-serif', 'Georgia', 'serif'],
+        mono: ['var(--font-mono)', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+      },
+    },
+  },
   daisyui: {
     themes: [
       {
         mytheme: {
-          primary: '#498BCA',
-          secondary: '#4CBFB7',
-          accent: '#4CBFB7',
-          neutral: 'FAEECC',
-          'base-100': '#ffffe3',
-          info: '#00a0ff',
-          success: '#87c900',
-          warning: '#cb5200',
-          error: '#DE6F81',
-          'primary-light': '6DA2D4',
+          primary: palette.herbarium,
+          'primary-content': palette.parchment,
+          secondary: palette.signal,
+          'secondary-content': '#ffffff',
+          accent: palette.oxide,
+          'accent-content': '#ffffff',
+          neutral: palette.ink,
+          'neutral-content': palette.parchment,
+          'base-100': palette.parchment,
+          'base-content': palette.ink,
+          info: palette.signal,
+          success: palette.herbarium,
+          warning: palette.oxide,
+          error: '#B23A48',
+          'error-content': '#ffffff',
         },
       },
     ],

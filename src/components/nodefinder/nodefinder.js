@@ -10,7 +10,7 @@ const NodeFinder = ({ disabled }) => {
         <input
           type="text"
           list="node-names-list"
-          className="input w-full h-8 min-h-8 rounded-md bg-[#FAEECC] text-sm"
+          className="input w-full h-8 min-h-8 rounded-md bg-parchment text-ink text-sm"
           placeholder="Buscar nodo..."
           disabled={disabled}
           value={query}

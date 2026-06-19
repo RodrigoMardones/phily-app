@@ -80,7 +80,7 @@ const SubMenu = () => {
                 id="submenu-node-radius"
                 key={`node-radius-${componentId}`}
                 type="number"
-                className="w-40 h-8 rounded-md bg-[#FAEECC] p-1 ml-auto"
+                className="w-40 h-8 rounded-md bg-parchment text-ink font-mono p-1 ml-auto"
                 placeholder="10px"
                 min={0}
                 defaultValue={nodeRadius}
@@ -108,7 +108,7 @@ const SubMenu = () => {
                 id="submenu-label-size"
                 key={`label-size-${componentId}`}
                 type="number"
-                className="w-40 h-8 rounded-md bg-[#FAEECC] p-1 ml-auto"
+                className="w-40 h-8 rounded-md bg-parchment text-ink font-mono p-1 ml-auto"
                 placeholder="10px"
                 min={0}
                 defaultValue={labelFontSize}
@@ -136,7 +136,7 @@ const SubMenu = () => {
                 id="submenu-path-width"
                 key={`path-width-${componentId}`}
                 type="number"
-                className="w-40 h-8 rounded-md bg-[#FAEECC] p-1 ml-auto"
+                className="w-40 h-8 rounded-md bg-parchment text-ink font-mono p-1 ml-auto"
                 placeholder="10px"
                 min={0}
                 defaultValue={pathStrokeWidth}
@@ -149,7 +149,7 @@ const SubMenu = () => {
                 id="submenu-path-color"
                 key={`path-color-${componentId}`}
                 type="color"
-                className="w-40 h-8 rounded-md bg-[#FAEECC] p-1 ml-auto"
+                className="w-40 h-8 rounded-md bg-parchment p-1 ml-auto"
                 defaultValue={pathStroke}
                 onChange={modifyColorPath}
               />

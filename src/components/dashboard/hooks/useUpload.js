@@ -31,6 +31,60 @@ const useUpload = () => {
       fileReader.readAsText(files[0]);
     }
   };
+  // Tubería compartida de carga (valida en el borde con Zod / parser Newick y
+  // despacha al store). La usan tanto el botón "Cargar" como el soltar-archivo
+  // del estado vacío-héroe, para no duplicar la validación (DRY + un solo borde).
+  const loadFileContent = async ({ name, content, extension }) => {
+    if (extension === 'json') {
+      let parsed;
+      try {
+        parsed = JSON.parse(content);
+        await validateTotalSchema(parsed.tree);
+      } catch (error) {
+        handleError(
+          'El archivo JSON no es válido o no cumple el esquema de Phily. Revisa el archivo e inténtalo de nuevo.'
+        );
+        return;
+      }
+      dispatch(
+        set({
+          ...tree,
+          name: parsed.name,
+          globalStyles: parsed.globalStyles,
+          normalize: parsed.normalize,
+          curveType: parsed.curveType,
+          angle: parsed.angle,
+          width: parsed.width,
+          height: parsed.height,
+          tree: parsed.tree,
+          zoom: parsed.zoom,
+        })
+      );
+      dispatch(clearContent());
+    } else if (extension === 'nwk') {
+      let parsedTree;
+      try {
+        parsedTree = parseStringToTree(content);
+      } catch (error) {
+        handleError(
+          'El archivo Newick (.nwk) no tiene un formato válido. Revisa que los paréntesis y las comas estén balanceados.'
+        );
+        return;
+      }
+      dispatch(
+        set({
+          ...tree,
+          tree: parsedTree,
+          name: name,
+          globalStyles: createBaseGlobalStyles({}),
+        })
+      );
+      dispatch(clearContent());
+    } else {
+      handleError('Formato no compatible. Usa un archivo .nwk o .json.');
+    }
+  };
+
   const handleLoadClick = async (e) => {
     /** USECASES */
     /**
@@ -61,68 +115,28 @@ const useUpload = () => {
     /**
      * 3. File loaded first time
      */
-    // validar format antes de cargar completo
-    if (file.name !== tree.name) {
-      if (file.extension == 'json') {
-        // validar schema
-        try {
-          const { tree: treeDoc } = JSON.parse(file.content);
-          await validateTotalSchema(treeDoc);
-        } catch (error) {
-          handleError(
-            'El archivo JSON no es válido o no cumple el esquema de Phily. Revisa el archivo e inténtalo de nuevo.'
-          );
-          return;
-        }
-        const { content } = file;
-        const {
-          name,
-          globalStyles,
-          normalize,
-          curveType,
-          angle,
-          width,
-          height,
-          tree: treeDoc,
-          zoom,
-        } = JSON.parse(content);
-        dispatch(
-          set({
-            ...tree,
-            name: name,
-            globalStyles: globalStyles,
-            normalize: normalize,
-            curveType: curveType,
-            angle: angle,
-            width: width,
-            height: height,
-            tree: treeDoc,
-            zoom: zoom,
-          })
-        );
-        dispatch(clearContent());
-      }
-      if (file.extension == 'nwk') {
-        let parsedTree;
-        try {
-          parsedTree = parseStringToTree(file.content);
-        } catch (error) {
-          handleError(
-            'El archivo Newick (.nwk) no tiene un formato válido. Revisa que los paréntesis y las comas estén balanceados.'
-          );
-          return;
-        }
-        dispatch(
-          set({
-            ...tree,
-            tree: parsedTree,
-            name: file.name,
-            globalStyles: createBaseGlobalStyles({}),
-          })
-        );
-        dispatch(clearContent());
-      }
-    }
+    await loadFileContent({
+      name: file.name,
+      content: file.content,
+      extension: file.extension,
+    });
+  };
+
+  // Soltar archivo en el estado vacío-héroe: lee el archivo y lo carga por la
+  // misma tubería validada (handleFileOnChange + handleLoadClick en un paso).
+  const handleDropFiles = (files) => {
+    if (!files?.length) return;
+    const dropped = files[0];
+    const extension = dropped.name.split('.').pop()?.toLowerCase();
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      loadFileContent({
+        name: dropped.name,
+        content: reader.result,
+        extension,
+      });
+    };
+    reader.readAsText(dropped);
   };
 
   const handleParamLoad = async (dendrogram) => {
@@ -197,6 +211,7 @@ const useUpload = () => {
   return {
     handleFileOnChange,
     handleLoadClick,
+    handleDropFiles,
     handleParamLoad,
     handleJsonParamLoad,
   };

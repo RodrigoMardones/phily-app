@@ -3,6 +3,26 @@ import Store from '@/components/store/store';
 import { Provider } from 'react-redux';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { Fraunces, Public_Sans, IBM_Plex_Mono } from 'next/font/google';
+
+// Self-hosted via next/font (zero CLS, no render-blocking CSS) — resolves A1 + F1.
+// Display = Fraunces (lámina naturalista), body/UI = Public Sans, datos = IBM Plex Mono.
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+});
+const publicSans = Public_Sans({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
+});
+const plexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-mono',
+  display: 'swap',
+});
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -53,9 +73,13 @@ export default function App({ Component, pageProps }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#498BCA" />
+        <meta name="theme-color" content="#3A5A40" />
       </Head>
-      <Component {...pageProps} />
+      <div
+        className={`${fraunces.variable} ${publicSans.variable} ${plexMono.variable} font-sans`}
+      >
+        <Component {...pageProps} />
+      </div>
     </Provider>
   );
 }

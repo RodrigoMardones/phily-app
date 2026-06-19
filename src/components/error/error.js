@@ -14,7 +14,7 @@ const Error = ({ message, open }) => {
         <p className="py-4">{message}</p>
         <div className="modal-action">
           <form method="dialog">
-            <button className="btn bg-secondary">Cerrar</button>
+            <button className="btn btn-secondary text-white">Cerrar</button>
           </form>
         </div>
       </div>
