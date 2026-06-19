@@ -42,11 +42,17 @@ analyze
 # (business, architecture, conventions, verification) and everything in it.
 .handyman/*
 !.handyman/docs/
-
-# Obsidian local cache (vault metadata)
-.obsidian/
-.trash/
 AGENTS.md
 CHECKPOINTS.md
 harness.config.json
 init.sh
+
+# Obsidian local cache (vault metadata)
+.obsidian/
+.trash/
+
+# skills and ia tools
+.agents/
+.github/skills/
+.github/instructions/
+.github/agents/
