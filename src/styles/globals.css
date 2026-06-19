@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Visible keyboard focus ring (WCAG 2.4.7 / 2.4.11). currentColor inherits the
+   element's own text color, already contrast-checked against its background, so
+   the ring stays visible on both the sidebar and the canvas. */
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: 2px;
+}

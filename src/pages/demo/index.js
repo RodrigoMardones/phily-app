@@ -5,6 +5,7 @@ import { useUpload } from '@/components/dashboard/hooks';
 import { useEffect } from 'react';
 import { getFile } from '../../components/store/file/slice';
 import { useSelector } from 'react-redux';
+import Head from 'next/head';
 
 export default function Page() {
   const { handleJsonParamLoad } = useUpload();
@@ -16,15 +17,20 @@ export default function Page() {
     }
   }, [fileName]);
   return (
-    <main>
-      <div
-        className="flex h-screen bg-gray-400"
-        id="app"
-        onContextMenu={(e) => e.preventDefault()}
-      >
-        <Dashboard />
-        <Canvas />
-      </div>
-    </main>
+    <>
+      <Head>
+        <title>Demo — Phily | Dendrograma filogenético interactivo</title>
+      </Head>
+      <main>
+        <div
+          className="flex h-screen bg-gray-400"
+          id="app"
+          onContextMenu={(e) => e.preventDefault()}
+        >
+          <Dashboard />
+          <Canvas />
+        </div>
+      </main>
+    </>
   );
 }
