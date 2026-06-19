@@ -56,3 +56,5 @@ init.sh
 .github/skills/
 .github/instructions/
 .github/agents/
+# unlighthouse
+.unlighthouse/

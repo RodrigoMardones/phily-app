@@ -33,6 +33,8 @@ const Canvas = () => {
         <button
           className=" bg-transparent absolute top-0 right-0 m-2"
           id='zoomIn'
+          type="button"
+          aria-label="Acercar"
           onClick={handleAddZoomClick}
           disabled={!name}
         >
@@ -41,6 +43,8 @@ const Canvas = () => {
         <button
           className=" bg-transparent absolute top-6 right-0 m-2"
           id='zoomOut'
+          type="button"
+          aria-label="Alejar"
           onClick={handleSubstractZoomClick}
           disabled={!name}
         >

@@ -69,7 +69,9 @@ const useUpload = () => {
           const { tree: treeDoc } = JSON.parse(file.content);
           await validateTotalSchema(treeDoc);
         } catch (error) {
-          handleError('El archivo no tiene el formato correcto');
+          handleError(
+            'El archivo JSON no es válido o no cumple el esquema de Phily. Revisa el archivo e inténtalo de nuevo.'
+          );
           return;
         }
         const { content } = file;
@@ -105,7 +107,9 @@ const useUpload = () => {
         try {
           parsedTree = parseStringToTree(file.content);
         } catch (error) {
-          handleError('El archivo no tiene el formato correcto');
+          handleError(
+            'El archivo Newick (.nwk) no tiene un formato válido. Revisa que los paréntesis y las comas estén balanceados.'
+          );
           return;
         }
         dispatch(
@@ -143,7 +147,9 @@ const useUpload = () => {
       );
       dispatch(clearContent());
     } catch (error) {
-      handleError('El archivo no tiene el formato correcto');
+      handleError(
+        'El archivo Newick (.nwk) no tiene un formato válido. Revisa que los paréntesis y las comas estén balanceados.'
+      );
       return;
     }
   };

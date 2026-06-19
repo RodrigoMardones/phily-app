@@ -2,6 +2,7 @@ import { useCallback, useMemo } from 'react';
 import { dendrogramGenerator, drawCurve, transformSVG } from './utils';
 import { hierarchy, ascending } from 'd3';
 import useSubMenu from '../submenu/useSubmenu';
+import usePrefersReducedMotion from './hooks/usePrefersReducedMotion';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSelectedIds, toggleId, addIds } from '../store/selection/slice';
 import { getHighlightedNodeName } from '../store/dashboard/slice';
@@ -20,6 +21,7 @@ const Dendrogram = ({
   const selectedSet = useMemo(() => new Set(selectedIds), [selectedIds]);
   const highlightedNodeName = useSelector(getHighlightedNodeName);
   const dispatch = useDispatch();
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   const radius = useMemo(() => {
     return Math.min(width, height) / 2;
@@ -113,8 +115,12 @@ const Dendrogram = ({
             )}
             {isHighlighted && (
               <circle cx={0} cy={0} r={radius + 10} fill="none" stroke="#E6A817" strokeWidth={2.5}>
-                <animate attributeName="r" from={radius + 8} to={radius + 14} dur="1s" repeatCount="indefinite" />
-                <animate attributeName="opacity" from="1" to="0.3" dur="1s" repeatCount="indefinite" />
+                {!prefersReducedMotion && (
+                  <>
+                    <animate attributeName="r" from={radius + 8} to={radius + 14} dur="1s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" from="1" to="0.3" dur="1s" repeatCount="indefinite" />
+                  </>
+                )}
               </circle>
             )}
             <circle
@@ -154,8 +160,12 @@ const Dendrogram = ({
           )}
           {isHighlighted && (
             <circle cx={y} cy={x} r={radius + 10} fill="none" stroke="#E6A817" strokeWidth={2.5}>
-              <animate attributeName="r" from={radius + 8} to={radius + 14} dur="1s" repeatCount="indefinite" />
-              <animate attributeName="opacity" from="1" to="0.3" dur="1s" repeatCount="indefinite" />
+              {!prefersReducedMotion && (
+                <>
+                  <animate attributeName="r" from={radius + 8} to={radius + 14} dur="1s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" from="1" to="0.3" dur="1s" repeatCount="indefinite" />
+                </>
+              )}
             </circle>
           )}
           <circle
@@ -188,6 +198,7 @@ const Dendrogram = ({
       curveType,
       selectedSet,
       highlightedNodeName,
+      prefersReducedMotion,
       globalNodeRadius,
       globalNodeStroke,
       globalNodeFill,

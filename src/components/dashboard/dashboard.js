@@ -66,7 +66,12 @@ export default function Dashboard() {
     return (
       <>
         <Card className="bg-primary w-20 p-4 rounded-none border-none overflow-y-auto scrollbar scrollbar-none ml-1/5">
-          <button onClick={handleOpen} id="deleteFile">
+          <button
+            onClick={handleOpen}
+            id="deleteFile"
+            type="button"
+            aria-label="Expandir panel"
+          >
             <Image
               src="/treeIcon.svg"
               width={86}
@@ -90,7 +95,11 @@ export default function Dashboard() {
         {message && <Error message={message} open={open} />}
         <div className="grid grid-cols-1">
           <div className="flex flex-row items-center">
-            <button onClick={handleOpen}>
+            <button
+              onClick={handleOpen}
+              type="button"
+              aria-label="Contraer panel"
+            >
               <Image
                 src="/treeIcon.svg"
                 width={86}
@@ -108,7 +117,7 @@ export default function Dashboard() {
            */}
           <div className="flex flex-col mt-5">
             <Card.Title className="text-white items-end text-md">
-              Generar Árbol
+              Generar árbol
             </Card.Title>
             <form>
               <div>
@@ -139,13 +148,13 @@ export default function Dashboard() {
                 onClick={handleLoadClick}
                 disabled={!fileName}
               >
-                cargar
+                Cargar
               </Button>
             </form>
           </div>
           <div className="flex flex-col mt-6 mb-6">
             <Card.Title className="text-white items-end text-md">
-              Buscar Nodo
+              Buscar nodo
             </Card.Title>
             <NodeFinder disabled={!fileName} />
           </div>
@@ -167,7 +176,7 @@ export default function Dashboard() {
                   disabled={!fileName}
                   onClick={handleStepChange}
                 >
-                  escalon
+                  Escalón
                 </button>
                 <button
                   className={`btn h-8 min-h-8 min-w-24 border-none text-white rounded-md ${deferredCurveType === 'curve' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
@@ -175,7 +184,7 @@ export default function Dashboard() {
                   disabled={!fileName}
                   onClick={handleStepChange}
                 >
-                  suave
+                  Suave
                 </button>
                 <button
                   className={`btn h-8 min-h-8 min-w-24 border-none text-white rounded-md ${deferredCurveType === 'slanted' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
@@ -183,7 +192,7 @@ export default function Dashboard() {
                   disabled={!fileName}
                   onClick={handleStepChange}
                 >
-                  inclinado
+                  Inclinado
                 </button>
               </div>
             </div>
@@ -197,7 +206,7 @@ export default function Dashboard() {
                 disabled={!fileName}
                 onClick={handleStepChange}
               >
-                circular
+                Circular
               </button>
               <button
                 className={`btn h-8 min-h-8 min-w-36 border-none text-white rounded-md ${curveType === 'circular-step' ? 'bg-[#38638B]' : 'bg-[#6DA2D4]'}`}
@@ -205,7 +214,7 @@ export default function Dashboard() {
                 disabled={!fileName}
                 onClick={handleStepChange}
               >
-                circular escalonado
+                Circular escalonado
               </button>
             </div>
             <label className="cursor-pointer label mt-2 ">
@@ -250,9 +259,10 @@ export default function Dashboard() {
               </Card.Title>
               <div className="flex justify-evenly md:flex-row sm:flex-col ">
                 <div className="md:flex-row sm:flex-col relative">
-                  <label className="label text-white text-sm"> ancho</label>
+                  <label className="label text-white text-sm" htmlFor="path-width">Ancho</label>
 
                   <input
+                    id="path-width"
                     type="number"
                     className="input w-40 h-6 min-h-6 rounded-md mr-2 bg-[#FAEECC]"
                     placeholder="48px"
@@ -262,8 +272,9 @@ export default function Dashboard() {
                   />
                 </div>
                 <div className="md:flex-row sm:flex-col">
-                  <label className="label text-white text-sm">color</label>
+                  <label className="label text-white text-sm" htmlFor="path-color">Color</label>
                   <input
+                    id="path-color"
                     type="color"
                     className="input  w-40 h-6 min-h-6 rounded-md"
                     disabled={!fileName}
@@ -277,8 +288,9 @@ export default function Dashboard() {
               </Card.Title>
               <div className="flex justify-evenly md:flex-row sm:flex-col ">
                 <div className="md:flex-row sm:flex-col">
-                  <label className="label text-white text-sm">radio</label>
+                  <label className="label text-white text-sm" htmlFor="node-radius">Radio</label>
                   <input
+                    id="node-radius"
                     type="number"
                     className="input w-40 h-6 min-h-6 rounded-md mr-2 bg-[#FAEECC]"
                     placeholder="10px"
@@ -289,8 +301,9 @@ export default function Dashboard() {
                   />
                 </div>
                 <div className="md:flex-row sm:flex-col">
-                  <label className="label text-white text-sm">color</label>
+                  <label className="label text-white text-sm" htmlFor="node-color">Color</label>
                   <input
+                    id="node-color"
                     type="color"
                     className="input  w-40 h-6 min-h-6 rounded-md"
                     disabled={!fileName}
@@ -304,8 +317,9 @@ export default function Dashboard() {
               </Card.Title>
               <div className="flex justify-evenly md:flex-row sm:flex-col ">
                 <div className="md:flex-row sm:flex-col">
-                  <label className="label text-white text-sm">tamaño</label>
+                  <label className="label text-white text-sm" htmlFor="label-size">Tamaño</label>
                   <input
+                    id="label-size"
                     type="number"
                     className="input w-40 h-6 min-h-6 rounded-md mr-2 bg-[#FAEECC]"
                     placeholder="48px"
@@ -316,8 +330,9 @@ export default function Dashboard() {
                   />
                 </div>
                 <div className="md:flex-row sm:flex-col">
-                  <label className="label text-white text-sm">color</label>
+                  <label className="label text-white text-sm" htmlFor="label-color">Color</label>
                   <input
+                    id="label-color"
                     type="color"
                     className="input  w-40 h-6 min-h-6 rounded-md"
                     disabled={!fileName}
@@ -337,6 +352,7 @@ export default function Dashboard() {
               <div className="flex justify-evenly md:flex-row sm:flex-col mt-2">
                 <select
                   className="select select-bordered select-primary w-48 h-8 min-h-8 rounded-md bg-[#FAEECC]"
+                  aria-label="Formato de exportación"
                   defaultValue={download}
                   onChange={handleChangeSelectDownload}
                   disabled={!fileName}
@@ -353,7 +369,7 @@ export default function Dashboard() {
                   disabled={!fileName}
                 >
                   {' '}
-                  descargar <DownloadIcon className={'invert'} />
+                  Descargar <DownloadIcon className={'invert'} />
                 </button>
               </div>
             </div>
