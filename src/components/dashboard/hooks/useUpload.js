@@ -122,14 +122,23 @@ const useUpload = () => {
     });
   };
 
-  // Soltar archivo en el estado vacío-héroe: lee el archivo y lo carga por la
-  // misma tubería validada (handleFileOnChange + handleLoadClick en un paso).
+  // Soltar archivo en el estado vacío-héroe: lee el archivo, lo registra en el
+  // store de archivo (igual que handleFileOnChange, para que `file.name` habilite
+  // el panel lateral —Dashboard usa disabled={!fileName}—) y lo carga por la
+  // misma tubería validada.
   const handleDropFiles = (files) => {
     if (!files?.length) return;
     const dropped = files[0];
     const extension = dropped.name.split('.').pop()?.toLowerCase();
     const reader = new FileReader();
     reader.onloadend = () => {
+      dispatch(
+        setFile({
+          name: dropped.name,
+          content: reader.result,
+          extension,
+        })
+      );
       loadFileContent({
         name: dropped.name,
         content: reader.result,

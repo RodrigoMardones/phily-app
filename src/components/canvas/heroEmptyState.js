@@ -121,7 +121,7 @@ const HeroEmptyState = () => {
       <div className="flex max-w-md flex-col items-center text-center text-herbarium">
         <TreeOfLifeMotif />
         <h2 className="font-display text-2xl text-ink">
-          El árbol de la vida, en tu navegador
+          Bienvenido a Phily !
         </h2>
         <p className="mt-2 text-sm text-ink/70">
           Sube un archivo Newick (.nwk) o JSON para visualizar y editar tu
