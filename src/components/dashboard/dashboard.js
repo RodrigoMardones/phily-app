@@ -13,7 +13,6 @@ import Footer from '../footer/footer';
 import NodeFinder from '../nodefinder/nodefinder';
 import SelectionPanel from '../selection/selection';
 import BranchGlyph from '../icons/branchGlyph';
-import {} from '@uiw/react-color';
 import {
   useUpload,
   useDownload,
