@@ -14,10 +14,10 @@
  */
 const palette = {
   ink: '#1B2A27', // texto y estructura principal
-  herbarium: '#3A5A40', // primario (verde vivo, vegetal)
-  lichen: '#9DB17C', // secundario / apoyo
+  herbarium: '#498bca', // color de marca / identidad visual
+  lichen: '#6DA2D4', // secundario / apoyo
   parchment: '#F3EFE4', // "papel" del lienzo y vacíos
-  oxide: '#B5651D', // acento cálido (selección / resaltado)
+  oxide: '#B5651D', //  acento cálido / contraste con el azul
   signal: '#2D6A9F', // foco / estado interactivo accesible
 };
 
