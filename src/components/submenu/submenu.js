@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getTree } from '../store/tree/slice';
 import { addIds } from '../store/selection/slice';
 import { collectSubtreeIds } from '@/lib/TreeData';
+import ColorField from '../common/colorField';
 
 const SubMenu = () => {
   const {
@@ -89,11 +90,12 @@ const SubMenu = () => {
             </li>
             <li className="flex items-center space-x-2">
               <label className="text-black text-sm" htmlFor="submenu-node-color">Color</label>
-              <input
+              <ColorField
                 id="submenu-node-color"
                 key={`node-color-${componentId}`}
-                type="color"
-                className="w-40 h-8 rounded-md p-1 ml-auto"
+                label="Color de nodo"
+                className="ml-auto"
+                swatchClassName="w-40 h-8 rounded-md"
                 defaultValue={nodeFill}
                 onChange={modifyNodeColor}
               />
@@ -117,11 +119,12 @@ const SubMenu = () => {
             </li>
             <li className="flex items-center">
               <label className="text-black text-sm" htmlFor="submenu-label-color">Color</label>
-              <input
+              <ColorField
                 id="submenu-label-color"
                 key={`label-color-${componentId}`}
-                type="color"
-                className="w-40 h-8 rounded-md p-1 ml-auto"
+                label="Color de etiqueta"
+                className="ml-auto"
+                swatchClassName="w-40 h-8 rounded-md"
                 defaultValue={labelFill}
                 onChange={modifyLabelColor}
               />
@@ -145,11 +148,12 @@ const SubMenu = () => {
             </li>
             <li className="flex items-center space-x-2">
               <label className="text-black text-sm" htmlFor="submenu-path-color">Color</label>
-              <input
+              <ColorField
                 id="submenu-path-color"
                 key={`path-color-${componentId}`}
-                type="color"
-                className="w-40 h-8 rounded-md bg-parchment p-1 ml-auto"
+                label="Color de enlace"
+                className="ml-auto"
+                swatchClassName="w-40 h-8 rounded-md"
                 defaultValue={pathStroke}
                 onChange={modifyColorPath}
               />

@@ -13,6 +13,7 @@ import Footer from '../footer/footer';
 import NodeFinder from '../nodefinder/nodefinder';
 import SelectionPanel from '../selection/selection';
 import BranchGlyph from '../icons/branchGlyph';
+import ColorField from '../common/colorField';
 import {
   useUpload,
   useDownload,
@@ -309,10 +310,10 @@ export default function Dashboard() {
                 </div>
                 <div className="md:flex-row sm:flex-col">
                   <label className="label text-white text-sm" htmlFor="path-color">Color</label>
-                  <input
+                  <ColorField
                     id="path-color"
-                    type="color"
-                    className="input  w-40 h-6 min-h-6 rounded-md"
+                    label="Color de enlace"
+                    swatchClassName="w-40 h-6 min-h-6 rounded-md"
                     disabled={!fileName}
                     value={pathColor}
                     onChange={pathColorChange}
@@ -338,10 +339,10 @@ export default function Dashboard() {
                 </div>
                 <div className="md:flex-row sm:flex-col">
                   <label className="label text-white text-sm" htmlFor="node-color">Color</label>
-                  <input
+                  <ColorField
                     id="node-color"
-                    type="color"
-                    className="input  w-40 h-6 min-h-6 rounded-md"
+                    label="Color de nodo"
+                    swatchClassName="w-40 h-6 min-h-6 rounded-md"
                     disabled={!fileName}
                     value={nodeColor}
                     onChange={nodeColorChange}
@@ -367,10 +368,10 @@ export default function Dashboard() {
                 </div>
                 <div className="md:flex-row sm:flex-col">
                   <label className="label text-white text-sm" htmlFor="label-color">Color</label>
-                  <input
+                  <ColorField
                     id="label-color"
-                    type="color"
-                    className="input  w-40 h-6 min-h-6 rounded-md"
+                    label="Color de etiqueta"
+                    swatchClassName="w-40 h-6 min-h-6 rounded-md"
                     disabled={!fileName}
                     value={labelColor}
                     onChange={labelColorChange}

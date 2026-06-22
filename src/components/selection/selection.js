@@ -1,5 +1,6 @@
 import useSelectionEdit from './hooks/useSelectionEdit';
 import { Card } from 'react-daisyui';
+import ColorField from '../common/colorField';
 
 const SelectionPanel = () => {
   const {
@@ -44,10 +45,10 @@ const SelectionPanel = () => {
             onChange={modifyNodeRadius}
           />
           <label className="text-white text-xs w-12" htmlFor="sel-node-color">Color</label>
-          <input
+          <ColorField
             id="sel-node-color"
-            type="color"
-            className="h-8 w-16 min-h-8 rounded-md"
+            label="Color de nodo"
+            swatchClassName="h-8 w-16 min-h-8 rounded-md"
             defaultValue={globalStyles.nodeStyle.fill}
             onChange={modifyNodeColor}
           />
@@ -68,10 +69,10 @@ const SelectionPanel = () => {
             onChange={modifyLabelSize}
           />
           <label className="text-white text-xs w-12" htmlFor="sel-label-color">Color</label>
-          <input
+          <ColorField
             id="sel-label-color"
-            type="color"
-            className="h-8 w-16 min-h-8 rounded-md"
+            label="Color de etiqueta"
+            swatchClassName="h-8 w-16 min-h-8 rounded-md"
             defaultValue={globalStyles.labelStyle.fill}
             onChange={modifyLabelColor}
           />
@@ -92,10 +93,10 @@ const SelectionPanel = () => {
             onChange={modifyPathWidth}
           />
           <label className="text-white text-xs w-12" htmlFor="sel-path-color">Color</label>
-          <input
+          <ColorField
             id="sel-path-color"
-            type="color"
-            className="h-8 w-16 min-h-8 rounded-md"
+            label="Color de enlace"
+            swatchClassName="h-8 w-16 min-h-8 rounded-md"
             defaultValue={globalStyles.pathStyle.stroke}
             onChange={modifyPathColor}
           />
