@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Sketch } from '@uiw/react-color';
 
@@ -71,10 +71,6 @@ export default function ColorField({
     setPosition({ top, left });
   }, []);
 
-  useLayoutEffect(() => {
-    if (open) updatePosition();
-  }, [open, updatePosition]);
-
   useEffect(() => {
     if (!open) return undefined;
     const handlePointer = (event) => {
@@ -105,6 +101,13 @@ export default function ColorField({
     onChange?.({ target: { value: color.hex }, preventDefault() {} });
   };
 
+  const handleToggle = () => {
+    // Calcula la posición antes de abrir para que el portal pinte ya ubicado
+    // (evita useLayoutEffect, que advierte bajo SSR).
+    if (!open) updatePosition();
+    setOpen((prev) => !prev);
+  };
+
   return (
     <span className={`inline-block ${className}`}>
       <button
@@ -115,7 +118,7 @@ export default function ColorField({
         aria-haspopup="dialog"
         aria-expanded={open}
         title={`${label ?? 'Color'}: ${current}`}
-        onClick={() => setOpen((prev) => !prev)}
+        onClick={handleToggle}
         className={`border border-black/20 disabled:cursor-not-allowed disabled:opacity-50 ${swatchClassName}`}
         style={{ backgroundColor: current }}
       />

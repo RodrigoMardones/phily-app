@@ -11,6 +11,19 @@
   border-radius: 2px;
 }
 
+/* Oculta los controles de incremento (spinners) de los campos numéricos para
+   forzar edición solo manual. Cubre WebKit/Blink (Chrome, Safari, Edge) y
+   Firefox. */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
 /* Firma "árbol de la vida" del estado vacío-héroe (§6): un único momento
    orquestado en el que las ramas "crecen". Los trazos usan pathLength="1", así
    que dasharray/dashoffset de 1 equivale al largo completo del trazo. El motivo
