@@ -2,10 +2,12 @@ import { useCallback, useMemo } from 'react';
 import { dendrogramGenerator, drawCurve, transformSVG } from './utils';
 import { hierarchy, ascending } from 'd3';
 import useSubMenu from '../submenu/useSubmenu';
+import usePrefersReducedMotion from './hooks/usePrefersReducedMotion';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSelectedIds, toggleId, addIds } from '../store/selection/slice';
 import { getHighlightedNodeName } from '../store/dashboard/slice';
 import { collectSubtreeIds } from '@/lib/TreeData';
+import palette from '@/styles/palette';
 const Dendrogram = ({
   data,
   width,
@@ -20,6 +22,7 @@ const Dendrogram = ({
   const selectedSet = useMemo(() => new Set(selectedIds), [selectedIds]);
   const highlightedNodeName = useSelector(getHighlightedNodeName);
   const dispatch = useDispatch();
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   const radius = useMemo(() => {
     return Math.min(width, height) / 2;
@@ -109,12 +112,16 @@ const Dendrogram = ({
             transform={`rotate(${x - 90})translate(${y})`}
           >
             {isSelected && (
-              <circle cx={0} cy={0} r={radius + 6} fill="none" stroke="#498BCA" strokeWidth={3} strokeDasharray="4 2" />
+              <circle cx={0} cy={0} r={radius + 6} fill="none" stroke={palette.signal} strokeWidth={3} strokeDasharray="4 2" />
             )}
             {isHighlighted && (
-              <circle cx={0} cy={0} r={radius + 10} fill="none" stroke="#E6A817" strokeWidth={2.5}>
-                <animate attributeName="r" from={radius + 8} to={radius + 14} dur="1s" repeatCount="indefinite" />
-                <animate attributeName="opacity" from="1" to="0.3" dur="1s" repeatCount="indefinite" />
+              <circle cx={0} cy={0} r={radius + 10} fill="none" stroke={palette.oxide} strokeWidth={2.5}>
+                {!prefersReducedMotion && (
+                  <>
+                    <animate attributeName="r" from={radius + 8} to={radius + 14} dur="1s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" from="1" to="0.3" dur="1s" repeatCount="indefinite" />
+                  </>
+                )}
               </circle>
             )}
             <circle
@@ -150,12 +157,16 @@ const Dendrogram = ({
       return (
         <g key={`node-${nodeIndex}`}>
           {isSelected && (
-            <circle cx={y} cy={x} r={radius + 6} fill="none" stroke="#498BCA" strokeWidth={3} strokeDasharray="4 2" />
+            <circle cx={y} cy={x} r={radius + 6} fill="none" stroke={palette.signal} strokeWidth={3} strokeDasharray="4 2" />
           )}
           {isHighlighted && (
-            <circle cx={y} cy={x} r={radius + 10} fill="none" stroke="#E6A817" strokeWidth={2.5}>
-              <animate attributeName="r" from={radius + 8} to={radius + 14} dur="1s" repeatCount="indefinite" />
-              <animate attributeName="opacity" from="1" to="0.3" dur="1s" repeatCount="indefinite" />
+            <circle cx={y} cy={x} r={radius + 10} fill="none" stroke={palette.oxide} strokeWidth={2.5}>
+              {!prefersReducedMotion && (
+                <>
+                  <animate attributeName="r" from={radius + 8} to={radius + 14} dur="1s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" from="1" to="0.3" dur="1s" repeatCount="indefinite" />
+                </>
+              )}
             </circle>
           )}
           <circle
@@ -188,6 +199,7 @@ const Dendrogram = ({
       curveType,
       selectedSet,
       highlightedNodeName,
+      prefersReducedMotion,
       globalNodeRadius,
       globalNodeStroke,
       globalNodeFill,

@@ -4,6 +4,7 @@ import Dashboard from '../../components/dashboard/dashboard';
 import { useSearchParams } from 'next/navigation';
 import useUpload from '../../components/dashboard/hooks/useUpload';
 import { useEffect } from 'react';
+import Head from 'next/head';
 
 export default function Page() {
   const searchParams = useSearchParams();
@@ -15,13 +16,18 @@ export default function Page() {
     handleParamLoad(tree);
   }, [compressedTree, handleParamLoad]);
   return (
-    <div
-      className="flex h-screen bg-gray-400"
-      id="app"
-      onContextMenu={(e) => e.preventDefault()}
-    >
-      <Dashboard/>
-      <Canvas />
-    </div>
+    <>
+      <Head>
+        <title>Dendrograma — Phily | Visor filogenético</title>
+      </Head>
+      <div
+        className="flex h-screen bg-gray-400"
+        id="app"
+        onContextMenu={(e) => e.preventDefault()}
+      >
+        <Dashboard/>
+        <Canvas />
+      </div>
+    </>
   );
 }

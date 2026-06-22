@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import useUpload from '../../../components/dashboard/hooks/useUpload';
 import { useEffect } from 'react';
 import useSWR from 'swr';
+import Head from 'next/head';
 
 const fetcher = (url) =>
   fetch(url)
@@ -29,13 +30,18 @@ export default function Page() {
     }
   }, [data, error, isLoading]);
   return (
-    <div
-      className="flex h-screen bg-gray-400"
-      id="app"
-      onContextMenu={(e) => e.preventDefault()}
-    >
-      <Dashboard />
-      <Canvas />
-    </div>
+    <>
+      <Head>
+        <title>Dendrograma JSON — Phily | Visor filogenético</title>
+      </Head>
+      <div
+        className="flex h-screen bg-gray-400"
+        id="app"
+        onContextMenu={(e) => e.preventDefault()}
+      >
+        <Dashboard />
+        <Canvas />
+      </div>
+    </>
   );
 }

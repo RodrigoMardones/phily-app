@@ -35,3 +35,26 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 analyze
+
+# Handyman local harness: keep the repo abstract from the work history.
+# Ignore the operational harness state (feature_list.json, progress/, backlog/,
+# index.md, Obsidian cache) but VERSION the conceptual docs layer
+# (business, architecture, conventions, verification) and everything in it.
+.handyman/*
+!.handyman/docs/
+AGENTS.md
+CHECKPOINTS.md
+harness.config.json
+init.sh
+
+# Obsidian local cache (vault metadata)
+.obsidian/
+.trash/
+
+# skills and ia tools
+.agents/
+.github/skills/
+.github/instructions/
+.github/agents/
+# unlighthouse
+.unlighthouse/

@@ -6,9 +6,11 @@ export default function useDendrogramForm() {
   const dispatch = useDispatch();
   const tree = useSelector(getTree);
   const { curveType, normalize, angle } = tree;
-  const deferredAngle = useDeferredValue(angle, { timeoutMs: 100000 });
-  const deferredCurveType = useDeferredValue(curveType, { timeoutMs: 1000 });
-  const deferredNormalize = useDeferredValue(normalize, { timeoutMs: 1000 });
+  // useDeferredValue takes a single argument in React 18; the prior
+  // { timeoutMs } option does not exist in the stable API and was ignored.
+  const deferredAngle = useDeferredValue(angle);
+  const deferredCurveType = useDeferredValue(curveType);
+  const deferredNormalize = useDeferredValue(normalize);
 
   const handleCurveChange = useCallback((name) => {
     dispatch(setTree({ ...tree, curveType: name }));

@@ -1,3 +1,55 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Visible keyboard focus ring (WCAG 2.4.7 / 2.4.11). currentColor inherits the
+   element's own text color, already contrast-checked against its background, so
+   the ring stays visible on both the sidebar and the canvas. */
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Oculta los controles de incremento (spinners) de los campos numéricos para
+   forzar edición solo manual. Cubre WebKit/Blink (Chrome, Safari, Edge) y
+   Firefox. */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* Firma "árbol de la vida" del estado vacío-héroe (§6): un único momento
+   orquestado en el que las ramas "crecen". Los trazos usan pathLength="1", así
+   que dasharray/dashoffset de 1 equivale al largo completo del trazo. El motivo
+   queda totalmente dibujado por defecto; solo se anima cuando el usuario no pide
+   movimiento reducido (WCAG 2.3.3). */
+@media (prefers-reduced-motion: no-preference) {
+  .branch-draw .branch-draw-path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: phily-branch-grow 1.4s ease-out forwards;
+  }
+  .branch-draw .branch-draw-leaf {
+    opacity: 0;
+    animation: phily-branch-leaf 0.4s ease-out forwards;
+    animation-delay: 1.2s;
+  }
+}
+
+@keyframes phily-branch-grow {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes phily-branch-leaf {
+  to {
+    opacity: 1;
+  }
+}

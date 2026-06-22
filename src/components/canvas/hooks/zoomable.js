@@ -7,6 +7,7 @@ import { getFindNodeName, clearFindNodeName, setHighlightedNodeName, clearHighli
 import { getZoom, setZoom } from '../../store/tree/slice';
 import { clearSelection } from '../../store/selection/slice';
 import useRubberBand from './useRubberBand';
+import palette from '@/styles/palette';
 
 export default function ZoomableSVG({ children, width, height, treeName }) {
   const svgRef = useRef();
@@ -116,8 +117,9 @@ export default function ZoomableSVG({ children, width, height, treeName }) {
           y={rubberBandRect.y}
           width={rubberBandRect.width}
           height={rubberBandRect.height}
-          fill="rgba(73, 139, 202, 0.15)"
-          stroke="#498BCA"
+          fill={palette.signal}
+          fillOpacity={0.15}
+          stroke={palette.signal}
           strokeWidth={1}
           strokeDasharray="4 2"
           pointerEvents="none"
