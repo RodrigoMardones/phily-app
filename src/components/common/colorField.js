@@ -129,6 +129,7 @@ export default function ColorField({
             ref={popoverRef}
             role="dialog"
             aria-label={label ?? 'Selector de color'}
+            data-color-popover=""
             style={{ position: 'fixed', top: position.top, left: position.left, zIndex: 1000 }}
           >
             <Sketch

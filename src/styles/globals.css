@@ -53,3 +53,24 @@ input[type='number'] {
     opacity: 1;
   }
 }
+
+/* Aparición suave del menú de contexto: una microanimación de escala/opacidad
+   que se reproduce cada vez que el menú pasa de oculto a visible. Respeta la
+   preferencia de movimiento reducido (WCAG 2.3.3). */
+@media (prefers-reduced-motion: no-preference) {
+  .context-menu-pop {
+    transform-origin: top left;
+    animation: phily-context-pop 0.14s ease-out;
+  }
+}
+
+@keyframes phily-context-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
