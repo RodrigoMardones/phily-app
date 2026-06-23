@@ -52,7 +52,7 @@ const Canvas = () => {
           <ZoomSubsIcon />
         </button>
 
-        <div className="item h-full w-full" ref={contextRef} id="canvas">
+        <div className="item relative h-full w-full" ref={contextRef} id="canvas">
           <SubMenu />
           {name ? (
             <ZoomableSVG width={width} height={height} treeName={name}>

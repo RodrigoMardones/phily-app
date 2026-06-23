@@ -18,32 +18,41 @@ const useSubMenu = () => {
 
   const handleContextMenu = (event, component, index, typeElement) => {
     event.preventDefault();
-    const element = document.getElementById(`${typeElement}-${index}`);
     const contextMenu = document.getElementById('contextMenuObject');
     const canvas = document.getElementById('canvas');
-    const sizeCanvas = canvas.getBoundingClientRect();
-    const elementSize = element.getBoundingClientRect();
-    const contextMenuSize = contextMenu.getBoundingClientRect();
-    // se deja un offsetRelativo al tamaño creado
-    const realXMouse = event.pageX;
-    const realYmouse = event.pageY;
-    const offsetX = contextMenuSize.width ? contextMenuSize.width - 5 : 145;
-    const offsetY = contextMenuSize.height ? contextMenuSize.height - 5 : 100;
-    const isRight = elementSize.left - sizeCanvas.x > sizeCanvas.width / 2;
-    const isBottom = elementSize.y + sizeCanvas.y > sizeCanvas.height / 2;
-    
-    // posiciones a guardar para el menu de contexto
-    let newPositionX = isRight
-      ? realXMouse - sizeCanvas.x - offsetX
-      : realXMouse - sizeCanvas.x;
-    let newPositionY = isBottom
-      ? realYmouse + sizeCanvas.y - offsetY
-      : realYmouse + sizeCanvas.y;
-    
-      
+    if (!canvas) return;
+
+    // El menú está posicionado de forma absoluta dentro de `#canvas`
+    // (su offset parent), así que trabajamos en coordenadas relativas al canvas
+    // usando `clientX/clientY`, que comparten sistema con getBoundingClientRect.
+    const canvasRect = canvas.getBoundingClientRect();
+    const menuRect = contextMenu?.getBoundingClientRect();
+
+    const MARGIN = 8;
+    // Mientras el menú está oculto (display:none) su rect es 0; usamos tamaños
+    // estimados (el ancho es fijo, `w-64`) hasta que se mide tras la 1ª apertura.
+    const menuWidth = menuRect?.width || 256;
+    const menuHeight = menuRect?.height || 280;
+
+    // Posición del cursor relativa al canvas.
+    const cursorX = event.clientX - canvasRect.left;
+    const cursorY = event.clientY - canvasRect.top;
+
+    // Si no cabe a la derecha/abajo del cursor, se abre hacia el lado opuesto
+    // para no taparlo; luego se acota para no salir nunca del canvas.
+    let newPositionX =
+      cursorX + menuWidth + MARGIN > canvasRect.width ? cursorX - menuWidth : cursorX;
+    let newPositionY =
+      cursorY + menuHeight + MARGIN > canvasRect.height ? cursorY - menuHeight : cursorY;
+
+    const maxX = canvasRect.width - menuWidth - MARGIN;
+    const maxY = canvasRect.height - menuHeight - MARGIN;
+    newPositionX = Math.max(MARGIN, Math.min(newPositionX, maxX));
+    newPositionY = Math.max(MARGIN, Math.min(newPositionY, maxY));
+
     // se obtiene el componente correcto dependiendo del tipo de elemento
     const newComponent = typeElement === 'link' ? component.source : component;
-    
+
     dispatch(
       setContextMenu({
         pointerX: newPositionX,
