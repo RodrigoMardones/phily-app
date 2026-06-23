@@ -26,8 +26,8 @@ const Canvas = () => {
     <Card
       className={
         isOpen
-          ? `bg-parchment m-4 rounded-md border-none w-full`
-          : ` bg-parchment m-4 rounded-md border-none w-5/6`
+          ? `bg-parchment m-2 lg:m-4 rounded-md border-none w-full`
+          : `bg-parchment m-2 lg:m-4 rounded-md border-none w-full lg:w-5/6`
       }
     >
       <div className="flex justify-center h-full">

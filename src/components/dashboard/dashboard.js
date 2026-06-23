@@ -21,9 +21,27 @@ import {
   useCleanDashboard,
   useDendrogramForm,
   useBurgerMenu,
+  useMediaQuery,
 } from './hooks';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 const accepts = ['.nwk', '.json'];
+
+// Por debajo de `lg` (Tailwind 1024px) el panel se comporta como drawer.
+const BELOW_LG = '(max-width: 1023px)';
+
+// Logo de Phily reutilizado en el rail, el encabezado del panel y el botón
+// flotante. Se hoistea fuera del componente para no recrearlo en cada render
+// (rendering-hoist-jsx).
+const PhilyLogo = ({ priority = false }) => (
+  <Image
+    src="/treeIcon.svg"
+    width={86}
+    height={82}
+    className="invert"
+    alt="Phily"
+    priority={priority}
+  />
+);
 
 // Disclosure progresivo (A3, D1, D2): cada sección del panel es un <details>
 // accesible cuyo resumen lleva el glifo de rama (firma §6). Se atenúa y colapsa
@@ -63,7 +81,7 @@ export default function Dashboard() {
     labelSize,
     labelColor,
   } = useStyle();
-  const { isOpen, handleOpen } = useBurgerMenu();
+  const { isOpen, handleOpen, setOpen } = useBurgerMenu();
   const { handleCleanClick } = useCleanDashboard();
   const {
     handleCurveChange,
@@ -80,6 +98,45 @@ export default function Dashboard() {
     [handleCurveChange]
   );
 
+  // `isOpen` (redux) representa "panel colapsado". En escritorio alterna entre
+  // panel completo y rail; por debajo de `lg` decide si el drawer está abierto.
+  const isSmallScreen = useMediaQuery(BELOW_LG);
+  const collapsed = isOpen;
+  const drawerOpen = isSmallScreen && !collapsed;
+
+  const panelRef = useRef(null);
+  const toggleRef = useRef(null);
+
+  // Cierra el drawer y devuelve el foco al botón flotante. En ref para que los
+  // listeners globales no se re-suscriban en cada render (advanced-event-handler-refs).
+  const closeRef = useRef(null);
+  closeRef.current = () => {
+    setOpen(true);
+    toggleRef.current?.focus();
+  };
+
+  // Al entrar a viewport pequeño, colapsa para mostrar primero el árbol.
+  useEffect(() => {
+    if (isSmallScreen) setOpen(true);
+  }, [isSmallScreen, setOpen]);
+
+  // Con el drawer abierto: foco dentro del panel, Escape cierra y se bloquea el
+  // scroll del fondo. Todo se limpia al cerrar.
+  useEffect(() => {
+    if (!drawerOpen) return undefined;
+    panelRef.current?.focus();
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') closeRef.current?.();
+    };
+    document.addEventListener('keydown', onKeyDown);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [drawerOpen]);
+
   // Las secciones se abren al cargar un archivo y se colapsan al limpiarlo; el
   // usuario puede plegarlas/desplegarlas manualmente (onToggle sincroniza).
   const [openSections, setOpenSections] = useState({
@@ -95,35 +152,73 @@ export default function Dashboard() {
     setOpenSections((prev) => ({ ...prev, [key]: value }));
   }, []);
 
-  if (isOpen) {
-    return (
-      <>
-        <Card className="bg-primary w-20 p-4 rounded-none border-none overflow-y-auto scrollbar scrollbar-none ml-1/5">
-          <button
-            onClick={handleOpen}
-            id="deleteFile"
-            type="button"
-            aria-label="Expandir panel"
-          >
-            <Image
-              src="/treeIcon.svg"
-              width={86}
-              height={82}
-              className="invert"
-              alt="logo"
-              priority={true}
-            />
-          </button>
-        </Card>
-      </>
-    );
-  }
   return (
     <>
-      <Card
-        id="dashboard"
-        className="bg-primary w-auto p-4 rounded-none border-none overflow-y-auto scrollbar scrollbar-none"
+      {/* Botón flotante (solo < lg): abre el drawer. Se oculta mientras está
+          abierto porque el propio panel ofrece el cierre. */}
+      <button
+        ref={toggleRef}
+        onClick={handleOpen}
+        type="button"
+        aria-label="Abrir panel"
+        aria-expanded={drawerOpen}
+        aria-controls="dashboard-panel"
+        className={`lg:hidden fixed left-3 top-3 z-50 h-12 w-12 items-center justify-center rounded-full bg-primary shadow-lg ${
+          drawerOpen ? 'hidden' : 'flex'
+        }`}
+      >
+        <Image
+          src="/treeIcon.svg"
+          width={32}
+          height={30}
+          className="invert"
+          alt="Phily"
+          priority
+        />
+      </button>
+
+      {/* Backdrop del drawer (solo < lg cuando está abierto). */}
+      {drawerOpen ? (
+        <div
+          className="lg:hidden fixed inset-0 z-40 bg-ink/50"
+          onClick={() => closeRef.current?.()}
+          aria-hidden="true"
+        />
+      ) : null}
+
+      {/* Rail colapsado (solo escritorio): muestra el logo para re-expandir. */}
+      {collapsed ? (
+        <Card className="hidden lg:flex bg-primary w-20 p-4 rounded-none border-none overflow-y-auto scrollbar scrollbar-none">
+          <button
+            onClick={handleOpen}
+            id="expandPanel"
+            type="button"
+            aria-label="Expandir panel"
+            aria-expanded={false}
+            aria-controls="dashboard-panel"
+          >
+            <PhilyLogo priority />
+          </button>
+        </Card>
+      ) : null}
+
+      {/* Panel: en escritorio es columna en flujo; por debajo de `lg` es un
+          drawer deslizante superpuesto. Se mantiene montado para animar y
+          gestionar el foco. */}
+      <aside
+        id="dashboard-panel"
+        ref={panelRef}
+        tabIndex={-1}
+        role={isSmallScreen ? 'dialog' : undefined}
+        aria-modal={isSmallScreen ? drawerOpen : undefined}
+        aria-label="Panel de control"
         onContextMenu={(e) => e.preventDefault()}
+        className={`bg-primary p-4 overflow-y-auto scrollbar scrollbar-none focus:outline-none
+          fixed inset-y-0 left-0 z-50 w-[min(86vw,360px)] max-w-full
+          transition-transform duration-200 ease-out motion-reduce:transition-none
+          ${drawerOpen ? 'translate-x-0' : '-translate-x-full'}
+          lg:static lg:z-auto lg:w-auto lg:max-w-none lg:translate-x-0 lg:transition-none
+          ${collapsed ? 'lg:hidden' : 'lg:block'}`}
       >
         {message && <Error message={message} open={open} />}
         <div className="grid grid-cols-1">
@@ -132,14 +227,10 @@ export default function Dashboard() {
               onClick={handleOpen}
               type="button"
               aria-label="Contraer panel"
+              aria-expanded={!collapsed}
+              aria-controls="dashboard-panel"
             >
-              <Image
-                src="/treeIcon.svg"
-                width={86}
-                height={82}
-                className="invert"
-                alt="logo"
-              />
+              <PhilyLogo />
             </button>
             <Card.Title className="text-white ml-2 items-end text-4xl align-middle font-display">
               Phily
@@ -204,9 +295,9 @@ export default function Dashboard() {
               <span className="label-text text-white text-lg mt-2 text-center">
                 Lateral
               </span>
-              <div className="flex justify-evenly md:flex-row sm:flex-col mt-2">
+              <div className="flex flex-col gap-2 mt-2 lg:flex-row lg:justify-evenly">
                 <button
-                  className={`btn h-8 min-h-8 min-w-24 border-none rounded-md ${deferredCurveType === 'step' ? 'bg-signal text-white' : 'bg-lichen text-ink'}`}
+                  className={`btn h-8 min-h-8 w-full lg:w-auto lg:min-w-24 border-none rounded-md ${deferredCurveType === 'step' ? 'bg-signal text-white' : 'bg-lichen text-ink'}`}
                   value={'step'}
                   disabled={!fileName}
                   onClick={handleStepChange}
@@ -214,7 +305,7 @@ export default function Dashboard() {
                   Escalón
                 </button>
                 <button
-                  className={`btn h-8 min-h-8 min-w-24 border-none rounded-md ${deferredCurveType === 'curve' ? 'bg-signal text-white' : 'bg-lichen text-ink'}`}
+                  className={`btn h-8 min-h-8 w-full lg:w-auto lg:min-w-24 border-none rounded-md ${deferredCurveType === 'curve' ? 'bg-signal text-white' : 'bg-lichen text-ink'}`}
                   value={'curve'}
                   disabled={!fileName}
                   onClick={handleStepChange}
@@ -222,7 +313,7 @@ export default function Dashboard() {
                   Suave
                 </button>
                 <button
-                  className={`btn h-8 min-h-8 min-w-24 border-none rounded-md ${deferredCurveType === 'slanted' ? 'bg-signal text-white' : 'bg-lichen text-ink'}`}
+                  className={`btn h-8 min-h-8 w-full lg:w-auto lg:min-w-24 border-none rounded-md ${deferredCurveType === 'slanted' ? 'bg-signal text-white' : 'bg-lichen text-ink'}`}
                   value={'slanted'}
                   disabled={!fileName}
                   onClick={handleStepChange}
@@ -233,9 +324,9 @@ export default function Dashboard() {
               <span className="label-text text-white text-lg text-left mt-2">
                 Circular
               </span>
-              <div className="flex justify-evenly md:flex-row sm:flex-col mt-2">
+              <div className="flex flex-col gap-2 mt-2 lg:flex-row lg:justify-evenly">
                 <button
-                  className={`btn h-8 min-h-8 min-w-36 border-none rounded-md ${deferredCurveType === 'circular' ? 'bg-signal text-white' : 'bg-lichen text-ink'}`}
+                  className={`btn h-8 min-h-8 w-full lg:w-auto lg:min-w-36 border-none rounded-md ${deferredCurveType === 'circular' ? 'bg-signal text-white' : 'bg-lichen text-ink'}`}
                   value={'circular'}
                   disabled={!fileName}
                   onClick={handleStepChange}
@@ -243,7 +334,7 @@ export default function Dashboard() {
                   Circular
                 </button>
                 <button
-                  className={`btn h-8 min-h-8 min-w-36 border-none rounded-md ${curveType === 'circular-step' ? 'bg-signal text-white' : 'bg-lichen text-ink'}`}
+                  className={`btn h-8 min-h-8 w-full lg:w-auto lg:min-w-36 border-none rounded-md ${curveType === 'circular-step' ? 'bg-signal text-white' : 'bg-lichen text-ink'}`}
                   value={'circular-step'}
                   disabled={!fileName}
                   onClick={handleStepChange}
@@ -294,26 +385,27 @@ export default function Dashboard() {
               <Card.Title className="text-white items-end text-sm mt-2">
                 Enlaces
               </Card.Title>
-              <div className="flex justify-evenly md:flex-row sm:flex-col ">
-                <div className="md:flex-row sm:flex-col relative">
+              <div className="flex flex-col gap-2 lg:flex-row lg:justify-evenly">
+                <div className="w-full lg:w-auto">
                   <label className="label text-white text-sm" htmlFor="path-width">Ancho</label>
 
                   <input
                     id="path-width"
                     type="number"
-                    className="input w-40 h-6 min-h-6 rounded-md mr-2 bg-parchment text-ink font-mono"
+                    className="input w-full lg:w-40 h-6 min-h-6 rounded-md bg-parchment text-ink font-mono"
                     placeholder="48px"
                     disabled={!fileName}
                     value={pathWidth}
                     onChange={pathWidthChange}
                   />
                 </div>
-                <div className="md:flex-row sm:flex-col">
+                <div className="w-full lg:w-auto">
                   <label className="label text-white text-sm" htmlFor="path-color">Color</label>
                   <ColorField
                     id="path-color"
                     label="Color de enlace"
-                    swatchClassName="w-40 h-6 min-h-6 rounded-md"
+                    className="block w-full lg:w-40"
+                    swatchClassName="w-full lg:w-40 h-6 min-h-6 rounded-md"
                     disabled={!fileName}
                     value={pathColor}
                     onChange={pathColorChange}
@@ -323,13 +415,13 @@ export default function Dashboard() {
               <Card.Title className="text-white items-end text-sm mt-2">
                 Nodos
               </Card.Title>
-              <div className="flex justify-evenly md:flex-row sm:flex-col ">
-                <div className="md:flex-row sm:flex-col">
+              <div className="flex flex-col gap-2 lg:flex-row lg:justify-evenly">
+                <div className="w-full lg:w-auto">
                   <label className="label text-white text-sm" htmlFor="node-radius">Radio</label>
                   <input
                     id="node-radius"
                     type="number"
-                    className="input w-40 h-6 min-h-6 rounded-md mr-2 bg-parchment text-ink font-mono"
+                    className="input w-full lg:w-40 h-6 min-h-6 rounded-md bg-parchment text-ink font-mono"
                     placeholder="10px"
                     min={0}
                     disabled={!fileName}
@@ -337,12 +429,13 @@ export default function Dashboard() {
                     onChange={nodeRadiusChange}
                   />
                 </div>
-                <div className="md:flex-row sm:flex-col">
+                <div className="w-full lg:w-auto">
                   <label className="label text-white text-sm" htmlFor="node-color">Color</label>
                   <ColorField
                     id="node-color"
                     label="Color de nodo"
-                    swatchClassName="w-40 h-6 min-h-6 rounded-md"
+                    className="block w-full lg:w-40"
+                    swatchClassName="w-full lg:w-40 h-6 min-h-6 rounded-md"
                     disabled={!fileName}
                     value={nodeColor}
                     onChange={nodeColorChange}
@@ -352,13 +445,13 @@ export default function Dashboard() {
               <Card.Title className="text-white items-end text-sm mt-2">
                 Etiquetas
               </Card.Title>
-              <div className="flex justify-evenly md:flex-row sm:flex-col ">
-                <div className="md:flex-row sm:flex-col">
+              <div className="flex flex-col gap-2 lg:flex-row lg:justify-evenly">
+                <div className="w-full lg:w-auto">
                   <label className="label text-white text-sm" htmlFor="label-size">Tamaño</label>
                   <input
                     id="label-size"
                     type="number"
-                    className="input w-40 h-6 min-h-6 rounded-md mr-2 bg-parchment text-ink font-mono"
+                    className="input w-full lg:w-40 h-6 min-h-6 rounded-md bg-parchment text-ink font-mono"
                     placeholder="48px"
                     min={0}
                     disabled={!fileName}
@@ -366,12 +459,13 @@ export default function Dashboard() {
                     onChange={labelSizeChange}
                   />
                 </div>
-                <div className="md:flex-row sm:flex-col">
+                <div className="w-full lg:w-auto">
                   <label className="label text-white text-sm" htmlFor="label-color">Color</label>
                   <ColorField
                     id="label-color"
                     label="Color de etiqueta"
-                    swatchClassName="w-40 h-6 min-h-6 rounded-md"
+                    className="block w-full lg:w-40"
+                    swatchClassName="w-full lg:w-40 h-6 min-h-6 rounded-md"
                     disabled={!fileName}
                     value={labelColor}
                     onChange={labelColorChange}
@@ -388,9 +482,9 @@ export default function Dashboard() {
                 onToggle={(v) => toggleSection('export', v)}
                 disabled={!fileName}
               >
-              <div className="flex justify-evenly md:flex-row sm:flex-col mt-2">
+              <div className="flex flex-col gap-2 mt-2 lg:flex-row lg:justify-evenly">
                 <select
-                  className="select select-bordered select-primary w-48 h-8 min-h-8 rounded-md bg-parchment text-ink"
+                  className="select select-bordered select-primary w-full lg:w-48 h-8 min-h-8 rounded-md bg-parchment text-ink"
                   aria-label="Formato de exportación"
                   defaultValue={download}
                   onChange={handleChangeSelectDownload}
@@ -403,7 +497,7 @@ export default function Dashboard() {
                   <option>json</option>
                 </select>
                 <button
-                  className="btn btn-secondary text-white min-h-8 h-8 w-40 mx-2"
+                  className="btn btn-secondary text-white min-h-8 h-8 w-full lg:w-40"
                   onClick={handleDownload}
                   disabled={!fileName}
                 >
@@ -416,7 +510,7 @@ export default function Dashboard() {
           </div>
         </div>
         <Footer />
-      </Card>
+      </aside>
     </>
   );
 }
